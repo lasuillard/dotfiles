@@ -6,7 +6,15 @@ if [ -f /etc/bash_completion ]; then
 fi
 
 # CLIs that support bash completion in conventional format
-commands=("op" "kubectl" "helm" "minikube" "k9s" "alloy")
+commands=(
+    "alloy"
+    "docker"
+    "helm"
+    "k9s"
+    "kubectl"
+    "minikube"
+    "op"
+)
 
 for cmd in "${commands[@]}"; do
     if ! command -v "$cmd" &>/dev/null; then
