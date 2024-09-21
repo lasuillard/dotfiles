@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-alias ans='ansible'
 alias cdd='source cdd.sh'
+
+alias ans='ansible'
 alias gc='gcloud'
 alias h='helm'
 alias ic='istioctl'
@@ -12,3 +13,4 @@ alias mk='minikube'
 alias tf='tofu'
 alias tg='terragrunt'
 alias tp='telepresence'
+alias vg='vagrant'
