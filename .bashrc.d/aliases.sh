@@ -2,6 +2,7 @@
 
 alias ans='ansible'
 alias cdd='source cdd.sh'
+alias gc='gcloud'
 alias h='helm'
 alias ic='istioctl'
 alias K='k9s'
