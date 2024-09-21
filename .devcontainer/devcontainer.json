@@ -1,0 +1,25 @@
+{
+  "name": "lasuillard/dotfiles",
+  "image": "mcr.microsoft.com/devcontainers/base:1-bookworm",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        // To work with dotfiles in this devcontainer, disable dotfiles installation
+        "dotfiles.installCommand": "echo 'Skip dotfiles installation'"
+      },
+      "extensions": [
+        "mads-hartmann.bash-ide-vscode",
+        "redhat.vscode-yaml",
+        "streetsidesoftware.code-spell-checker",
+        "editorconfig.editorconfig",
+        "ms-azuretools.vscode-docker",
+        "timonwong.shellcheck",
+        "mkhl.shfmt"
+      ]
+    }
+  },
+  "features": {
+    "ghcr.io/devcontainers-contrib/features/pre-commit:2": {}
+  },
+  "postAttachCommand": "pre-commit install"
+}
