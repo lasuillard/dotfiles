@@ -1,3 +1,17 @@
-- clean: []
-- link: {}
-- shell: []
+- clean: ["~", "~/bin"]
+
+- link:
+    ~/.bashrc.d:
+      path: .bashrc.d
+    ~/bin/shell:
+      path: bin/shell
+      create: true
+
+- shell:
+  # Extend .bashrc file
+  - |
+    cat <<EOT >> ~/.bashrc
+    for f in ~/.bashrc.d/*.sh; do
+      source "\$f"
+    done
+    EOT
