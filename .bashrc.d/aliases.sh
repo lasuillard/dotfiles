@@ -3,6 +3,7 @@
 alias cdd='source cdd.sh'
 
 alias ans='ansible'
+alias d='docker'
 alias gc='gcloud'
 alias h='helm'
 alias ic='istioctl'
