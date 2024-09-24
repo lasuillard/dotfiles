@@ -16,3 +16,6 @@
         source "\$f"
       done
       EOT
+
+- apt:
+  - bash-completion
