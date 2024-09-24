@@ -15,12 +15,7 @@
 
 - shell:
     # Extend .bashrc file
-    - |
-      cat <<EOT >> ~/.bashrc
-      for f in ~/.bashrc.d/*.sh; do
-        source "\$f"
-      done
-      EOT
+    - command: ./scripts/register-bashrc-d.sh &>> /tmp/dotfiles.log
 
 - apt:
   - bash-completion
