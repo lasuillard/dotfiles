@@ -12,7 +12,7 @@ n_begin=$(awk "/${begin}/{print NR; exit}" ~/.bashrc)
 n_end=$(awk "/${end}/{print NR; exit}" ~/.bashrc)
 
 # Remove the old snippet
-sed -i "${n_begin},${n_end}d" ~/.bashrc
+sed -i "${n_begin},${n_end}d" ~/.bashrc || true
 
 # Add the new snippet
 cat <<EOT >> ~/.bashrc
