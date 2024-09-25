@@ -29,3 +29,8 @@ done
 if command -v terraform &>/dev/null; then
     complete -C "$(which terraform)" terraform
 fi
+
+# Terragrunt
+if command -v terragrunt &>/dev/null; then
+    complete -C "$(which terragrunt)" terragrunt
+fi
