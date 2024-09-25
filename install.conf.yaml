@@ -16,18 +16,3 @@
 - shell:
     # Extend .bashrc file
     - command: ./scripts/register-bashrc-d.sh &>> /tmp/dotfiles.log
-
-- apt:
-  - bash-completion
-  - curl
-  - di
-  - htop
-  - jq
-  - lsof
-  - net-tools
-  - netcat-openbsd
-  - rclone
-  - rsync
-  - tcpdump
-  - vim
-  - yq

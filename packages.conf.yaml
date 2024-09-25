@@ -1,0 +1,14 @@
+- apt:
+  - bash-completion
+  - curl
+  - di
+  - htop
+  - jq
+  - lsof
+  - net-tools
+  - netcat-openbsd
+  - rclone
+  - rsync
+  - tcpdump
+  - vim
+  - yq

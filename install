@@ -13,4 +13,5 @@ git -C "${DOTBOT_DIR}" submodule sync --quiet --recursive
 git submodule update --init --recursive "${DOTBOT_DIR}"
 git submodule update --init --recursive dotbot-apt
 
-"${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -p dotbot-apt/apt.py -d "${BASEDIR}" -c "${CONFIG}" "${@}"
+"${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" "${@}"
+sudo "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -p dotbot-apt/apt.py -d "${BASEDIR}" -c packages.conf.yaml "${@}"
