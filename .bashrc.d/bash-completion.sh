@@ -14,6 +14,7 @@ commands=(
     "kubectl"
     "minikube"
     "op"
+    "talosctl"
 )
 
 for cmd in "${commands[@]}"; do
