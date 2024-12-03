@@ -49,7 +49,7 @@ aliases=(
 
 for key in "${!aliases[@]}"; do
     # Skip if the alias is overwriting an existing command
-    if command -v "${aliases[$key]}" &> /dev/null; then
+    if command -v "$key" &> /dev/null; then
         continue
     fi
 
