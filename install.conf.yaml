@@ -13,6 +13,10 @@
       path: profile/.vimrc
       relink: true
 
+    ~/.gitconfig:
+      path: profile/.gitconfig
+      relink: true
+
 - shell:
     # Extend .bashrc file
     - command: ./scripts/register-bashrc-d.sh &>> /tmp/dotfiles.log

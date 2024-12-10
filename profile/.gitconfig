@@ -1,0 +1,19 @@
+[user]
+    name = Yuchan Lee
+    email = lasuillard@gmail.com
+    signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICcFz6GC9hR2L/4ujBbRWnUO/BhAYWgQahksVSJ0Lzv7
+
+[color]
+    ui = auto
+
+[gpg]
+    format = ssh
+
+[commit]
+    gpgsign = true
+
+[tag]
+    gpgsign = true
+
+[pull]
+    rebase = true
