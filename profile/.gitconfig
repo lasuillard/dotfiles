@@ -1,3 +1,6 @@
+# https://github.com/mgedmin/dotfiles/blob/master/gitconfig
+# https://github.com/jessfraz/dotfiles/blob/master/.gitconfig
+# https://jvns.ca/blog/2024/02/16/popular-git-config-options/
 [core]
 	excludesfile = ~/.gitignore
 	attributesfile = ~/.gitattributes
@@ -5,27 +8,88 @@
 [init]
     defaultBranch = main
 
-[color]
-    ui = auto
-
-[gpg]
-    format = ssh
-
-[commit]
-    gpgsign = true
-
-[tag]
-    gpgsign = true
-
-[pull]
-    rebase = true
-
 [user]
     name = Yuchan Lee
     email = lasuillard@gmail.com
     signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICcFz6GC9hR2L/4ujBbRWnUO/BhAYWgQahksVSJ0Lzv7
 
+[color]
+    ui = auto
+
+[help]
+    autocorrect = prompt
+
+# https://git-scm.com/book/en/v2/Git-Tools-Rerere
+[rerere]
+    enabled = true
+
+[gpg]
+    format = ssh
+
+[branch]
+    sort = -committerdate
+
+[commit]
+    gpgsign = true
+    verbose = true
+
+[tag]
+    gpgsign = true
+    sort = -taggerdate
+
+[pull]
+    rebase = true
+
+[transfer]
+    fsckobjects = true
+
+[fetch]
+    prune = true
+    prunetags = true
+    fsckobjects = true
+
+[receive]
+    fsckObjects = true
+
+[status]
+    submoduleSummary = true
+
+[diff]
+    submodule = log
+
+[log]
+    date = iso
+
+[apply]
+    whitespace = fix
+
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+
 [alias]
-    s = status
+	# Show verbose output about tags, branches or remotes
+	tags = tag -l
+	branches = branch -a
+	remotes = remote -v
+
+	# Amend the currently staged files to the latest commit
+	amend = commit --amend --reuse-message=HEAD
+
+	# View abbreviated SHA, description, and history graph of the latest 10 commits
+	l = log --pretty=oneline -n 10 --graph --abbrev-commit
+
+    # Current status of the repository in short format
+    s = status -s
+
+	# `git di $number` shows the diff between the state `$number` revisions ago and the current state
+    di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
+
+    # Show SHA of current HEAD or given revision
     sha = "!f() { rev=HEAD; for a; do case \"$a\" in -*) ;; *) rev=;; esac; done; git rev-parse \"$@\" $rev; }; f"
+
+    # Show the graph of the commits
     graph = log --graph --color --pretty=format:"%C(yellow)%H%C(green)%d%C(reset)%n%x20%cd%n%x20%cn%x20(%ce)%n%x20%s%n"
+
+    # Remove local branches that have been deleted on the remote
+    prune-branches = "!f() { git fetch --prune; git branch -vv | awk '/: gone]/{print $1}' | xargs --no-run-if-empty git branch -D; }; f"
+    pb = prune-branches
