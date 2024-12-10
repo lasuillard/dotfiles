@@ -3,6 +3,7 @@
 - link:
     ~/.bashrc.d:
       path: .bashrc.d
+      relink: true
 
     ~/bin/shell:
       path: bin/shell
@@ -15,6 +16,14 @@
 
     ~/.gitconfig:
       path: profile/.gitconfig
+      relink: true
+
+    ~/.gitignore:
+      path: profile/.gitignore
+      relink: true
+
+    ~/.gitattributes:
+      path: profile/.gitattributes
       relink: true
 
 - shell:

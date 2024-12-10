@@ -1,7 +1,9 @@
-[user]
-    name = Yuchan Lee
-    email = lasuillard@gmail.com
-    signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICcFz6GC9hR2L/4ujBbRWnUO/BhAYWgQahksVSJ0Lzv7
+[core]
+	excludesfile = ~/.gitignore
+	attributesfile = ~/.gitattributes
+
+[init]
+    defaultBranch = main
 
 [color]
     ui = auto
@@ -17,3 +19,13 @@
 
 [pull]
     rebase = true
+
+[user]
+    name = Yuchan Lee
+    email = lasuillard@gmail.com
+    signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICcFz6GC9hR2L/4ujBbRWnUO/BhAYWgQahksVSJ0Lzv7
+
+[alias]
+    s = status
+    sha = "!f() { rev=HEAD; for a; do case \"$a\" in -*) ;; *) rev=;; esac; done; git rev-parse \"$@\" $rev; }; f"
+    graph = log --graph --color --pretty=format:"%C(yellow)%H%C(green)%d%C(reset)%n%x20%cd%n%x20%cn%x20(%ce)%n%x20%s%n"
