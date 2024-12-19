@@ -93,3 +93,5 @@
     # Remove local branches that have been deleted on the remote
     prune-branches = "!f() { git fetch --prune; git branch -vv | awk '/: gone]/{print $1}' | xargs --no-run-if-empty git branch -D; }; f"
     pb = prune-branches
+
+    aliases = config --get-regexp ^alias
