@@ -1,0 +1,38 @@
+name: Sync with Upstream
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+permissions: read-all
+
+jobs:
+  merge-upstream:
+    runs-on: ubuntu-latest
+    # Run only if the current repository is fork or clone
+    if: ${{ github.repository != 'lasuillard/dotfiles' }}
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Git
+        run: |
+          git remote add --fetch upstream 'https://github.com/lasuillard/dotfiles.git'
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Show Git configuration
+        run: |
+          git remote --verbose
+          git branch --all
+          git config --list
+
+      - name: Merge upstream
+        run: |
+          git merge upstream/main --allow-unrelated-histories
+          git push origin ${{ github.ref }}
