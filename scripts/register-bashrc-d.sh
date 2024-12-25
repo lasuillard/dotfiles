@@ -15,7 +15,7 @@ n_end=$(awk "/${end}/{print NR; exit}" ~/.bashrc)
 sed -i "${n_begin},${n_end}d" ~/.bashrc || true
 
 # Add the new snippet
-cat <<EOT >> ~/.bashrc
+cat <<EOT >>~/.bashrc
 $begin
 for f in ~/.bashrc.d/*.sh; do
     source "\$f"

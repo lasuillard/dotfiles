@@ -27,6 +27,21 @@ update:  ## Update deps and tools
 
 
 # =============================================================================
+# CI
+# =============================================================================
+ci: lint  ## Run CI tasks
+.PHONY: ci
+
+format:  ## Run autoformatters
+	pre-commit run --all-files shfmt
+.PHONY: format
+
+lint:  ## Run all linters
+	pre-commit run --all-files shellcheck
+.PHONY: lint
+
+
+# =============================================================================
 # Handy Scripts
 # =============================================================================
 clean:  ## Remove temporary files

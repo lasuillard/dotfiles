@@ -12,8 +12,8 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
 alias mkdir='mkdir -pv'
-if command -v colordiff &> /dev/null; then
-    alias diff='colordiff'
+if command -v colordiff &>/dev/null; then
+  alias diff='colordiff'
 fi
 
 # Continue downloading
@@ -29,33 +29,33 @@ alias cdd='source cdd.sh'
 declare -A aliases
 
 aliases=(
-    [ans]='ansible'
-    [d]='docker'
-    [g]='git'
-    [gc]='gcloud'
-    [h]='helm'
-    [ic]='istioctl'
-    [K]='k9s'
-    [k]='kubectl'
-    [kk]='kubectl kustomize'
-    [mk]='minikube'
-    [pl]='pulumi'
-    [pls]='pulumi stack'
-    [tal]='talosctl'
-    [tf]='tofu'
-    [tg]='terragrunt'
-    [tp]='telepresence'
-    [vg]='vagrant'
+  [ans]='ansible'
+  [d]='docker'
+  [g]='git'
+  [gc]='gcloud'
+  [h]='helm'
+  [ic]='istioctl'
+  [K]='k9s'
+  [k]='kubectl'
+  [kk]='kubectl kustomize'
+  [mk]='minikube'
+  [pl]='pulumi'
+  [pls]='pulumi stack'
+  [tal]='talosctl'
+  [tf]='tofu'
+  [tg]='terragrunt'
+  [tp]='telepresence'
+  [vg]='vagrant'
 )
 
 for key in "${!aliases[@]}"; do
-    # Skip if the alias is overwriting an existing command
-    if command -v "$key" &> /dev/null; then
-        continue
-    fi
+  # Skip if the alias is overwriting an existing command
+  if command -v "$key" &>/dev/null; then
+    continue
+  fi
 
-    # shellcheck disable=SC2139
-    alias "$key"="${aliases[$key]}"
+  # shellcheck disable=SC2139
+  alias "$key"="${aliases[$key]}"
 done
 
 # Safety nets
