@@ -2,6 +2,7 @@
   - bash-completion
   - curl
   - di
+  - dnsutils
   - htop
   - jq
   - lsof
