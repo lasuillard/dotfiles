@@ -38,6 +38,7 @@ aliases=(
   [K]='k9s'
   [k]='kubectl'
   [kk]='kubectl kustomize'
+  [m]='make'
   [mk]='minikube'
   [pl]='pulumi'
   [pls]='pulumi stack'
