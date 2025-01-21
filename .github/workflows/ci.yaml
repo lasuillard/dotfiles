@@ -9,7 +9,7 @@ on:
 permissions: read-all
 
 jobs:
-  lint:
+  main:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

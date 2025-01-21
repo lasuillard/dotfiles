@@ -40,6 +40,16 @@ lint:  ## Run all linters
 	pre-commit run --all-files shellcheck
 .PHONY: lint
 
+test:  ## Run tests
+	docker compose \
+		--file ./.github/docker-compose.test.yaml \
+		--project-directory ./ \
+		run \
+			--no-TTY \
+			--rm \
+			test
+.PHONY: test
+
 
 # =============================================================================
 # Handy Scripts
