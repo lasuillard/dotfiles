@@ -23,7 +23,6 @@ repos:
         name: Run tests
         language: system
         pass_filenames: false
-        always_run: true
         entry: make
         args: [test]
 

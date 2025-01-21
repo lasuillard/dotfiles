@@ -41,7 +41,10 @@ lint:  ## Run all linters
 .PHONY: lint
 
 test:  ## Run tests
-	docker run --rm \
+	ls -al
+	docker run \
+		--quiet \
+		--rm \
 		--volume .:/workspace \
 		--workdir /workspace \
 		--user "$(shell id -u):$(shell id -g)" \
