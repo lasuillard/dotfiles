@@ -40,6 +40,15 @@ lint:  ## Run all linters
 	pre-commit run --all-files shellcheck
 .PHONY: lint
 
+test:  ## Run tests
+	docker run --rm \
+		--volume .:/workspace \
+		--workdir /workspace \
+		--user "$(shell id -u):$(shell id -g)" \
+		mcr.microsoft.com/devcontainers/base:1-ubuntu-22.04 \
+		/workspace/scripts/test.sh
+.PHONY: test
+
 
 # =============================================================================
 # Handy Scripts

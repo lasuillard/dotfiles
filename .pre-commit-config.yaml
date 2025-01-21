@@ -17,6 +17,16 @@ repos:
     hooks:
       - id: shellcheck
 
+  - repo: local
+    hooks:
+      - id: test
+        name: Run tests
+        language: system
+        pass_filenames: false
+        always_run: true
+        entry: make
+        args: [test]
+
 ci:
   autofix_prs: true
   autoupdate_schedule: quarterly
