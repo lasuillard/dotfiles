@@ -45,6 +45,7 @@ test:  ## Run tests
 		--file ./.github/docker-compose.test.yaml \
 		--project-directory ./ \
 		run \
+			--no-TTY \
 			--rm \
 			test
 .PHONY: test
