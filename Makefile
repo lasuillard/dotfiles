@@ -41,15 +41,12 @@ lint:  ## Run all linters
 .PHONY: lint
 
 test:  ## Run tests
-	ls -al
-	docker run \
-		--quiet \
-		--rm \
-		--volume .:/workspace \
-		--workdir /workspace \
-		--user "$(shell id -u):$(shell id -g)" \
-		mcr.microsoft.com/devcontainers/base:1-ubuntu-22.04 \
-		/workspace/scripts/test.sh
+	docker compose \
+		--file ./.github/docker-compose.test.yaml \
+		--project-directory ./ \
+		run \
+			--rm \
+			test
 .PHONY: test
 
 
