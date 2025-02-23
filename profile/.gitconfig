@@ -67,16 +67,16 @@
     insteadOf = https://github.com/
 
 [alias]
-	# Show verbose output about tags, branches or remotes
-	tags = tag -l
-	branches = branch -a
-	remotes = remote -v
+    # Show verbose output about tags, branches or remotes
+    tags = tag -l
+    branches = branch -a
+    remotes = remote -v
 
-	# Amend the currently staged files to the latest commit
-	amend = commit --amend --reuse-message=HEAD
+    # Amend the currently staged files to the latest commit
+    amend = commit --amend --reuse-message=HEAD
 
-	# View abbreviated SHA, description, and history graph of the latest 10 commits
-	l = log --pretty=oneline -n 10 --graph --abbrev-commit
+    # View abbreviated SHA, description, and history graph of the latest 10 commits
+    l = log --pretty=oneline -n 10 --graph --abbrev-commit
 
     # Current status of the repository in short format
     s = status -s
