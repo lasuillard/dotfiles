@@ -2,8 +2,10 @@
 # https://github.com/jessfraz/dotfiles/blob/master/.gitconfig
 # https://jvns.ca/blog/2024/02/16/popular-git-config-options/
 [core]
-	excludesfile = ~/.gitignore
-	attributesfile = ~/.gitattributes
+    fsmonitor = true
+    untrackedCache = true
+    excludesfile = ~/.gitignore
+    attributesfile = ~/.gitattributes
 
 [init]
     defaultBranch = main
@@ -16,12 +18,16 @@
 [color]
     ui = auto
 
+[column]
+    ui = auto
+
 [help]
     autocorrect = prompt
 
 # https://git-scm.com/book/en/v2/Git-Tools-Rerere
 [rerere]
     enabled = true
+    autoupdate = true
 
 [gpg]
     format = ssh
@@ -35,15 +41,29 @@
 
 [tag]
     gpgsign = true
-    sort = -taggerdate
+    sort = version:refname
+
+[push]
+    default = simple
+    autoSetupRemote = true
+    followTags = true
 
 [pull]
     rebase = true
+
+[rebase]
+    autoSquash = true
+    autoStash = true
+    updateRefs = true
+
+[merge]
+    conflictstyle = zdiff3
 
 [transfer]
     fsckobjects = true
 
 [fetch]
+    all = true
     prune = true
     prunetags = true
     fsckobjects = true
@@ -55,6 +75,10 @@
     submoduleSummary = true
 
 [diff]
+    algorithm = histogram
+    colorMoved = plain
+    mnemonicPrefix = true
+    renames = true
     submodule = log
 
 [log]
@@ -81,7 +105,7 @@
     # Current status of the repository in short format
     s = status -s
 
-	# `git di $number` shows the diff between the state `$number` revisions ago and the current state
+    # `git di $number` shows the diff between the state `$number` revisions ago and the current state
     di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
 
     # Show SHA of current HEAD or given revision
