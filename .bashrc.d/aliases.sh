@@ -31,6 +31,7 @@ declare -A aliases
 aliases=(
   [ans]='ansible'
   [d]='docker'
+  [dc]='docker compose'
   [g]='git'
   [gc]='gcloud'
   [h]='helm'
