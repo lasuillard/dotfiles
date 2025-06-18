@@ -29,6 +29,7 @@ alias cdd='source cdd.sh'
 declare -A aliases
 
 aliases=(
+  [aa]='aws-annoying'
   [ans]='ansible'
   [d]='docker'
   [dc]='docker compose'
