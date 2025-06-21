@@ -5,4 +5,4 @@ set -o pipefail
 set -o nounset
 set -o xtrace
 
-./install
+./install.sh

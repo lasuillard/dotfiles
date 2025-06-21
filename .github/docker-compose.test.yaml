@@ -5,4 +5,4 @@ services:
         FROM mcr.microsoft.com/devcontainers/base:1-ubuntu-22.04
         WORKDIR /workspace
         COPY . ./
-    entrypoint: /workspace/scripts/test.sh
+    entrypoint: /workspace/scripts/test.bash

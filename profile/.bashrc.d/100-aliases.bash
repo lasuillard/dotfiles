@@ -23,7 +23,7 @@ alias wget='wget -c'
 alias ports='netstat -tulanp'
 
 # Custom scripts
-alias cdd='source cdd.sh'
+alias cdd='source cdd.bash'
 
 # External utilities but do not set alias if hiding existing command
 declare -A aliases
