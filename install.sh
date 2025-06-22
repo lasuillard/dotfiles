@@ -1,3 +1,6 @@
 #!/usr/bin/env sh
 
-./linux/install.bash | tee -a ./logs/install.log
+log_dir="./logs"
+
+mkdir --parents "$log_dir"
+./linux/install.bash | tee -a "$log_dir/install.log"
