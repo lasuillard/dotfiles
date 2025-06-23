@@ -2,19 +2,57 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
-    branches: [main]
-
-permissions: read-all
+    branches:
+      - main
 
 jobs:
-  main:
+  lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
+      - uses: actions/checkout@v4
       - uses: pre-commit/action@v3.0.1
+        env:
+          SKIP: bats
+
       - uses: pre-commit-ci/lite-action@v1.1.0
         if: always()
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Bats
+        uses: bats-core/bats-action@3.0.1
+
+      - name: Run unit tests
+        run: |
+          bats --verbose-run ./test/unit
+
+  test-linux:
+    strategy:
+      matrix:
+        platform:
+          - ubuntu-latest
+          - ubuntu-24.04-arm # TODO: ubuntu-latest-arm is not available yet
+        image:
+          - mcr.microsoft.com/devcontainers/base:1-ubuntu-22.04
+          # TODO: Add more base images to test against
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Bats
+        uses: bats-core/bats-action@3.0.1
+
+      - name: Run integration tests
+        env:
+          LINUX_TEST__BASE_IMAGE: ${{ matrix.image }}
+        run: |
+          bats --verbose-run ./test/integration
+
+  # TODO: test-macos
+  # TODO: test-windows
