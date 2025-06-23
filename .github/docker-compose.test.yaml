@@ -1,8 +1,0 @@
-services:
-  test:
-    build:
-      dockerfile_inline: |
-        FROM mcr.microsoft.com/devcontainers/base:1-ubuntu-22.04
-        WORKDIR /workspace
-        COPY . ./
-    entrypoint: /workspace/scripts/test.bash

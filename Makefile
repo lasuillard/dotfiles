@@ -30,7 +30,7 @@ update:  ## Update deps and tools
 # =============================================================================
 # CI
 # =============================================================================
-ci: lint test  ## Run CI tasks
+ci: lint test integration-test  ## Run CI tasks
 .PHONY: ci
 
 format:  ## Run autoformatters
@@ -45,6 +45,13 @@ test:  ## Run tests
 	./test/bats/bin/bats --verbose-run ./test/unit
 .PHONY: test
 
+integration-test:
+	if [ "$$(uname --kernel-name)" != "Linux" ]; then
+		echo "In local environment, skip integration tests on non-Linux platform";
+		exit 0;
+	fi
+	./test/bats/bin/bats --verbose-run ./test/integration/linux
+.PHONY: integration-test
 
 # =============================================================================
 # Handy Scripts
