@@ -8,13 +8,14 @@
         "dotfiles.installCommand": "echo 'Skip dotfiles installation'"
       },
       "extensions": [
+        "editorconfig.editorconfig",
+        "jetmartin.bats",
         "mads-hartmann.bash-ide-vscode",
+        "mkhl.shfmt",
+        "ms-azuretools.vscode-containers",
         "redhat.vscode-yaml",
         "streetsidesoftware.code-spell-checker",
-        "editorconfig.editorconfig",
-        "ms-azuretools.vscode-docker",
-        "timonwong.shellcheck",
-        "mkhl.shfmt"
+        "timonwong.shellcheck"
       ]
     }
   },
