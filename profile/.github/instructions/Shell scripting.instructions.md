@@ -20,4 +20,7 @@ This document provides general instructions for writing shell scripts.
 
 ## Best Practices
 
+- Use single quotes (`'`) for strings unless you need variable interpolation or command substitution.
 - Prefer long option names over short ones for better readability, unless long options are not available.
+- When directly using the value of variable, use `"$VAR"` instead of `$VAR` to prevent word splitting and globbing.
+- When using variables in string interpolation, use `"${VAR}"` instead of `"$VAR"` to clearly define variable boundaries.
