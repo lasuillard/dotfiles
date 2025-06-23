@@ -1,5 +1,5 @@
 ---
-description: Common Python coding style and practices.
+description: Common coding style and practices.
 applyTo: '**/*'
 ---
 
