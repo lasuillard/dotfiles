@@ -34,7 +34,7 @@ jobs:
           ./test/bats/bin/bats --verbose-run --recursive ./test/unit
 
   test-linux:
-    name: Test (Linux; {{ matrix.platform }}, ${{ matrix.image }})
+    name: Test (${{ matrix.platform }}, ${{ matrix.image }})
     strategy:
       matrix:
         platform:
