@@ -29,7 +29,7 @@ jobs:
 
       - name: Run unit tests
         run: |
-          ./test/bats/bin/bats --verbose-run ./test/unit
+          ./test/bats/bin/bats --verbose-run --recursive ./test/unit
 
   test-linux:
     strategy:
@@ -50,7 +50,7 @@ jobs:
         env:
           LINUX_TEST__BASE_IMAGE: ${{ matrix.image }}
         run: |
-          ./test/bats/bin/bats --verbose-run ./test/integration
+          ./test/bats/bin/bats --verbose-run --recursive ./test/integration/linux
 
   # TODO: test-macos
   # TODO: test-windows
