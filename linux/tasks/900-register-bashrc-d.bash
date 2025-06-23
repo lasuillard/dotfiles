@@ -4,6 +4,7 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
+# shellcheck disable=SC1091
 source "$(pwd)/lib/file.bash"
 
 echo "Registering bashrc.d hook in ~/.bashrc file..."
@@ -11,9 +12,10 @@ echo "Registering bashrc.d hook in ~/.bashrc file..."
 begin="#bashrc-d-register@start"
 end="#bashrc-d-register@end"
 replacement=$(
+  # shellcheck disable=SC2012 # ? `find` doesn't work as I expected...
   cat <<EOT
-find -L ~/.bashrc.d -name "*.bash" | sort | while read -r f; do
-    source "\$f"
+for f in \$(ls -1 ~/.bashrc.d/*.bash | sort); do
+  source "\$f"
 done
 EOT
 )
