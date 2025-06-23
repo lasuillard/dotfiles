@@ -30,7 +30,7 @@ update:  ## Update deps and tools
 # =============================================================================
 # CI
 # =============================================================================
-ci: lint  ## Run CI tasks
+ci: lint test  ## Run CI tasks
 .PHONY: ci
 
 format:  ## Run autoformatters
@@ -42,13 +42,7 @@ lint:  ## Run all linters
 .PHONY: lint
 
 test:  ## Run tests
-	docker compose \
-		--file ./.github/docker-compose.test.yaml \
-		--project-directory ./ \
-		run \
-			--no-TTY \
-			--rm \
-			test
+	./test/bats/bin/bats --verbose-run ./test/unit
 .PHONY: test
 
 
