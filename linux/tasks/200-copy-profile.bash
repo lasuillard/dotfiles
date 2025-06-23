@@ -9,10 +9,11 @@ echo "Linking profile files..."
 symlinks=(
   ".bashrc.d"
   ".bin"
-  ".vimrc"
+  ".github"
+  ".gitattributes"
   ".gitconfig"
   ".gitignore"
-  ".gitattributes"
+  ".vimrc"
 )
 
 for sl in "${symlinks[@]}"; do
