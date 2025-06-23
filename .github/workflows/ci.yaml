@@ -25,12 +25,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Bats
-        uses: bats-core/bats-action@3.0.1
-
       - name: Run unit tests
         run: |
-          bats --verbose-run ./test/unit
+          ./test/bats/bin/bats --verbose-run ./test/unit
 
   test-linux:
     strategy:
@@ -45,14 +42,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Bats
-        uses: bats-core/bats-action@3.0.1
-
       - name: Run integration tests
         env:
           LINUX_TEST__BASE_IMAGE: ${{ matrix.image }}
         run: |
-          bats --verbose-run ./test/integration
+          ./test/bats/bin/bats --verbose-run ./test/integration
 
   # TODO: test-macos
   # TODO: test-windows
