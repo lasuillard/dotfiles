@@ -14,9 +14,18 @@ end="#bashrc-d-register@end"
 replacement=$(
   # shellcheck disable=SC2012 # ? `find` doesn't work as I expected...
   cat <<EOT
-for f in \$(ls -1 ~/.bashrc.d/*.bash | sort); do
+files=(~/.bashrc.d/*.bash)
+# shellcheck disable=SC2207
+IFS=\$'\\\\n' sorted=(\$(sort <<<"\${files[*]}")); unset IFS
+for f in "\${sorted[@]}"; do
+  if [ ! -f "\$f" ]; then
+    echo "Warning: \$f is not a regular file, skipping."
+    continue
+  fi
+  # shellcheck disable=SC1090
   source "\$f"
 done
 EOT
 )
+
 replace_section ~/.bashrc "$begin" "$end" "$replacement"
