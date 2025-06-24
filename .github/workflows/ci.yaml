@@ -22,8 +22,8 @@ jobs:
       - uses: pre-commit-ci/lite-action@v1.1.0
         if: always()
 
-  test:
-    name: Test
+  unittest:
+    name: Unit Test
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -35,7 +35,7 @@ jobs:
         run: |
           ./test/bats/bin/bats --verbose-run --recursive ./test/unit
 
-  test-linux:
+  integration-test-linux:
     strategy:
       matrix:
         platform:
@@ -46,7 +46,7 @@ jobs:
           - mcr.microsoft.com/devcontainers/base:1-debian
           # TODO: Add more base images to test against (e.g. Fedora)
 
-    name: Test (${{ matrix.platform }}, ${{ matrix.image }})
+    name: Integration Test (${{ matrix.platform }}, ${{ matrix.image }})
     if: contains(vars.CI_PLATFORMS_TO_TEST, 'linux')
     runs-on: ${{ matrix.platform }}
     timeout-minutes: 15
@@ -61,13 +61,13 @@ jobs:
         run: |
           ./test/bats/bin/bats --verbose-run --recursive ./test/integration/linux
 
-  test-macos:
+  integration-test-macos:
     strategy:
       matrix:
         platform:
           - macos-latest
 
-    name: Test (${{ matrix.platform }})
+    name: Integration Test (${{ matrix.platform }})
     if: contains(vars.CI_PLATFORMS_TO_TEST, 'macos')
     runs-on: ${{ matrix.platform }}
     timeout-minutes: 15
@@ -80,14 +80,14 @@ jobs:
         run: |
           ./test/bats/bin/bats --verbose-run --recursive ./test/integration/macos
 
-  test-windows:
+  integration-test-windows:
     strategy:
       matrix:
         platform:
           - windows-latest
           - windows-11-arm # TODO: windows-latest-arm is not available yet
 
-    name: Test (${{ matrix.platform }})
+    name: Integration Test (${{ matrix.platform }})
     if: contains(vars.CI_PLATFORMS_TO_TEST, 'windows')
     runs-on: ${{ matrix.platform }}
     timeout-minutes: 15
