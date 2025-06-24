@@ -8,10 +8,11 @@ on:
 jobs:
   sync:
     name: Sync
-    runs-on: ubuntu-latest
     if: ${{ vars.SYNC_UPSTREAM != '' }}
+    runs-on: ubuntu-latest
     permissions:
       contents: write
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
         with:

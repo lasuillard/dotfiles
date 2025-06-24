@@ -12,6 +12,7 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
       - uses: pre-commit/action@v3.0.1
@@ -24,6 +25,7 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
         with:
@@ -47,6 +49,7 @@ jobs:
     name: Test (${{ matrix.platform }}, ${{ matrix.image }})
     if: contains(${{ vars.CI_PLATFORMS_TO_TEST }}, 'linux')
     runs-on: ${{ matrix.platform }}
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
         with:
@@ -62,6 +65,7 @@ jobs:
     name: Test (macOS)
     if: contains(${{ vars.CI_PLATFORMS_TO_TEST }}, 'macos')
     runs-on: macos-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
         with:
@@ -75,6 +79,7 @@ jobs:
     name: Test (Windows)
     if: contains(${{ vars.CI_PLATFORMS_TO_TEST }}, 'windows')
     runs-on: windows-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
         with:
