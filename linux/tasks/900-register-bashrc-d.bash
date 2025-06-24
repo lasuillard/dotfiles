@@ -16,7 +16,7 @@ replacement=$(
   cat <<EOT
 files=(~/.bashrc.d/*.bash)
 # shellcheck disable=SC2207
-IFS=\$'\\\\n' sorted=(\$(sort <<<"\${files[*]}")); unset IFS
+IFS=\$'\\n' sorted=(\$(sort <<<"\${files[*]}")); unset IFS
 for f in "\${sorted[@]}"; do
   if [ ! -f "\$f" ]; then
     echo "Warning: \$f is not a regular file, skipping."
