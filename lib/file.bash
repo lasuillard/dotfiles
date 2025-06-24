@@ -18,8 +18,8 @@ function replace_section() {
   # Find the line numbers for the begin and end markers
   n_begin=$(awk "/${begin}/{print NR; exit}" "${file}")
   n_end=$(awk "/${end}/{print NR; exit}" "${file}")
-  if [ -z "$n_begin" ] && [ -z "$n_end" ]; then
-    echo "Could not find section markers in ${file}. Adding new section."
+  if [ -z "$n_begin" ] || [ -z "$n_end" ]; then
+    echo "One or both section markers are missing in ${file}. Adding new section."
     cat <<EOT >>"$file"
 
 $begin
