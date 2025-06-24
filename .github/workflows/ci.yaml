@@ -47,7 +47,7 @@ jobs:
           # TODO: Add more base images to test against (e.g. Fedora)
 
     name: Test (${{ matrix.platform }}, ${{ matrix.image }})
-    if: contains(${{ vars.CI_PLATFORMS_TO_TEST }}, 'linux')
+    if: contains(vars.CI_PLATFORMS_TO_TEST, 'linux')
     runs-on: ${{ matrix.platform }}
     timeout-minutes: 15
     steps:
@@ -68,7 +68,7 @@ jobs:
           - macos-latest
 
     name: Test (${{ matrix.platform }})
-    if: contains(${{ vars.CI_PLATFORMS_TO_TEST }}, 'macos')
+    if: contains(vars.CI_PLATFORMS_TO_TEST, 'macos')
     runs-on: ${{ matrix.platform }}
     timeout-minutes: 15
     steps:
@@ -88,7 +88,7 @@ jobs:
           - windows-11-arm # TODO: windows-latest-arm is not available yet
 
     name: Test (${{ matrix.platform }})
-    if: contains(${{ vars.CI_PLATFORMS_TO_TEST }}, 'windows')
+    if: contains(vars.CI_PLATFORMS_TO_TEST, 'windows')
     runs-on: ${{ matrix.platform }}
     timeout-minutes: 15
     steps:
