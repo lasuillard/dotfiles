@@ -28,4 +28,4 @@ This workflow is used to sync the current repository with the upstream repositor
 
 It fetches the latest changes from the upstream repository and merges them into the current branch. This is useful for keeping your fork up to date with the original repository.
 
-This workflow is disabled by default and can be enabled by setting the `SYNC_UPSTREAM` variable to any non-empty value in the repository settings.
+This workflow is disabled by default and can be enabled by setting the `SYNC_UPSTREAM` variable to the target repository URL in the repository settings.

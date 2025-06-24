@@ -20,7 +20,7 @@ jobs:
 
       - name: Set up Git
         run: |
-          git remote add --fetch upstream 'https://github.com/lasuillard/dotfiles.git'
+          git remote add --fetch upstream '${{ vars.SYNC_UPSTREAM }}'
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
