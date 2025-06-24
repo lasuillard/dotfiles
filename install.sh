@@ -25,7 +25,7 @@ EOT
 exit_code="$(cat "$latest_exit_code_file")"
 if [ "$exit_code" -ne 0 ]; then
   # ? Only print the exit status, don't propagate it
-  echo "Installation failed with exit code: $exit_code"
+  echo "Installation failed with exit code: ${exit_code}"
 else
   echo "Installation completed successfully."
 fi
