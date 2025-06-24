@@ -1,22 +1,28 @@
 ---
-description: Prompt to write a prompt.
+description: Prompt to write or refactor a prompt.
 mode: edit
 ---
 
-## Goal
+## Task
 
-Write a clear and effective prompt to guide AI in generating a specific type of content or performing a defined task.
+Write or improve a prompt for an AI to generate specific content or perform a defined task.
 
-## Requirements
+## Guidelines
 
-- The prompt must be clear, concise, and unambiguous.
-- Provide enough context for the AI to understand the task.
-- Specify the desired format or structure of the output.
-- Include examples if they help clarify expectations.
+- Be clear and unambiguous.
+- Provide necessary context.
+- Specify the required output format.
+- Add examples if helpful.
 
 ## Instructions
 
-1. Begin with a direct instruction or question that defines the task.
-2. Add any necessary background or context.
-3. Clearly state the required output format or structure.
-4. Optionally, provide one or more examples to illustrate the expected result.
+1. Clearly state the task or question.
+2. Add relevant context.
+3. Define the output format.
+4. Optionally, include examples.
+
+## Tips
+
+- Use bullet points or numbered lists for clarity.
+- Break down complex tasks into steps.
+- If the task is complex, break it down into steps.
