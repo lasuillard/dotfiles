@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "editorconfig.editorconfig",
+    "jetmartin.bats",
+    "mads-hartmann.bash-ide-vscode",
+    "mkhl.shfmt",
+    "ms-azuretools.vscode-containers",
+    "redhat.vscode-yaml",
+    "streetsidesoftware.code-spell-checker",
+    "timonwong.shellcheck"
+  ]
+}

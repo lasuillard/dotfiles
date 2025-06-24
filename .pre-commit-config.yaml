@@ -19,8 +19,8 @@ repos:
 
   - repo: local
     hooks:
-      - id: test
-        name: Run tests
+      - id: bats
+        name: Run Bats tests
         language: system
         pass_filenames: false
         entry: make

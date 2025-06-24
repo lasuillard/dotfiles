@@ -18,6 +18,7 @@ help: Makefile  ## Show help
 # Common
 # =============================================================================
 install:  ## Install deps and tools
+	git submodule update --init --recursive --remote
 	pre-commit install --install-hooks
 .PHONY: install
 
@@ -29,7 +30,7 @@ update:  ## Update deps and tools
 # =============================================================================
 # CI
 # =============================================================================
-ci: lint  ## Run CI tasks
+ci: lint test integration-test  ## Run CI tasks
 .PHONY: ci
 
 format:  ## Run autoformatters
@@ -41,15 +42,16 @@ lint:  ## Run all linters
 .PHONY: lint
 
 test:  ## Run tests
-	docker compose \
-		--file ./.github/docker-compose.test.yaml \
-		--project-directory ./ \
-		run \
-			--no-TTY \
-			--rm \
-			test
+	./test/bats/bin/bats --verbose-run ./test/unit
 .PHONY: test
 
+integration-test:
+	if [ "$$(uname --kernel-name)" != "Linux" ]; then
+		echo "In local environment, skip integration tests on non-Linux platform";
+		exit 0;
+	fi
+	./test/bats/bin/bats --verbose-run ./test/integration/linux
+.PHONY: integration-test
 
 # =============================================================================
 # Handy Scripts

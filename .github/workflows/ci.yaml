@@ -2,19 +2,101 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
-    branches: [main]
-
-permissions: read-all
+    branches:
+      - main
 
 jobs:
-  main:
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
+      - uses: actions/checkout@v4
       - uses: pre-commit/action@v3.0.1
+        env:
+          SKIP: bats
+
       - uses: pre-commit-ci/lite-action@v1.1.0
         if: always()
+
+  unittest:
+    name: Unit Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Run unit tests
+        run: |
+          ./test/bats/bin/bats --verbose-run --recursive ./test/unit
+
+  integration-test-linux:
+    strategy:
+      matrix:
+        platform:
+          - ubuntu-latest
+          - ubuntu-24.04-arm # TODO: ubuntu-latest-arm is not available yet
+        image:
+          - mcr.microsoft.com/devcontainers/base:2-ubuntu
+          - mcr.microsoft.com/devcontainers/base:1-debian
+          # TODO: Add more base images to test against (e.g. Fedora)
+
+    name: Integration Test (${{ matrix.platform }}, ${{ matrix.image }})
+    if: contains(vars.CI_PLATFORMS_TO_TEST, 'linux')
+    runs-on: ${{ matrix.platform }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Run integration tests
+        env:
+          LINUX_TEST__BASE_IMAGE: ${{ matrix.image }}
+        run: |
+          ./test/bats/bin/bats --verbose-run --recursive ./test/integration/linux
+
+  integration-test-macos:
+    strategy:
+      matrix:
+        platform:
+          - macos-latest
+
+    name: Integration Test (${{ matrix.platform }})
+    if: contains(vars.CI_PLATFORMS_TO_TEST, 'macos')
+    runs-on: ${{ matrix.platform }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Run integration tests
+        run: |
+          ./test/bats/bin/bats --verbose-run --recursive ./test/integration/macos
+
+  integration-test-windows:
+    strategy:
+      matrix:
+        platform:
+          - windows-latest
+          - windows-11-arm # TODO: windows-latest-arm is not available yet
+
+    name: Integration Test (${{ matrix.platform }})
+    if: contains(vars.CI_PLATFORMS_TO_TEST, 'windows')
+    runs-on: ${{ matrix.platform }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Run integration tests
+        shell: bash
+        run: |
+          ./test/bats/bin/bats --verbose-run --recursive ./test/integration/windows

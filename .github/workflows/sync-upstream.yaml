@@ -1,4 +1,3 @@
-# NOTE: This workflow is not intended to run on the main repository; recommended to disable it manually.
 name: Sync with Upstream
 
 on:
@@ -6,24 +5,22 @@ on:
   schedule:
     - cron: "0 0 * * *"
 
-permissions: read-all
-
 jobs:
-  merge-upstream:
+  sync:
+    name: Sync
+    if: ${{ vars.SYNC_UPSTREAM != '' }}
     runs-on: ubuntu-latest
-    # Run only if the current repository is fork or clone
-    if: ${{ github.repository != 'lasuillard/dotfiles' }}
     permissions:
       contents: write
+    timeout-minutes: 5
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Set up Git
         run: |
-          git remote add --fetch upstream 'https://github.com/lasuillard/dotfiles.git'
+          git remote add --fetch upstream '${{ vars.SYNC_UPSTREAM }}'
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
