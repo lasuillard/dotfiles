@@ -62,9 +62,14 @@ jobs:
           ./test/bats/bin/bats --verbose-run --recursive ./test/integration/linux
 
   test-macos:
-    name: Test (macOS)
+    strategy:
+      matrix:
+        platform:
+          - macos-latest
+
+    name: Test (${{ matrix.platform }})
     if: contains(${{ vars.CI_PLATFORMS_TO_TEST }}, 'macos')
-    runs-on: macos-latest
+    runs-on: ${{ matrix.platform }}
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
@@ -76,9 +81,15 @@ jobs:
           ./test/bats/bin/bats --verbose-run --recursive ./test/integration/macos
 
   test-windows:
-    name: Test (Windows)
+    strategy:
+      matrix:
+        platform:
+          - windows-latest
+          - windows-11-arm # TODO: windows-latest-arm is not available yet
+
+    name: Test (${{ matrix.platform }})
     if: contains(${{ vars.CI_PLATFORMS_TO_TEST }}, 'windows')
-    runs-on: windows-latest
+    runs-on: ${{ matrix.platform }}
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
