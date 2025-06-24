@@ -17,10 +17,10 @@ symlinks=(
 )
 
 for sl in "${symlinks[@]}"; do
-  if [ -e "$HOME/$sl" ] && [ ! -L "$HOME/$sl" ]; then
+  if [ -e "${HOME}/${sl}" ] && [ ! -L "${HOME}/${sl}" ]; then
     echo "File $sl already exists and is not a symlink. Skipping."
     continue
   fi
   echo "(Re)linking $sl..."
-  ln --symbolic --force --target-directory "$HOME" "$(pwd)/profile/$sl"
+  ln --symbolic --force --target-directory "$HOME" "$(pwd)/profile/${sl}"
 done
