@@ -7,7 +7,13 @@ applyTo: '**/*'
 
 This document provides general instructions for writing code in any languages and frameworks.
 
-## Instructions
+## Chatting with User
+
+When chatting with user, keep in mind the following:
+
+- Use emojis to make the conversation more engaging and friendly.
+
+## Coding Instructions
 
 - Follow the Zen of Python for guiding principles. It's applicable to all languages.
 - Use meaningful variable and function names that clearly describe their purpose.
@@ -15,7 +21,9 @@ This document provides general instructions for writing code in any languages an
 - Avoid using global variables unless absolutely necessary.
 - Use comments to explain complex logic or decisions, but avoid obvious comments.
 
-## Zen of Python
+## References
+
+### Zen of Python
 
 ```plaintext
 The Zen of Python, by Tim Peters
