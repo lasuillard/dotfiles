@@ -34,7 +34,6 @@ jobs:
           ./test/bats/bin/bats --verbose-run --recursive ./test/unit
 
   test-linux:
-    name: Test (${{ matrix.platform }}, ${{ matrix.image }})
     strategy:
       matrix:
         platform:
@@ -45,6 +44,8 @@ jobs:
           - mcr.microsoft.com/devcontainers/base:1-debian
           # TODO: Add more base images to test against (e.g. Fedora)
 
+    name: Test (${{ matrix.platform }}, ${{ matrix.image }})
+    if: contains(${{ vars.CI_PLATFORMS_TO_TEST }}, 'linux')
     runs-on: ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@v4
@@ -57,5 +58,29 @@ jobs:
         run: |
           ./test/bats/bin/bats --verbose-run --recursive ./test/integration/linux
 
-  # TODO: test-macos
-  # TODO: test-windows
+  test-macos:
+    name: Test (macOS)
+    if: contains(${{ vars.CI_PLATFORMS_TO_TEST }}, 'macos')
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Run integration tests
+        run: |
+          ./test/bats/bin/bats --verbose-run --recursive ./test/integration/macos
+
+  test-windows:
+    name: Test (Windows)
+    if: contains(${{ vars.CI_PLATFORMS_TO_TEST }}, 'windows')
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Run integration tests
+        shell: bash
+        run: |
+          ./test/bats/bin/bats --verbose-run --recursive ./test/integration/windows
