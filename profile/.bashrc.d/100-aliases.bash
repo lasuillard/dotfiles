@@ -5,19 +5,20 @@
 # Navigation
 alias ..='cd ..'
 alias ...='cd ../..'
+alias cdtmp='cd "$(mktemp --directory)"'
 
 # Utilities
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
-alias mkdir='mkdir -pv'
+alias mkdir='mkdir --verbose --parents'
 if command -v colordiff &>/dev/null; then
   alias diff='colordiff'
 fi
 
 # Continue downloading
-alias wget='wget -c'
+alias wget='wget --continue'
 
 # Network
 alias ports='netstat -tulanp'
@@ -61,12 +62,12 @@ done
 # Safety nets
 # ----------------------------------------------------------------------------
 # Do not delete / or prompt if deleting more than 3 files at a time
-alias rm='rm -I --preserve-root'
+alias rm='rm --interactive --preserve-root'
 
 # Ask confirmation
-alias mv='mv -i'
-alias cp='cp -i'
-alias ln='ln -i'
+alias mv='mv --interactive'
+alias cp='cp --interactive'
+alias ln='ln --interactive'
 
 # Parenting changing perms on /
 alias chown='chown --preserve-root'
