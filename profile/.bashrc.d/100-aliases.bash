@@ -42,6 +42,7 @@ aliases=(
   [mk]='minikube'
   [pl]='pulumi'
   [pls]='pulumi stack'
+  [px]='pulumi-extra'
   [tal]='talosctl'
   [tf]='tofu'
   [tg]='terragrunt'
