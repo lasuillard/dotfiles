@@ -51,6 +51,9 @@ aliases=(
   [vg]='vagrant'
 )
 
+# shellcheck disable=SC1090
+source ~/.bash_completion.d/complete_alias
+
 for key in "${!aliases[@]}"; do
   # Skip if the alias is overwriting an existing command
   if command -v "$key" &>/dev/null; then
@@ -59,6 +62,10 @@ for key in "${!aliases[@]}"; do
 
   # shellcheck disable=SC2139
   alias "$key"="${aliases[$key]}"
+
+  # https://unix.stackexchange.com/a/332522
+  # Enable autocomplete for the alias as well
+  complete -F _complete_alias "$key"
 done
 
 # Safety nets
