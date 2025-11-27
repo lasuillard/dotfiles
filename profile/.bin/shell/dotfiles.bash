@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+: '
+Dotfiles management script.
+'
+
 function show_logs() {
   tail --lines 1000 ./logs/install.log | more
 }

@@ -6,7 +6,7 @@ set -o pipefail
 
 echo "Installing packages with APT..."
 
-if sudo -n true; then
+if sudo --non-interactive true; then
   sudo apt update && sudo apt install --yes \
     bash-completion \
     curl \
