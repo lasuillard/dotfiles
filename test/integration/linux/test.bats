@@ -1,3 +1,5 @@
+#!/usr/bin/env bats
+
 export LINUX_TEST__BASE_IMAGE="${LINUX_TEST__BASE_IMAGE:-"mcr.microsoft.com/devcontainers/base:1-ubuntu-22.04"}"
 
 setup() {
