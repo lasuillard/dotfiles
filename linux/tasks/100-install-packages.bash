@@ -22,6 +22,12 @@ if sudo --non-interactive true; then
     tcpdump \
     vim
 
+  # Install direnv
+  # ? direnv is available in apt repositories, but the version is often outdated
+  # ? so we install it manually
+  echo "Installing direnv..."
+  curl --fail https://direnv.net/install.sh | bash
+
   echo "Packages installed successfully."
 else
   echo "Have no sudo privileges, skipping package installation."
