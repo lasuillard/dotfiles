@@ -56,6 +56,20 @@ integration-test:
 # =============================================================================
 # Handy Scripts
 # =============================================================================
+# https://stackoverflow.com/questions/66808788/docker-can-you-cache-apt-get-package-installs
+docker-sh:  ## Run dotfiles-installed shell in ephemeral Docker container
+	docker build --tag dotfiles:local -f- . <<DOCKERFILE
+	FROM mcr.microsoft.com/devcontainers/base:1-ubuntu-22.04
+	COPY . /root/dotfiles
+	RUN --mount=target=/var/lib/apt/lists,type=cache,sharing=locked \
+		--mount=target=/var/cache/apt,type=cache,sharing=locked \
+		rm --force /etc/apt/apt.conf.d/docker-clean \
+		&& cd /root/dotfiles \
+		&& ./install.sh
+	DOCKERFILE
+	docker run --interactive --tty --rm dotfiles:local
+.PHONY: docker-sh
+
 clean:  ## Remove temporary files
 	find . -path '*.log*' -delete
 .PHONY: clean

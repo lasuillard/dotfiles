@@ -12,6 +12,10 @@ Using this repository as base for a new profile is easy. Just follow these steps
 4. Push the changes to your new repository
 5. To sync with the upstream repository automatically, see [🔄 Sync with Upstream](#-sync-with-upstream) section below.
 
+### ⚠️ Caution
+
+Don't run `install.sh` directly unless necessary. It will mess up your development environment. Use `make docker-sh` instead.
+
 ## ⚙️ GitHub Actions
 
 There are several GitHub Actions workflows defined in this repository to automate various tasks. Below is a brief description of each workflow:
