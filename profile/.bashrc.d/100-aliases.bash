@@ -44,6 +44,7 @@ aliases=(
   [pl]='pulumi'
   [pls]='pulumi stack'
   [px]='pulumi-extra'
+  [soc]='sea-orm-cli'
   [tal]='talosctl'
   [tf]='tofu'
   [tg]='terragrunt'
