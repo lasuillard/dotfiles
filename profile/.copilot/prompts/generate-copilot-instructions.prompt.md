@@ -1,7 +1,7 @@
 ---
 description: Generate `.github/copilot-instructions.md` for this codebase.
-mode: agent
-tools: ['codebase', 'editFiles', 'fetch', 'githubRepo']
+agent: agent
+tools: ['search/codebase', 'edit/editFiles', 'web/fetch', 'web/githubRepo']
 ---
 
 Generate a `.github/copilot-instructions.md` file for this codebase.

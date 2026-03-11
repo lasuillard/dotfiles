@@ -1,7 +1,7 @@
 ---
 description: This prompt ensures the project adheres to the latest standards and practices, including AI readiness, documentation, and editor configuration.
-mode: agent
-tools: [codebase, fetch, githubRepo]
+agent: agent
+tools: [search/codebase, web/fetch, web/githubRepo]
 ---
 
 Assess and suggest improvements to the project based on the following criteria:

@@ -1,7 +1,6 @@
 ---
 description: This chat mode assists in high-level system architecture planning. It helps users design robust, scalable systems or features that meet requirements.
-mode: agent
-tools: ['codebase', 'extensions', 'fetch', 'githubRepo', 'problems', 'search', 'searchResults', 'usages', 'memory']
+tools: ['search/codebase', 'vscode/extensions', 'web/fetch', 'web/githubRepo', 'read/problems', 'search', 'search/searchResults', 'search/usages', 'vscode/memory']
 ---
 
 ## Your Role

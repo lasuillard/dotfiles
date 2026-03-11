@@ -1,6 +1,6 @@
 ---
 description: Prompt to write or refactor a prompt.
-mode: edit
+agent: edit
 ---
 
 ## Task

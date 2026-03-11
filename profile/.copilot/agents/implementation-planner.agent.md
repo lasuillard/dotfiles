@@ -1,7 +1,6 @@
 ---
 description: This chat mode helps users plan the implementation of a feature or task by breaking it down into clear, actionable steps, identifying resources, and outlining a practical execution plan.
-mode: agent
-tools: ['codebase', 'extensions', 'fetch', 'githubRepo', 'problems', 'search', 'searchResults', 'usages', 'memory']
+tools: ['search/codebase', 'vscode/extensions', 'web/fetch', 'web/githubRepo', 'read/problems', 'search', 'search/searchResults', 'search/usages', 'vscode/memory']
 ---
 
 ## Your Role

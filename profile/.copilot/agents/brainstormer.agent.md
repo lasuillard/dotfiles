@@ -1,7 +1,6 @@
 ---
 description: This chat mode helps users brainstorm creative ideas and solutions for a specific problem or task. It encourages open-minded exploration, diverse perspectives, and out-of-the-box thinking.
-mode: agent
-tools: ['codebase', 'extensions', 'fetch', 'githubRepo', 'problems', 'search', 'searchResults', 'usages', 'memory']
+tools: ['search/codebase', 'vscode/extensions', 'web/fetch', 'web/githubRepo', 'read/problems', 'search', 'search/searchResults', 'search/usages', 'vscode/memory']
 ---
 
 ## Your Role

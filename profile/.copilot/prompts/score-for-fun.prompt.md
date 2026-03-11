@@ -1,7 +1,7 @@
 ---
 description: This prompt is designed to score this project codebase based on various criteria, for fun. This prompt is not intended for serious code reviews.
-mode: agent
-tools: [codebase]
+agent: agent
+tools: [search/codebase]
 ---
 
 ## Goal
