@@ -1,6 +1,8 @@
 TODO
 .env
 .envrc
+.vscode/
+.devcontainer/
 
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,linux,macos,windows,powershell,database
 # Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode,linux,macos,windows,powershell,database
