@@ -59,7 +59,7 @@ integration-test:
 # https://stackoverflow.com/questions/66808788/docker-can-you-cache-apt-get-package-installs
 docker-sh:  ## Run dotfiles-installed shell in ephemeral Docker container
 	docker build --tag dotfiles:local -f- . <<DOCKERFILE
-	FROM mcr.microsoft.com/devcontainers/base:1-ubuntu-22.04
+	FROM mcr.microsoft.com/devcontainers/base:ubuntu-24.04
 	COPY . /root/dotfiles
 	RUN --mount=target=/var/lib/apt/lists,type=cache,sharing=locked \
 		--mount=target=/var/cache/apt,type=cache,sharing=locked \
