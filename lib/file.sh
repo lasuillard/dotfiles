@@ -1,4 +1,8 @@
-# Shell-agnostic library functions for managing shell configurations
+#!/bin/sh
+
+: '
+Shell-agnostic library functions for managing shell configurations
+'
 
 # Replace a section in a file between two markers with new content.
 #
@@ -9,7 +13,7 @@
 #   begin: The begin marker for the section to remove
 #   end: The end marker for the section to remove
 #   replacement: The replacement text to insert
-function replace_section() {
+replace_section() {
   file="$1"
   begin="$2"
   end="$3"

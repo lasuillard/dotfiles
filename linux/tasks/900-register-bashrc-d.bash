@@ -5,7 +5,7 @@ set -o nounset
 set -o pipefail
 
 # shellcheck disable=SC1091
-source "$(pwd)/lib/file.bash"
+source "$(pwd)/lib/file.sh"
 
 echo "Registering bashrc.d hook in ~/.bashrc file..."
 

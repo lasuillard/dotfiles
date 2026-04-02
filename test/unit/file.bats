@@ -6,7 +6,7 @@ setup() {
   load '../test_helper/bats-file/load'
 
   # shellcheck disable=SC1091
-  source lib/file.bash
+  source lib/file.sh
 
   cd "$(mktemp --directory)" || exit 1
   echo "Running tests in directory: $(pwd)"
