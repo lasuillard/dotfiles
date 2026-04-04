@@ -1,8 +1,6 @@
 TODO
 .env
 .envrc
-.vscode/
-.devcontainer/
 .pnpm-store/
 
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,linux,macos,windows,powershell,database
