@@ -1,6 +1,15 @@
 {
   "name": "lasuillard/dotfiles",
-  "image": "mcr.microsoft.com/devcontainers/base:1-bookworm",
+  "image": "mcr.microsoft.com/devcontainers/base:trixie",
+  "features": {
+    "ghcr.io/devcontainers-extra/features/pre-commit:2": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "moby": false
+    }
+  },
+  "onCreateCommand": "./.devcontainer/onCreateCommand.sh",
+  "postStartCommand": "./.devcontainer/postStartCommand.sh",
+  "updateContentCommand": "./.devcontainer/updateContentCommand.sh",
   "customizations": {
     "vscode": {
       "settings": {
@@ -12,16 +21,8 @@
         "jetmartin.bats",
         "mads-hartmann.bash-ide-vscode",
         "mkhl.shfmt",
-        "ms-azuretools.vscode-containers",
-        "redhat.vscode-yaml",
-        "streetsidesoftware.code-spell-checker",
         "timonwong.shellcheck"
       ]
     }
-  },
-  "features": {
-    "ghcr.io/devcontainers-extra/features/pre-commit:2": {},
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
-  },
-  "postAttachCommand": "pre-commit install"
+  }
 }
