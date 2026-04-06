@@ -123,5 +123,6 @@
 
     # Simple aliases
     ch = checkout
+    cm = commit
 
     aliases = config --get-regexp ^alias
