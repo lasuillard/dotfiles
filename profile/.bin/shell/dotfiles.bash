@@ -18,6 +18,12 @@ function show_logs() {
 function update() {
   cd "$root_dir" || exit 1
   echo "Updating dotfiles (${root_dir}) from repository..."
+  local_sha="$(git rev-parse HEAD)"
+  remote_sha="$(git rev-parse @{u})"
+  if [ "$local_sha" = "$remote_sha" ]; then
+    echo "Already up to date."
+    exit 0
+  fi
   git pull --rebase
   ./install.sh
 }
