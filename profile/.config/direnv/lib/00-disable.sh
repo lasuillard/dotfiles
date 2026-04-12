@@ -8,11 +8,11 @@ else
   cat <<EOT
 direnv is enabled. To disable direnv temporarily, set \$DIRENV_DISABLE:
 
-export DIRENV_DISABLE=1 && direnv reload
+  export DIRENV_DISABLE=1 && direnv reload
 
 to re-enable it, run:
 
-export DIRENV_DISABLE= && direnv reload
+  export DIRENV_DISABLE= && direnv reload
 
 EOT
 fi

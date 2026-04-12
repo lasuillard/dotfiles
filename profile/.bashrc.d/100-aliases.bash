@@ -31,6 +31,7 @@ aliases=(
   [ans]='ansible'
   [d]='docker'
   [dc]='docker compose'
+  [dr]='direnv'
   [dv]='devobs'
   [g]='git'
   [gc]='gcloud'
