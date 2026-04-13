@@ -17,6 +17,7 @@ function show_logs() {
 
 function update() {
   cd "$root_dir" || exit 1
+  git fetch
   echo "Updating dotfiles (${root_dir}) from repository..."
   local_sha="$(git rev-parse HEAD)"
   remote_sha="$(git rev-parse '@{u}')"
