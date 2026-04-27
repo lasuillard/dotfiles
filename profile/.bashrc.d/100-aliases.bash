@@ -29,6 +29,8 @@ declare -A aliases
 aliases=(
   [aa]='aws-annoying'
   [ans]='ansible'
+  [cld]='claude'
+  [cop]='copilot'
   [d]='docker'
   [dc]='docker compose'
   [dr]='direnv'
