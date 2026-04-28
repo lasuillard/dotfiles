@@ -37,6 +37,7 @@ aliases=(
   [dv]='devobs'
   [g]='git'
   [gc]='gcloud'
+  [gmi]='gemini'
   [h]='helm'
   [ic]='istioctl'
   [K]='k9s'
