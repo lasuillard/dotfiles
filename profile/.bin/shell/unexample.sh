@@ -15,7 +15,7 @@ if [ ! -f '.env' ]; then
   cp --verbose --update=none .env.example .env
 fi
 if [ ! -f '.envrc' ]; then
-  cat <<ENVRC > .envrc
+  cat <<ENVRC >.envrc
 # Uncomment below to load .env file automatically
 # See https://direnv.net/man/direnv-stdlib.1.html for other useful functions
 # dotenv_if_exists .env
