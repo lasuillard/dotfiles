@@ -8,7 +8,7 @@ arch="$(uname -s)"
 
 # Function to check if we're running in a Docker container by evaluating common indicators
 is_docker() {
-  if [ $(grep --quiet docker /proc/1/cgroup) ]; then
+  if grep --quiet docker /proc/1/cgroup; then
     echo "true"
     return
   fi
