@@ -21,7 +21,7 @@ This project is managed using [Nix](https://nixos.org/) and [Home Manager](https
 Recommended usage is to use [Dev Containers Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers). Home Manager will be automatically applied if Nix is available in the container.
 
 ```json
-  "dotfiles.installCommand": "nix run home-manager/release-24.05 -- switch --flake .#linux-$(whoami)",
+  "dotfiles.installCommand": "install-for-docker.sh",
   "dotfiles.repository": "lasuillard/dotfiles",
   "dotfiles.targetPath": "~/dotfiles",
 ```

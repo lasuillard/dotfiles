@@ -20,5 +20,3 @@ fi
 
 echo 'source "${HOME}/.nix-profile/etc/profile.d/nix.sh"' >>~/.bashrc
 source "${HOME}/.nix-profile/etc/profile.d/nix.sh"
-
-nix build --extra-experimental-features 'nix-command flakes' .

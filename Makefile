@@ -85,7 +85,7 @@ docker-sh:  ## Run dotfiles-installed shell in ephemeral Docker container
 	USER nonroot
 	COPY --chown=nonroot:nonroot . /home/nonroot/dotfiles
 	WORKDIR /home/nonroot/dotfiles
-	RUN ./install-docker.sh
+	RUN ./install-for-docker.sh
 	DOCKERFILE
 	docker run --interactive --tty --rm dotfiles:local
 .PHONY: docker-sh

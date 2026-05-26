@@ -1,38 +1,64 @@
 {
-  description = "Dotfiles managed via Home Manager and Nix flakes";
+  description = "Dotfiles configuration using Nix flakes and Home Manager.";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-24.05-darwin";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.05";
+      url = "github:nix-community/home-manager/release-25.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }:
+  outputs = {
+    self,
+    nixpkgs,
+    home-manager,
+    ...
+  }@inputs:
     let
-      mkHomeConfig = { system, username }: home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.${system};
-        modules = [
-          ./lib/home-manager-module.nix
-          {
-            home = {
-              inherit username;
-              homeDirectory = if nixpkgs.lib.hasInfix "darwin" system then "/Users/${username}" else "/home/${username}";
-              stateVersion = "24.05";
-            };
-          }
-        ];
-      };
+      # Require "--impure" to work to allow current user detection via environment variable
+      currentUser = builtins.getEnv "USER";
+
     in {
       homeConfigurations = {
-        "linux" = mkHomeConfig { system = "x86_64-linux"; username = "lasuillard"; };
-        "macos" = mkHomeConfig { system = "aarch64-darwin"; username = "lasuillard"; };
+        linux = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          modules = [
+            ./lib/home-manager/default.nix
+            ./modules/linux/home.nix
+            {
+              home = {
+                stateVersion = "25.05";
+              };
+            }
+          ];
+          extraSpecialArgs = {
+            username = currentUser;
+          };
+        };
+        macos = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+          modules = [
+            ./lib/home-manager/default.nix
+            ./modules/macos/home.nix
+            {
+              home = {
+                stateVersion = "25.05";
+              };
+            }
+          ];
+        };
       };
 
       packages = {
-        x86_64-linux.default = self.homeConfigurations."linux".activationPackage;
-        aarch64-darwin.default = self.homeConfigurations."macos".activationPackage;
+        x86_64-linux.default = self.homeConfigurations.linux.activationPackage;
+        aarch64-darwin.default = self.homeConfigurations.macos.activationPackage;
       };
     };
 }

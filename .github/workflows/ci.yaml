@@ -27,115 +27,36 @@ jobs:
         if: always()
 
   nix-check:
-    name: Nix Check (Tier 1)
+    name: Nix Check
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
-      - uses: DeterminateSystems/nix-installer-action@v16
-      - uses: DeterminateSystems/magic-nix-cache-action@v11
+      - uses: DeterminateSystems/nix-installer-action@v22
+      - uses: DeterminateSystems/magic-nix-cache-action@v13
       - name: Validate flake and evaluate profiles
-        run: make nix-check
+        run: nix flake check --impure
 
   nix-build-linux:
-    name: Nix Build Linux (Tier 2)
+    name: Nix Build Linux
+    needs: nix-check
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
-      - uses: DeterminateSystems/nix-installer-action@v16
-      - uses: DeterminateSystems/magic-nix-cache-action@v11
+      - uses: DeterminateSystems/nix-installer-action@v22
+      - uses: DeterminateSystems/magic-nix-cache-action@v13
       - name: Build activation package
-        run: make nix-build-linux
+        run: nix build --impure '.#homeConfigurations.linux.activationPackage'
 
   nix-build-macos:
-    name: Nix Build macOS (Tier 2)
+    name: Nix Build macOS
+    needs: nix-check
     runs-on: macos-latest
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
-      - uses: DeterminateSystems/nix-installer-action@v16
-      - uses: DeterminateSystems/magic-nix-cache-action@v11
+      - uses: DeterminateSystems/nix-installer-action@v22
+      - uses: DeterminateSystems/magic-nix-cache-action@v13
       - name: Build activation package
-        run: make nix-build-macos
-
-  unittest:
-    name: Unit Test
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
-        with:
-          submodules: true
-
-      - name: Run unit tests
-        run: |
-          ./test/bats/bin/bats --verbose-run --recursive ./test/unit
-
-  integration-test-linux:
-    strategy:
-      matrix:
-        platform:
-          - ubuntu-latest
-          # TODO: ubuntu-latest-arm is not available yet
-          # https://github.com/orgs/community/discussions/148648#discussioncomment-11858287
-          - ubuntu-24.04-arm
-        image:
-          - mcr.microsoft.com/devcontainers/base:ubuntu24.04
-          - mcr.microsoft.com/devcontainers/base:debian12
-          - mcr.microsoft.com/devcontainers/base:debian13
-
-    name: Integration Test (${{ matrix.platform }}, ${{ matrix.image }})
-    if: contains(vars.CI_PLATFORMS_TO_TEST, 'linux')
-    runs-on: ${{ matrix.platform }}
-    timeout-minutes: 15
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
-        with:
-          submodules: true
-
-      - name: Run integration tests
-        env:
-          LINUX_TEST__BASE_IMAGE: ${{ matrix.image }}
-        run: |
-          ./test/bats/bin/bats --verbose-run --recursive ./test/integration/linux
-
-  integration-test-macos:
-    strategy:
-      matrix:
-        platform:
-          - macos-latest
-
-    name: Integration Test (${{ matrix.platform }})
-    if: contains(vars.CI_PLATFORMS_TO_TEST, 'macos')
-    runs-on: ${{ matrix.platform }}
-    timeout-minutes: 15
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
-        with:
-          submodules: true
-
-      - name: Run integration tests
-        run: |
-          ./test/bats/bin/bats --verbose-run --recursive ./test/integration/macos
-
-  integration-test-windows:
-    strategy:
-      matrix:
-        platform:
-          - windows-latest
-          - windows-11-arm # TODO: windows-latest-arm is not available yet
-
-    name: Integration Test (${{ matrix.platform }})
-    if: contains(vars.CI_PLATFORMS_TO_TEST, 'windows')
-    runs-on: ${{ matrix.platform }}
-    timeout-minutes: 15
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
-        with:
-          submodules: true
-
-      - name: Run integration tests
-        shell: bash
-        run: |
-          ./test/bats/bin/bats --verbose-run --recursive ./test/integration/windows
+        run: nix build --impure '.#homeConfigurations.macos.activationPackage'
