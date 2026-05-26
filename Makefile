@@ -44,19 +44,19 @@ lint:  ## Run all linters
 	pre-commit run --all-files shellcheck
 .PHONY: lint
 
-test: nix-check nix-build-linux  ## Run tests
+test: nix-check nix-build-linux  ## Run tests (linux only for now)
 
 .PHONY: test
 
-nix-check: ## Validate Nix flake and evaluate profiles (Tier 1)
+nix-check:  ## Validate Nix flake and evaluate profiles
 	nix flake check --impure
 .PHONY: nix-check
 
-nix-build-linux: ## Build Linux activation package (Tier 2)
+nix-build-linux:  ## Build Linux activation package
 	nix build --impure '.#homeConfigurations.linux.activationPackage'
 .PHONY: nix-build-linux
 
-nix-build-macos: ## Build macOS activation package (Tier 2)
+nix-build-macos:  ## Build macOS activation package
 	nix build --impure '.#homeConfigurations.macos.activationPackage'
 .PHONY: nix-build-macos
 
@@ -67,15 +67,11 @@ nix-build-macos: ## Build macOS activation package (Tier 2)
 docker-sh:  ## Run dotfiles-installed shell in ephemeral Docker container
 	docker build --tag dotfiles:local -f- . <<DOCKERFILE
 	FROM mcr.microsoft.com/devcontainers/base:ubuntu-24.04
-	RUN --mount=target=/var/lib/apt/lists,type=cache,sharing=locked \
-		--mount=target=/var/cache/apt,type=cache,sharing=locked \
-	rm --force /etc/apt/apt.conf.d/docker-clean
 	RUN useradd --create-home --shell /bin/bash nonroot
 	RUN mkdir --mode=0755 /nix && chown nonroot:nonroot /nix
-	USER nonroot
+	USER nonroot:nonroot
 	COPY --chown=nonroot:nonroot . /home/nonroot/dotfiles
 	WORKDIR /home/nonroot/dotfiles
-	RUN ./install-for-docker.sh
 	DOCKERFILE
 	docker run --interactive --tty --rm dotfiles:local
 .PHONY: docker-sh

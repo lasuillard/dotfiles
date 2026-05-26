@@ -1,3 +1,7 @@
 #!/bin/sh
 
-echo "TODO" || exit 1
+: '
+Dotfiles installation script for Linux environments.
+'
+
+echo "TODO (Linux)" || exit 1

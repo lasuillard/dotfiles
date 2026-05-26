@@ -1,3 +1,7 @@
 #!/bin/sh
 
-echo "TODO" || exit 1
+: '
+Dotfiles installation script for macOS environments.
+'
+
+echo "TODO (macOS)" || exit 1
