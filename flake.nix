@@ -15,17 +15,19 @@
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    home-manager,
-    ...
-  }@inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      ...
+    }@inputs:
     let
       # Require "--impure" to work to allow current user detection via environment variable
       currentUser = builtins.getEnv "USER";
 
-    in {
+    in
+    {
       homeConfigurations = {
         linux = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;

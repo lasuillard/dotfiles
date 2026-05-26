@@ -12,6 +12,11 @@ repos:
     hooks:
       - id: shfmt
 
+  - repo: https://github.com/NixOS/nixfmt
+    rev: v1.2.0
+    hooks:
+      - id: nixfmt-nix
+
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.10.0.1
     hooks:
