@@ -32,7 +32,7 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@v22
       - uses: DeterminateSystems/magic-nix-cache-action@v13
       - name: Validate flake and evaluate profiles
-        run: nix flake check --impure
+        run: nix flake check --show-trace --impure
 
   nix-build-linux:
     name: Nix Build Linux
