@@ -126,3 +126,5 @@
     cm = commit
 
     aliases = config --get-regexp ^alias
+[credential]
+	helper = "!f() { /home/vscode/.vscode-server/bin/41dd792b5e652393e7787322889ed5fdc58bd75b/node /tmp/vscode-remote-containers-864f85db-3ebc-44fd-ae44-9f3acc6e6ae7.js git-credential-helper $*; }; f"

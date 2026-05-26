@@ -26,6 +26,39 @@ jobs:
       - uses: pre-commit-ci/lite-action@5d6cc0eb514c891a40562a58a8e71576c5c7fb43 # v1.1.0
         if: always()
 
+  nix-check:
+    name: Nix Check (Tier 1)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - uses: DeterminateSystems/nix-installer-action@v16
+      - uses: DeterminateSystems/magic-nix-cache-action@v11
+      - name: Validate flake and evaluate profiles
+        run: make nix-check
+
+  nix-build-linux:
+    name: Nix Build Linux (Tier 2)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - uses: DeterminateSystems/nix-installer-action@v16
+      - uses: DeterminateSystems/magic-nix-cache-action@v11
+      - name: Build activation package
+        run: make nix-build-linux
+
+  nix-build-macos:
+    name: Nix Build macOS (Tier 2)
+    runs-on: macos-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - uses: DeterminateSystems/nix-installer-action@v16
+      - uses: DeterminateSystems/magic-nix-cache-action@v11
+      - name: Build activation package
+        run: make nix-build-macos
+
   unittest:
     name: Unit Test
     runs-on: ubuntu-latest

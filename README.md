@@ -14,32 +14,38 @@ Using this repository as base for a new profile is easy. Just follow these steps
 
 ## 🛠️ Installing dotfiles
 
-### Visual Studio Code
+This project is managed using [Nix](https://nixos.org/) and [Home Manager](https://github.com/nix-community/home-manager).
 
-Recommended usage is to use [Dev Containers Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers). Add below to your user settings (Open command pallette and select **Preferences: Open User Settings (JSON)**):
+### Visual Studio Code (Dev Containers)
+
+Recommended usage is to use [Dev Containers Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers). Home Manager will be automatically applied if Nix is available in the container.
 
 ```json
-  "dotfiles.installCommand": "install.sh",
+  "dotfiles.installCommand": "nix run home-manager/release-24.05 -- switch --flake .#linux-$(whoami)",
   "dotfiles.repository": "lasuillard/dotfiles",
   "dotfiles.targetPath": "~/dotfiles",
 ```
 
-Check [official documentation](https://code.visualstudio.com/docs/devcontainers/containers#_personalizing-with-dotfile-repositories) for more about this.
+### Manual Installation
 
-### Do it manually
+> [!IMPORTANT]
+> A migration to Nix is in progress. See [Migration Guide](docs/MIGRATION.md) for details.
 
-To install it manually, follow:
+1.  **Install Nix**:
+    ```bash
+    curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+    ```
+2.  **Apply configuration**:
 
-> [!CAUTION]
-> Don't run `install.sh` directly in host system unless you know what you are doing. It will mess up your host system. Please use `make docker-sh` instead.
+    **Linux**:
+    ```bash
+    nix run home-manager/release-24.05 -- switch --flake .#linux-$(whoami)
+    ```
 
-```bash
-$ git clone https://github.com/lasuillard/dotfiles.git
-$ cd dotfiles
-$ sudo ./install.sh
-```
-
-You may want to do this in virtualized machine where container does not fit.
+    **macOS**:
+    ```bash
+    nix run home-manager/release-24.05 -- switch --flake .#macos-$(whoami)
+    ```
 
 ## ⚙️ Workflows
 

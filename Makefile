@@ -33,7 +33,7 @@ update:  ## Update deps and tools
 # =============================================================================
 # CI
 # =============================================================================
-ci: lint test integration-test  ## Run CI tasks
+ci: lint test integration-test nix-check ## Run CI tasks
 .PHONY: ci
 
 fmt:  ## Run autoformatters
@@ -56,6 +56,20 @@ integration-test:
 	./test/bats/bin/bats --verbose-run ./test/integration/linux
 .PHONY: integration-test
 
+nix-check: ## Validate Nix flake and evaluate profiles (Tier 1)
+	nix flake check
+	nix eval .#homeConfigurations.linux-lasuillard.config.home.username
+	nix eval .#homeConfigurations.macos-lasuillard.config.home.username
+.PHONY: nix-check
+
+nix-build-linux: ## Build Linux activation package (Tier 2)
+	nix build .#homeConfigurations.linux-lasuillard.activationPackage
+.PHONY: nix-build-linux
+
+nix-build-macos: ## Build macOS activation package (Tier 2)
+	nix build .#homeConfigurations.macos-lasuillard.activationPackage
+.PHONY: nix-build-macos
+
 # =============================================================================
 # Handy Scripts
 # =============================================================================
@@ -63,12 +77,15 @@ integration-test:
 docker-sh:  ## Run dotfiles-installed shell in ephemeral Docker container
 	docker build --tag dotfiles:local -f- . <<DOCKERFILE
 	FROM mcr.microsoft.com/devcontainers/base:ubuntu-24.04
-	COPY . /root/dotfiles
 	RUN --mount=target=/var/lib/apt/lists,type=cache,sharing=locked \
 		--mount=target=/var/cache/apt,type=cache,sharing=locked \
-		rm --force /etc/apt/apt.conf.d/docker-clean \
-		&& cd /root/dotfiles \
-		&& ./install.sh
+	rm --force /etc/apt/apt.conf.d/docker-clean
+	RUN useradd --create-home --shell /bin/bash nonroot
+	RUN mkdir --mode=0755 /nix && chown nonroot:nonroot /nix
+	USER nonroot
+	COPY --chown=nonroot:nonroot . /home/nonroot/dotfiles
+	WORKDIR /home/nonroot/dotfiles
+	RUN ./install-docker.sh
 	DOCKERFILE
 	docker run --interactive --tty --rm dotfiles:local
 .PHONY: docker-sh
