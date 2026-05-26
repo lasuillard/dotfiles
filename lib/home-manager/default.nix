@@ -14,6 +14,7 @@
     rclone
     ripgrep
     rsync
+    starship
     tcpdump
   ];
 
@@ -32,6 +33,10 @@
         done
       fi
     '';
+  };
+
+  programs.starship = {
+    enable = true;
   };
 
   home.file = {
