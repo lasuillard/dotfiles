@@ -44,6 +44,8 @@ jobs:
 
       - name: Cache Nix store
         uses: DeterminateSystems/magic-nix-cache-action@v13
+        with:
+          use-flakehub: false
 
       - name: Validate flake and evaluate profiles
         run: nix flake check --show-trace --impure
@@ -62,6 +64,8 @@ jobs:
 
       - name: Cache Nix store
         uses: DeterminateSystems/magic-nix-cache-action@v13
+        with:
+          use-flakehub: false
 
       - name: Build activation package
         run: nix build --impure '.#homeConfigurations.linux.activationPackage'
@@ -80,6 +84,8 @@ jobs:
 
       - name: Cache Nix store
         uses: DeterminateSystems/magic-nix-cache-action@v13
+        with:
+          use-flakehub: false
 
       - name: Build activation package
         run: nix build --impure '.#homeConfigurations.macos.activationPackage'
