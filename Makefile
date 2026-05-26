@@ -44,30 +44,20 @@ lint:  ## Run all linters
 	pre-commit run --all-files shellcheck
 .PHONY: lint
 
-test:  ## Run tests
-	./test/bats/bin/bats --verbose-run ./test/unit
+test: nix-check nix-build-linux  ## Run tests
+
 .PHONY: test
 
-integration-test:
-	if [ "$$(uname --kernel-name)" != "Linux" ]; then
-		echo "In local environment, skip integration tests on non-Linux platform";
-		exit 0;
-	fi
-	./test/bats/bin/bats --verbose-run ./test/integration/linux
-.PHONY: integration-test
-
 nix-check: ## Validate Nix flake and evaluate profiles (Tier 1)
-	nix flake check
-	nix eval .#homeConfigurations.linux-lasuillard.config.home.username
-	nix eval .#homeConfigurations.macos-lasuillard.config.home.username
+	nix flake check --impure
 .PHONY: nix-check
 
 nix-build-linux: ## Build Linux activation package (Tier 2)
-	nix build .#homeConfigurations.linux-lasuillard.activationPackage
+	nix build --impure '.#homeConfigurations.linux.activationPackage'
 .PHONY: nix-build-linux
 
 nix-build-macos: ## Build macOS activation package (Tier 2)
-	nix build .#homeConfigurations.macos-lasuillard.activationPackage
+	nix build --impure '.#homeConfigurations.macos.activationPackage'
 .PHONY: nix-build-macos
 
 # =============================================================================
