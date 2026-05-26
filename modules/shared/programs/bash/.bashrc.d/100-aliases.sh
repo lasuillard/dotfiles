@@ -2,6 +2,11 @@
 
 # https://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html
 
+# Custom scripts (.bin/shell)
+alias cdd='source cdd.sh'
+alias dotfiles='dotfiles.sh'
+alias unexample='unexample.sh'
+
 # Navigation
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -21,7 +26,7 @@ fi
 alias wget='wget --continue'
 
 # Network
-alias ports='netstat -tulanp'
+alias ports='netstat --all --listening --numeric --tcp --udp --programs'
 
 # External utilities but do not set alias if hiding existing command
 declare -A aliases

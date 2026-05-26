@@ -4,8 +4,6 @@
 [core]
     fsmonitor = true
     untrackedCache = true
-    excludesfile = ~/.gitignore
-    attributesfile = ~/.gitattributes
 
 [init]
     defaultBranch = main

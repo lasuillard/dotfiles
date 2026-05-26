@@ -9,4 +9,13 @@
   home.packages = with pkgs; [
     netcat-openbsd
   ];
+
+  imports = [
+    ../shared/programs/bash
+    ../shared/programs/direnv
+    ../shared/programs/git
+    ../shared/programs/starship
+    ../shared/programs/tailscale
+    ../shared/programs/neovim
+  ];
 }
