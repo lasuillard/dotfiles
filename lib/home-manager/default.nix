@@ -10,7 +10,6 @@
     jq
     lsof
     neovim
-    netcat-openbsd
     nettools
     rclone
     ripgrep

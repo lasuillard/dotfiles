@@ -49,7 +49,7 @@ test: nix-check nix-build-linux  ## Run tests (linux only for now)
 .PHONY: test
 
 nix-check:  ## Validate Nix flake and evaluate profiles
-	nix flake check --impure
+	nix flake check --show-trace --impure --all-systems
 .PHONY: nix-check
 
 nix-build-linux:  ## Build Linux activation package
