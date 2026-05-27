@@ -2,8 +2,7 @@
   "name": "lasuillard/dotfiles",
   "image": "mcr.microsoft.com/devcontainers/base:trixie",
   "features": {
-    "ghcr.io/devcontainers-extra/features/pre-commit:2": {},
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+    "ghcr.io/devcontainers/features/docker-in-docker:3": {
       "moby": false
     }
   },
@@ -18,7 +17,6 @@
       },
       "extensions": [
         "editorconfig.editorconfig",
-        "jetmartin.bats",
         "mads-hartmann.bash-ide-vscode",
         "mkhl.shfmt",
         "timonwong.shellcheck"

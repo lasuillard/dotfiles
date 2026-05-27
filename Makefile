@@ -18,7 +18,7 @@ help: Makefile  ## Show help
 # Common
 # =============================================================================
 install:  ## Install deps and tools
-	git submodule update --init --recursive
+
 .PHONY: install
 
 init:  ## Initialize project
@@ -33,44 +33,39 @@ update:  ## Update deps and tools
 # =============================================================================
 # CI
 # =============================================================================
-ci: lint test integration-test  ## Run CI tasks
+ci: lint test integration-test nix-check ## Run CI tasks
 .PHONY: ci
 
 fmt:  ## Run autoformatters
 	pre-commit run --all-files shfmt
+	pre-commit run --all-files nixfmt-nix
 .PHONY: fmt
 
 lint:  ## Run all linters
 	pre-commit run --all-files shellcheck
 .PHONY: lint
 
-test:  ## Run tests
-	./test/bats/bin/bats --verbose-run ./test/unit
+test: nix-check nix-build-linux  ## Run tests (linux only for now)
+
 .PHONY: test
 
-integration-test:
-	if [ "$$(uname --kernel-name)" != "Linux" ]; then
-		echo "In local environment, skip integration tests on non-Linux platform";
-		exit 0;
-	fi
-	./test/bats/bin/bats --verbose-run ./test/integration/linux
-.PHONY: integration-test
+nix-check:  ## Validate Nix flake and evaluate profiles
+	nix flake check --show-trace --impure --all-systems
+.PHONY: nix-check
+
+nix-build-linux:  ## Build Linux activation package
+	nix build --impure '.#homeConfigurations.linux.activationPackage'
+.PHONY: nix-build-linux
+
+nix-build-macos:  ## Build macOS activation package
+	nix build --impure '.#homeConfigurations.macos.activationPackage'
+.PHONY: nix-build-macos
 
 # =============================================================================
 # Handy Scripts
 # =============================================================================
-# https://stackoverflow.com/questions/66808788/docker-can-you-cache-apt-get-package-installs
 docker-sh:  ## Run dotfiles-installed shell in ephemeral Docker container
-	docker build --tag dotfiles:local -f- . <<DOCKERFILE
-	FROM mcr.microsoft.com/devcontainers/base:ubuntu-24.04
-	COPY . /root/dotfiles
-	RUN --mount=target=/var/lib/apt/lists,type=cache,sharing=locked \
-		--mount=target=/var/cache/apt,type=cache,sharing=locked \
-		rm --force /etc/apt/apt.conf.d/docker-clean \
-		&& cd /root/dotfiles \
-		&& ./install.sh
-	DOCKERFILE
-	docker run --interactive --tty --rm dotfiles:local
+	cd test/docker && docker compose run --build -it --rm workspace bash
 .PHONY: docker-sh
 
 clean:  ## Remove temporary files

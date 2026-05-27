@@ -1,31 +1,45 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
-set -o errexit
-set -o nounset
+: '
+Dotfiles installation script with auto-detection of the operating system. Then it delegates to OS-specific scripts.
+'
 
-# ? SC3040; pipefail is not supported in POSIX sh
-# set -o pipefail
+arch="$(uname -s)"
 
-log_dir="./logs"
-log_file="$log_dir/install.log"
-latest_exit_code_file="$log_dir/latest_exit_code"
+# Function to check if we're running in a Docker container by evaluating common indicators
+is_docker() {
+  if grep --quiet docker /proc/1/cgroup; then
+    echo "true"
+    return
+  fi
+  if [ -f "/.dockerenv" ]; then
+    echo "true"
+    return
+  fi
+  echo "false"
+}
 
-mkdir --parents "$log_dir"
-
-cat <<EOT >>"$log_file"
-===============================================================================
-> Dotfile installation started at $(date)
-===============================================================================
-EOT
-
-(
-  ./linux/install.bash
-  echo "$?" >"$latest_exit_code_file"
-) | tee -a "$log_file"
-exit_code="$(cat "$latest_exit_code_file")"
-if [ "$exit_code" -ne 0 ]; then
-  # ? Only print the exit status, don't propagate it
-  echo "Installation failed with exit code: ${exit_code}"
-else
-  echo "Installation completed successfully."
+# Check if we're running in a Docker container
+if [ "$(is_docker)" = "true" ]; then
+  echo "Detected Docker environment, running Docker-specific installation script"
+  sh install-for-docker.sh
+  exit 0
 fi
+
+# If not in Docker, proceed with OS detection and installation
+case "$arch" in
+Linux*)
+  echo "Detected Linux OS, running Linux-specific installation script"
+  sh install-for-linux.sh
+  exit 0
+  ;;
+Darwin*)
+  echo "Detected macOS, running macOS-specific installation script"
+  sh install-for-macos.sh
+  exit 0
+  ;;
+*)
+  echo "Unsupported OS: $arch"
+  exit 1
+  ;;
+esac

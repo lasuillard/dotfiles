@@ -1,0 +1,10 @@
+services:
+  workspace:
+    build:
+      context: ../../
+      dockerfile: test/docker/Dockerfile
+    volumes:
+      - nix-cache:/home/nonroot/.cache/nix:delegated
+
+volumes:
+  nix-cache: {}

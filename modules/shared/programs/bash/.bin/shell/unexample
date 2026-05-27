@@ -1,0 +1,56 @@
+#!/usr/bin/env sh
+
+: '
+Copy files or directories with .example suffix to the same name without the suffix,
+if the target file/directory does not exist.
+'
+
+# Dev Container
+if [ ! -d '.devcontainer' ] && [ -d '.devcontainer.example' ]; then
+  echo 'Linking .devcontainer to .devcontainer.example'
+  ln --symbolic .devcontainer.example .devcontainer
+fi
+
+# VS Code
+if [ ! -d '.vscode' ] && [ -d '.vscode.example' ]; then
+  echo 'Linking .vscode to .vscode.example'
+  ln --symbolic .vscode.example .vscode
+fi
+
+# .env
+if [ ! -f '.env' ] && [ -f '.env.example' ]; then
+  echo 'Copying .env.example from .env'
+  cp --verbose --update=none .env.example .env
+fi
+
+# .envrc (direnv)
+if [ ! -f '.envrc' ]; then
+  if [ -f '.envrc.example' ]; then
+    echo 'Copying .envrc.example from .envrc'
+    cp --verbose --update=none .envrc.example .envrc
+  else
+    echo 'Creating new .envrc file'
+    cat <<EOF >.envrc
+# See https://direnv.net/man/direnv-stdlib.1.html for other useful functions
+use_nix
+dotenv_if_exists .env
+EOF
+  fi
+fi
+
+# Create shell.nix for development environment management with Nix
+if [ ! -f 'shell.nix' ] && [ ! -f 'default.nix' ]; then
+  cat <<EOF >shell.nix
+{
+  pkgs ? import <nixpkgs> { },
+}:
+
+pkgs.mkShell {
+  packages = [
+    pkgs.git
+    pkgs.gnumake
+    pkgs.pre-commit
+  ];
+}
+EOF
+fi

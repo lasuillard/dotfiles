@@ -12,19 +12,15 @@ repos:
     hooks:
       - id: shfmt
 
+  - repo: https://github.com/NixOS/nixfmt
+    rev: v1.2.0
+    hooks:
+      - id: nixfmt-nix
+
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.10.0.1
     hooks:
       - id: shellcheck
-
-  - repo: local
-    hooks:
-      - id: bats
-        name: Run Bats tests
-        language: system
-        pass_filenames: false
-        entry: make
-        args: [test]
 
 ci:
   autofix_prs: true

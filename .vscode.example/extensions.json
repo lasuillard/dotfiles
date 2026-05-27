@@ -1,7 +1,6 @@
 {
   "recommendations": [
     "editorconfig.editorconfig",
-    "jetmartin.bats",
     "mads-hartmann.bash-ide-vscode",
     "mkhl.shfmt",
     "timonwong.shellcheck"
