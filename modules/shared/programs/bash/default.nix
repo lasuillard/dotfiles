@@ -2,6 +2,7 @@
 {
   programs.bash = {
     enable = true;
+    enableCompletion = false; # We'll do it ourselves
     initExtra = ''
       # Workaround for nix not being available in the PATH when using bash as the login shell
       # e.g. in Docker containers (single-user installation)
