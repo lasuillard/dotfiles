@@ -12,13 +12,13 @@
   ];
 
   imports = [
-    ../shared/packages.nix
     ../shared/programs/bash
     ../shared/programs/direnv
     ../shared/programs/git
     ../shared/programs/github-copilot-cli
+    ../shared/programs/neovim
     ../shared/programs/starship
     ../shared/programs/tailscale
-    ../shared/programs/neovim
+    ../shared/packages.nix
   ];
 }
