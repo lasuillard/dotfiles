@@ -44,6 +44,7 @@ aliases=(
   [kk]='kubectl kustomize'
   [m]='make'
   [mk]='minikube'
+  [oc]='opencode'
   [pl]='pulumi'
   [pls]='pulumi stack'
   [px]='pulumi-extra'
