@@ -1,7 +1,10 @@
-#!/bin/bash
+#!/bin/sh
 
 : '
 Dotfiles installation script for Docker environments.
+
+Requirements:
+- Either curl or wget to download the Nix installation script.
 
 This script will install the Nix package manager in a single-user configuration,
 and then use Nix to set up the user profile with home-manager. It is designed to be run in a Docker container,
@@ -12,7 +15,7 @@ IMPORTANT: You may be prompted for your password for sudo access if /nix directo
 '
 
 # Install nix package manager (single-user)
-if command -v nix &>/dev/null; then
+if command -v nix >/dev/null 2>&1; then
   echo "Nix is already installed, skipping installation"
 else
   # Ensure /nix directory exists and has correct permissions
@@ -23,11 +26,11 @@ else
   fi
 
   # Install Nix using either curl or wget, depending on which is available
-  if command -v curl &>/dev/null; then
+  if command -v curl >/dev/null 2>&1; then
     echo "curl is available, using it to install Nix"
     curl --proto '=https' --tlsv1.2 --location https://nixos.org/nix/install |
       sh -s -- --no-daemon
-  elif command -v wget &>/dev/null; then
+  elif command -v wget >/dev/null 2>&1; then
     echo "wget is available, using it to install Nix"
     wget https://nixos.org/nix/install --output-document - |
       sh -s -- --no-daemon
@@ -41,7 +44,7 @@ else
   echo "Activating Nix in the current shell session...)"
   if [ -e "$nix_sh" ]; then
     # shellcheck disable=SC1090
-    source "$nix_sh"
+    . "$nix_sh"
   else
     echo "Error: Nix installation script did not create expected file ${nix_sh}. Please check the installation logs for details."
     exit 1
@@ -63,3 +66,5 @@ nix run home-manager -- \
   --impure \
   -b backup \
   switch
+
+echo 'Dotfiles installation complete. Please restart your shell (bash --login) or source your profile to apply the changes.'
