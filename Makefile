@@ -18,7 +18,7 @@ help: Makefile  ## Show help
 # Common
 # =============================================================================
 install:  ## Install deps and tools
-	git submodule update --init --recursive
+
 .PHONY: install
 
 init:  ## Initialize project
