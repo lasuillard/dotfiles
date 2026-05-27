@@ -64,17 +64,8 @@ nix-build-macos:  ## Build macOS activation package
 # =============================================================================
 # Handy Scripts
 # =============================================================================
-# https://stackoverflow.com/questions/66808788/docker-can-you-cache-apt-get-package-installs
 docker-sh:  ## Run dotfiles-installed shell in ephemeral Docker container
-	docker build --tag dotfiles:local -f- . <<DOCKERFILE
-	FROM mcr.microsoft.com/devcontainers/base:ubuntu-24.04
-	RUN useradd --create-home --shell /bin/bash nonroot
-	RUN mkdir --mode=0755 /nix && chown nonroot:nonroot /nix
-	USER nonroot:nonroot
-	COPY --chown=nonroot:nonroot . /home/nonroot/dotfiles
-	WORKDIR /home/nonroot/dotfiles
-	DOCKERFILE
-	docker run --interactive --tty --rm dotfiles:local
+	cd test/docker && docker compose run --build -it --rm workspace bash
 .PHONY: docker-sh
 
 clean:  ## Remove temporary files
