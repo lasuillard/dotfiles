@@ -63,7 +63,7 @@
     # rarp - manipulate the system RARP table
     # route - show / manipulate the IP routing table
     # slattach - attach a network interface to a serial line
-    net-tools
+    nettools
     # Command-line program to manage files on cloud storage: https://rclone.org/
     rclone
     # Recursively searches directories for a regex pattern while respecting your gitignore: https://github.com/BurntSushi/ripgrep
