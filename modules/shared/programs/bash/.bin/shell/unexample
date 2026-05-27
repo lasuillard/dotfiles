@@ -30,10 +30,27 @@ if [ ! -f '.envrc' ]; then
     cp --verbose --update=none .envrc.example .envrc
   else
     echo 'Creating new .envrc file'
-    cat <<ENVRC >.envrc
-# Uncomment below to load .env file automatically
+    cat <<EOF >.envrc
 # See https://direnv.net/man/direnv-stdlib.1.html for other useful functions
-# dotenv_if_exists .env
-ENVRC
+use_nix
+dotenv_if_exists .env
+EOF
   fi
+fi
+
+# Create shell.nix for development environment management with Nix
+if [ ! -f 'shell.nix' ] && [ ! -f 'default.nix' ]; then
+  cat <<EOF >shell.nix
+{
+  pkgs ? import <nixpkgs> { },
+}:
+
+pkgs.mkShell {
+  packages = [
+    pkgs.git
+    pkgs.gnumake
+    pkgs.pre-commit
+  ];
+}
+EOF
 fi
