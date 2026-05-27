@@ -19,7 +19,9 @@
   };
 
   home.packages = with pkgs; [
+    # Programmable completion for the bash shell: https://github.com/scop/bash-completion
     bash-completion
+    # Auto-completion for aliases: https://github.com/cykerway/complete-alias
     complete-alias
   ];
 

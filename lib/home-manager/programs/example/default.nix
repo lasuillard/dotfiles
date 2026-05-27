@@ -22,6 +22,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ pkgs.cowsay ];
+    home.packages = [
+      # Classic configurable talking cows: https://cowsay.diamonds/
+      pkgs.cowsay
+    ];
   };
 }

@@ -2,50 +2,70 @@
 
 My personal dotfiles.
 
-## 🆕 Creating a new profile
-
-Using this repository as base for a new profile is easy. Just follow these steps:
-
-1. Clone this repository to your local machine
-1. Create a new GitHub repository for your profile
-1. Make changes (e.g. SSH public key for commit signing) to the files in the repository as needed
-1. Push the changes to your new repository
-1. To sync with the upstream repository automatically, see [🔄 Sync with Upstream](#-sync-with-upstream) section below.
+This repository contains my personal dotfiles for various tools and applications that I use. These dotfiles are managed using [Nix](https://nixos.org/), [Flakes](https://wiki.nixos.org/wiki/Flakes) and [Home Manager](https://github.com/nix-community/home-manager).
 
 ## 🛠️ Installing dotfiles
 
-This project is managed using [Nix](https://nixos.org/) and [Home Manager](https://github.com/nix-community/home-manager).
+You can install the Nix (skipped if already installed) and set up dotfiles by running the [install.sh](./install.sh) script.
 
-### Visual Studio Code (Dev Containers)
+### 🐋 Dev Containers (Visual Studio Code)
 
 Recommended usage is to use [Dev Containers Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers). Home Manager will be automatically applied if Nix is available in the container.
 
 ```json
-  "dotfiles.installCommand": "install-for-docker.sh",
   "dotfiles.repository": "lasuillard/dotfiles",
   "dotfiles.targetPath": "~/dotfiles",
+  "dotfiles.installCommand": "install-for-docker.sh",
 ```
 
-### Manual Installation
+### 📋 Manual Installation
 
-> [!IMPORTANT]
-> A migration to Nix is in progress. See [Migration Guide](docs/MIGRATION.md) for details.
+Check the installation scripts for manual installation on different platforms:
 
-1.  **Install Nix**:
-    ```bash
-    curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
-    ```
-2.  **Apply configuration**:
+- [install-for-docker.sh](./install-for-docker.sh) to Install Nix (single-user) and set up dotfiles in a Docker container.
+- [install-for-linux.sh](./install-for-linux.sh) to Install Nix (multi-user) and set up dotfiles on a Linux system.
+- [install-for-macos.sh](./install-for-macos.sh) to Install Nix (multi-user) and set up dotfiles on a macOS system.
 
-    **Linux**:
-    ```bash
-    nix run home-manager/release-24.05 -- switch --flake .#linux-$(whoami)
-    ```
+## 🪾 Key directory structure
 
-    **macOS**:
-    ```bash
-    nix run home-manager/release-24.05 -- switch --flake .#macos-$(whoami)
-    ```
+Code structure of the repository is organized as follows:
+
+- **lib/**:
+  - **home-manager/**
+    - **programs/**
+    - **services/**
+- **modules/**
+  - **linux/**: Linux-specific configurations
+    - **programs/**
+    - **services/**
+  - **macos/**: macOS-specific configurations
+    - **programs/**
+    - **services/**
+  - **shared/**: Configurations for all platforms
+    - **programs/**
+    - **services/**
+    - **packages.nix**: Packages to be installed for all platforms
+- **flake.nix** and **flake.lock**: Nix flake configuration files
+
+Quick comparison of Nix packages, programs and services:
+
+| Type         | Description                                                                         |
+| ------------ | ----------------------------------------------------------------------------------- |
+| **Packages** | Software packages to be installed on the system (e.g. `git`, `curl`, `vim`)         |
+| **Programs** | User-level configurations for specific programs (e.g. Git, Tailscale)               |
+| **Services** | System-level services that run in the background (e.g. SSH agent, Tailscale daemon) |
+
+## 🆕 Creating a new profile
+
+To create a new profile, you can fork this repository and make changes to the files as needed. You can also create a new repository and use this repository as a template.
+
+Follow the steps below to create a new profile (clone and push to a new repository):
+
+1. Clone this repository to your local machine
+2. Create a new GitHub repository for your profile
+3. Make changes (e.g. SSH public key for commit signing) to the files in the repository as needed
+4. Push the changes to your new repository
+5. To sync with the upstream repository automatically, see [🔄 Sync with Upstream](#-sync-with-upstream) section below.
 
 ## ⚙️ Workflows
 
@@ -53,9 +73,7 @@ There are several GitHub Actions workflows defined in this repository to automat
 
 ### ✅ CI
 
-This workflow is used to run continuous integration (CI) checks to validate the configuration files and scripts in this repository by installing them in a Linux (Docker), macOS, and Windows environment.
-
-Test job in CI will not run by default. It can be enabled by setting the `CI_PLATFORMS_TO_TEST` variable (e.g. 'linux,macos,windows') in the repository settings.
+This workflow is used to check the validity of dotfiles configuration continuously. It runs on every push and pull request to ensure that the configuration is valid and does not contain any errors.
 
 ### 🔄 Sync with Upstream
 
@@ -64,3 +82,9 @@ This workflow is used to sync the current repository with the upstream repositor
 It fetches the latest changes from the upstream repository and merges them into the current branch. This is useful for keeping your fork up to date with the original repository.
 
 This workflow is disabled by default and can be enabled by setting the `SYNC_UPSTREAM` variable to the target repository URL in the repository settings.
+
+## 🙏 Special thanks to
+
+References and inspirations for this repository:
+
+- [sudosubin/nixos-config](https://github.com/sudosubin/nixos-config)

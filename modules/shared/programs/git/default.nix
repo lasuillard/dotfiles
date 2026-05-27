@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   programs.git = {
     enable = true;
@@ -12,6 +12,13 @@
       };
     };
   };
+
+  home.packages = with pkgs; [
+    # Source control system: https://git-scm.com/
+    git
+    # GitHub CLI: https://cli.github.com/
+    gh
+  ];
 
   home.file = {
     ".config/git" = {

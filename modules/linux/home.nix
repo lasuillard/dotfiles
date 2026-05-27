@@ -7,6 +7,7 @@
   home.username = username;
   home.homeDirectory = "/home/${username}";
   home.packages = with pkgs; [
+    # TCP/IP swiss army knife (OpenBSD variant): https://salsa.debian.org/debian/netcat-openbsd
     netcat-openbsd
   ];
 
