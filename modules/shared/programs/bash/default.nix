@@ -1,23 +1,5 @@
 { pkgs, config, ... }:
 {
-  home.packages = with pkgs; [
-    bash-completion
-    complete-alias
-  ];
-
-  home.file = {
-    ".bash_completion.d/complete_alias".source = "${pkgs.complete-alias}/bin/complete_alias";
-    ".bin/shell" = {
-      source = ./.bin/shell;
-      recursive = true;
-    };
-    ".bashrc.d".source = ./.bashrc.d;
-  };
-
-  home.sessionPath = [
-    "${config.home.homeDirectory}/.bin/shell"
-  ];
-
   programs.bash = {
     enable = true;
     initExtra = ''
@@ -35,4 +17,19 @@
       fi
     '';
   };
+
+  home.packages = with pkgs; [
+    bash-completion
+    complete-alias
+  ];
+
+  home.file = {
+    ".bash_completion.d/complete_alias".source = "${pkgs.complete-alias}/bin/complete_alias";
+    ".bin/shell".source = ./.bin/shell;
+    ".bashrc.d".source = ./.bashrc.d;
+  };
+
+  home.sessionPath = [
+    "${config.home.homeDirectory}/.bin/shell"
+  ];
 }
