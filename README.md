@@ -30,6 +30,9 @@ Check the installation scripts for manual installation on different platforms:
 
 Code structure of the repository is organized as follows:
 
+> [!NOTE]
+> **shell.nix** file is not relevant to the dotfiles configuration and is used for development purposes only.
+
 - **lib/**:
   - **home-manager/**
     - **programs/**
