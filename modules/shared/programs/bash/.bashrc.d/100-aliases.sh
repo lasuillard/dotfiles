@@ -2,11 +2,6 @@
 
 # https://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html
 
-# Custom scripts (.bin/shell)
-alias cdd='source cdd.sh'
-alias dotfiles='dotfiles.sh'
-alias unexample='unexample.sh'
-
 # Navigation
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -28,9 +23,8 @@ alias wget='wget --continue'
 # Network
 alias ports='netstat --all --listening --numeric --tcp --udp --programs'
 
-# External utilities but do not set alias if hiding existing command
+# External utilities to set alias for
 declare -A aliases
-
 aliases=(
   [aa]='aws-annoying'
   [ans]='ansible'
@@ -65,7 +59,7 @@ aliases=(
 source ~/.bash_completion.d/complete_alias
 
 for key in "${!aliases[@]}"; do
-  # Skip if the alias is overwriting an existing command
+  # Skip if the alias is hiding an existing command
   if command -v "$key" &>/dev/null; then
     continue
   fi

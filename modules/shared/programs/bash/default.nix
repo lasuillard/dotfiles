@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   home.packages = with pkgs; [
     bash-completion
@@ -6,9 +6,17 @@
   ];
 
   home.file = {
-    ".bashrc.d".source = ./.bashrc.d;
     ".bash_completion.d/complete_alias".source = "${pkgs.complete-alias}/bin/complete_alias";
+    ".bin/shell" = {
+      source = ./.bin/shell;
+      recursive = true;
+    };
+    ".bashrc.d".source = ./.bashrc.d;
   };
+
+  home.sessionPath = [
+    "${config.home.homeDirectory}/.bin/shell"
+  ];
 
   programs.bash = {
     enable = true;

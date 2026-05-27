@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 {
   home.packages = with pkgs; [
     bind # for dnsutils
@@ -15,11 +15,6 @@
   ];
 
   home.file = {
-    ".bin/shell".source = ../../user/shared/.bin/shell;
     ".copilot".source = ../../user/shared/.copilot;
   };
-
-  home.sessionPath = [
-    "${config.home.homeDirectory}/.bin/shell"
-  ];
 }

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 : '
 Dotfiles management script.
@@ -6,7 +6,7 @@ Dotfiles management script.
 
 root_dir="$(realpath "$(dirname "$0")/../../..")"
 
-function show_logs() {
+show_logs() {
   log_dir="${root_dir}/logs"
   if [ ! -d "${log_dir}" ]; then
     echo "Log directory ${log_dir} does not exist."
@@ -15,7 +15,7 @@ function show_logs() {
   tail --lines 1000 "${log_dir}/install.log" | more
 }
 
-function update() {
+update() {
   cd "$root_dir" || exit 1
   git fetch
   echo "Updating dotfiles (${root_dir}) from repository..."
