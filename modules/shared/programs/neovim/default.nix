@@ -3,8 +3,14 @@
   programs.neovim = {
     enable = true;
     defaultEditor = true;
-    extraConfig = ''
-      set number
-    '';
+    viAlias = true;
+    vimAlias = true;
+  };
+
+  home.file = {
+    ".config/nvim" = {
+      source = ./.config/nvim;
+      recursive = true;
+    };
   };
 }
