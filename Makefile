@@ -38,6 +38,7 @@ ci: lint test integration-test nix-check ## Run CI tasks
 
 fmt:  ## Run autoformatters
 	pre-commit run --all-files shfmt
+	pre-commit run --all-files nixfmt-nix
 .PHONY: fmt
 
 lint:  ## Run all linters
