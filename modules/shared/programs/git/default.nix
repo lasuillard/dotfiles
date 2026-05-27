@@ -5,7 +5,7 @@
     includes = [
       { path = "~/.config/git/.gitconfig"; }
     ];
-    extraConfig = {
+    settings = {
       core = {
         excludesfile = "~/.config/git/.gitignore";
         attributesfile = "~/.config/git/.gitattributes";

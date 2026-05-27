@@ -2,10 +2,10 @@
   description = "Dotfiles configuration using Nix flakes and Home Manager.";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -42,7 +42,7 @@
             ./modules/linux/home.nix
             {
               home = {
-                stateVersion = "25.05";
+                stateVersion = "26.05";
               };
             }
           ];
@@ -60,7 +60,7 @@
             ./modules/macos/home.nix
             {
               home = {
-                stateVersion = "25.05";
+                stateVersion = "26.05";
               };
             }
           ];
