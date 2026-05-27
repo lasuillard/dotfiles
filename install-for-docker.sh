@@ -49,18 +49,17 @@ else
     echo "Error: Nix installation script did not create expected file ${nix_sh}. Please check the installation logs for details."
     exit 1
   fi
-
-  mkdir --parents ~/.config/nix
-  cat <<EOF >~/.config/nix/nix.conf
-experimental-features = nix-command flakes
-EOF
 fi
 
 # Verify that nix is installed and available in the PATH
 nix --version
 
 # Setup user profile with home-manager
-nix run home-manager -- \
+nix run \
+  --extra-experimental-features 'nix-command flakes' \
+  home-manager \
+  -- \
+  --extra-experimental-features 'nix-command flakes' \
   --flake \
   'path:.#linux' \
   --impure \

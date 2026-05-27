@@ -33,7 +33,11 @@ fi
 nix --version
 
 # Setup user profile with home-manager
-nix run home-manager -- \
+nix run \
+  --extra-experimental-features 'nix-command flakes' \
+  home-manager \
+  -- \
+  --extra-experimental-features 'nix-command flakes' \
   --flake \
   'path:.#linux' \
   --impure \
