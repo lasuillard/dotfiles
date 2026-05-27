@@ -15,6 +15,7 @@
     ../shared/programs/bash
     ../shared/programs/direnv
     ../shared/programs/git
+    ../shared/programs/github-copilot-cli
     ../shared/programs/starship
     ../shared/programs/tailscale
     ../shared/programs/neovim

@@ -28,9 +28,15 @@
 
     in
     {
+      home-manager.useGlobalPkgs = true;
+      home-manager.useUserPackages = true;
+
       homeConfigurations = {
         linux = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config.allowUnfree = true;
+          };
           modules = [
             ./lib/home-manager/default.nix
             ./modules/linux/home.nix
@@ -45,7 +51,10 @@
           };
         };
         macos = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+          pkgs = import nixpkgs {
+            system = "aarch64-darwin";
+            config.allowUnfree = true;
+          };
           modules = [
             ./lib/home-manager/default.nix
             ./modules/macos/home.nix
