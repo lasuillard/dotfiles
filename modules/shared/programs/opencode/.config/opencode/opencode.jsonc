@@ -3,6 +3,8 @@
   "provider": {
     "openrouter": {
       "models": {
+        // Example how to use OpenRouter Preset.
+        // The preset with name "default" may not exist and you need to ensure it exists in the dashboard.
         "@preset/default": {}
       }
     }
