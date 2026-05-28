@@ -14,6 +14,9 @@ IMPORTANT: You may be prompted for your password for sudo access if /nix directo
            if your environment does not have sudo access, you will have to ensure the /nix directory exists and has the correct permissions before running this script.
 '
 
+set -o errexit
+set -o nounset
+
 # Install nix package manager (single-user)
 if command -v nix >/dev/null 2>&1; then
   echo "Nix is already installed, skipping installation"

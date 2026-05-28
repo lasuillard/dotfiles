@@ -10,6 +10,9 @@ This script will install the Nix package manager as a multi-user configuration,
 and then use Nix to set up the user profile with home-manager.
 '
 
+set -o errexit
+set -o nounset
+
 # Install nix package manager (multi-user)
 if command -v nix >/dev/null 2>&1; then
   echo "Nix is already installed, skipping installation"
