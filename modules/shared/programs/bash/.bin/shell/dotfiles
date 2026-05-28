@@ -1,0 +1,68 @@
+#!/bin/bash
+
+# shellcheck disable=SC2016
+: '
+Dotfiles management script.
+
+$__DOTFILES_DIR variable is used to locate dotfiles directory because once dotfiles installed
+via Nix, this script loses its context (path).
+'
+
+if [ -z "$__DOTFILES_DIR" ]; then
+  # shellcheck disable=SC2016
+  echo '$__DOTFILES_DIR is required but not given.'
+fi
+
+workdir="$__DOTFILES_DIR"
+cd "$workdir" || exit 1
+
+usage() {
+  cat <<USAGE
+Usage: $0 [--help] {install|update}
+
+Global options
+  -h, --help    Show this message
+
+Subcommands:
+  install:      Install dotfiles
+  update:       Update dotfiles
+
+USAGE
+}
+
+# Global options
+while [[ $# -gt 0 ]]; do
+  case $1 in
+  -h | --help)
+    usage
+    exit 0
+    ;;
+  *)
+    break
+    ;;
+  esac
+done
+
+# Subcommands
+if [[ $# -lt 1 ]]; then
+  echo "Error: Missing subcommand." >&2
+  echo
+  usage
+  exit 1
+fi
+
+subcommand="$1"
+shift
+
+case "$subcommand" in
+install)
+  "${workdir}/install.sh"
+  ;;
+update)
+  "${workdir}/update.sh"
+  ;;
+*)
+  echo "Unknown subcommand: ${subcommand}" >&2
+  exit 1
+  ;;
+esac
