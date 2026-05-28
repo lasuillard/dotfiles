@@ -5,9 +5,17 @@
 # Navigation
 alias ..='cd ..'
 alias ...='cd ../..'
+
+function - {
+  cd "$OLDPWD" || return
+}
+
 alias cdtmp='cd "$(mktemp --directory)"'
 
 # Utilities
+alias ls='ls --color=auto'
+alias ll='ls -l --all --classify'
+
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
