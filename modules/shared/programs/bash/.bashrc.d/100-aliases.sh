@@ -52,6 +52,7 @@ aliases=(
   [ic]='istioctl'
   [K]='k9s'
   [k]='kubectl'
+  [kc]='kilocode'
   [kk]='kubectl kustomize'
   [m]='make'
   [mk]='minikube'

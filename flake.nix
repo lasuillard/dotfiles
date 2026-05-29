@@ -3,6 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -19,7 +23,9 @@
     {
       self,
       nixpkgs,
+      llm-agents,
       home-manager,
+      nix-darwin,
       ...
     }@inputs:
     let
@@ -48,6 +54,7 @@
           ];
           extraSpecialArgs = {
             username = currentUser;
+            inherit llm-agents;
           };
         };
         macos = home-manager.lib.homeManagerConfiguration {
@@ -66,6 +73,7 @@
           ];
           extraSpecialArgs = {
             username = currentUser;
+            inherit llm-agents;
           };
         };
       };
