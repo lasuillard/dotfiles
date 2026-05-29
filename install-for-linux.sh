@@ -21,11 +21,11 @@ else
   if command -v curl >/dev/null 2>&1; then
     echo "curl is available, using it to install Nix"
     curl --proto '=https' --tlsv1.2 --location https://nixos.org/nix/install |
-      sh -s --
+      sh -s -- --daemon
   elif command -v wget >/dev/null 2>&1; then
     echo "wget is available, using it to install Nix"
     wget https://nixos.org/nix/install --output-document - |
-      sh -s --
+      sh -s -- --daemon
   else
     echo "Error: Neither curl nor wget is available. Please install one of them to proceed with Nix installation."
     exit 1
