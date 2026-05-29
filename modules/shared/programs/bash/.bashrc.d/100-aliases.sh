@@ -10,11 +10,14 @@ function - {
   cd "$OLDPWD" || return
 }
 
+alias mktmp='mktemp'
 alias cdtmp='cd "$(mktemp --directory)"'
 
 # Utilities
 alias ls='ls --color=auto'
 alias ll='ls -l --all --classify'
+
+alias own='sudo chown --preserve-root --recursive --changes "$(id -u):$(id -g)"'
 
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
