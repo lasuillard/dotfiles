@@ -1,10 +1,12 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   programs.git = {
     enable = true;
     includes = [
       { path = "~/.config/git/.gitconfig"; }
     ];
+
+    # ~/.config/git/config
     settings = {
       core = {
         excludesfile = "~/.config/git/.gitignore";
@@ -25,5 +27,15 @@
       source = ./.config/git;
       recursive = true;
     };
+  };
+
+  home.activation = {
+    # Ensure writable ~/.gitconfig file exists for overrides (such as safe.workspace settings)
+    # ~/.gitconfig takes precedence over ~/.config/git/config
+    createGlobalGitConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      if [ ! -e "''${HOME}/.gitconfig" ]; then
+        touch "''${HOME}/.gitconfig"
+      fi
+    '';
   };
 }
