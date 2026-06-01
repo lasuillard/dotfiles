@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/devcontainers/base:ubuntu-24.04
+FROM mcr.microsoft.com/devcontainers/base:2.0.5-ubuntu-24.04
 
 RUN useradd --create-home --shell /bin/bash nonroot
 
