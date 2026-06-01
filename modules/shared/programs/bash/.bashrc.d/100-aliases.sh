@@ -2,6 +2,8 @@
 
 # https://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html
 
+alias cdd='source cdd.sh'
+
 # Navigation
 alias ..='cd ..'
 alias ...='cd ../..'
