@@ -16,6 +16,7 @@ alias mktmp='mktemp'
 alias cdtmp='cd "$(mktemp --directory)"'
 
 # Utilities
+alias cls='clear'
 alias ls='ls --color=auto'
 alias ll='ls -l --all --classify'
 
