@@ -32,7 +32,11 @@ if [ ! -f '.envrc' ]; then
     echo 'Creating new .envrc file'
     cat <<EOF >.envrc
 # See https://direnv.net/man/direnv-stdlib.1.html for other useful functions
-use_nix
+
+if [ ! "\$(is_devcontainer)" = "true" ]; then
+  use_nix
+fi
+
 dotenv_if_exists .env
 EOF
   fi
