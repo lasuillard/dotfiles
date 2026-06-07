@@ -29,9 +29,13 @@
       ...
     }@inputs:
     let
+      commonModules = [
+        ./lib/packages
+        ./lib/programs
+      ];
+
       # Require "--impure" to work to allow current user detection via environment variable
       currentUser = builtins.getEnv "USER";
-
     in
     {
       home-manager.useGlobalPkgs = true;
@@ -43,8 +47,7 @@
             system = "x86_64-linux";
             config.allowUnfree = true;
           };
-          modules = [
-            ./lib/home-manager/default.nix
+          modules = with commonModules; [
             ./modules/linux/home.nix
             {
               home = {
@@ -62,8 +65,7 @@
             system = "aarch64-darwin";
             config.allowUnfree = true;
           };
-          modules = [
-            ./lib/home-manager/default.nix
+          modules = with commonModules; [
             ./modules/macos/home.nix
             {
               home = {
