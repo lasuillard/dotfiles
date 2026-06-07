@@ -3,16 +3,12 @@ description: Common GitHub Actions practices.
 applyTo: '.github/workflows/*.{yaml,yml}'
 ---
 
-## About
-
-This document provides general instructions for writing GitHub Actions workflows.
-
 ## Instructions
 
-- Least privilege principle: Use the least amount of permissions necessary for the job.
-- Use descriptive names for your workflows, jobs, and steps to make their purpose clear.
-- Keep your workflows DRY (Don't Repeat Yourself) by using reusable components like actions and composite actions.
-- Use environment variables to store sensitive information and avoid hardcoding secrets in your workflows.
-- Include error handling and notifications in your workflows to catch failures early and inform the right people.
-- Pin workflow actions to specific patch-level versions, or commit hashes to ensure stability and avoid unexpected changes.
-- Always specify `timeout-minutes` for jobs to prevent them from running indefinitely.
+- Use least privilege: grant only the permissions each job needs.
+- Name workflows, jobs, and steps clearly so their purpose is obvious.
+- Keep workflows DRY by reusing actions, composite actions, or reusable workflows.
+- Store secrets in environment variables and avoid hardcoding sensitive values.
+- Add error handling and notifications to catch and surface failures quickly.
+- Pin actions to patch-level versions or commit hashes for stability.
+- Set `timeout-minutes` on jobs to prevent runaway workflows.

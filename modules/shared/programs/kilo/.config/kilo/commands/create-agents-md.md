@@ -1,14 +1,6 @@
 ---
-name: Create AGENTS.md
 description: Create a new AGENTS.md file for a project.
-agent: agent
-tools:
-    [
-        agent/runSubagent,
-        read,
-        search,
-        web
-    ]
+agent: code
 ---
 
 Create new AGENTS.md file for a project as a starter template.
