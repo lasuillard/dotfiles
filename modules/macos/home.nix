@@ -18,6 +18,7 @@
     ../shared/programs/github-copilot-cli
     ../shared/programs/kilo
     ../shared/programs/neovim
+    ../shared/programs/nix
     ../shared/programs/starship
     ../shared/programs/tailscale
     ../shared/packages.nix
