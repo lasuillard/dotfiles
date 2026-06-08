@@ -5,13 +5,13 @@ Copy files or directories with .example suffix to the same name without the suff
 if the target file/directory does not exist.
 '
 
-# Dev Container
+# Dev Container (follow project configuration)
 if [ ! -d '.devcontainer' ] && [ -d '.devcontainer.example' ]; then
   echo 'Linking .devcontainer to .devcontainer.example'
   ln --symbolic .devcontainer.example .devcontainer
 fi
 
-# VS Code
+# VS Code (follow project configuration)
 if [ ! -d '.vscode' ] && [ -d '.vscode.example' ]; then
   echo 'Linking .vscode to .vscode.example'
   ln --symbolic .vscode.example .vscode
