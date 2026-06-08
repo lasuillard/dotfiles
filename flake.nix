@@ -30,9 +30,24 @@
     }@inputs:
     let
       commonModules = [
-        ./lib/packages
         ./lib/programs
       ];
+
+      mkPkgs =
+        system:
+        let
+          pkgs = import nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+          };
+        in
+        {
+          inherit pkgs;
+          custompkgs = pkgs.callPackage ./lib/packages { };
+        };
+
+      linuxEnv = mkPkgs "x86_64-linux";
+      macosEnv = mkPkgs "aarch64-darwin";
 
       # Require "--impure" to work to allow current user detection via environment variable
       currentUser = builtins.getEnv "USER";
@@ -43,10 +58,7 @@
 
       homeConfigurations = {
         linux = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            system = "x86_64-linux";
-            config.allowUnfree = true;
-          };
+          pkgs = linuxEnv.pkgs;
           modules = with commonModules; [
             ./modules/linux/home.nix
             {
@@ -58,13 +70,11 @@
           extraSpecialArgs = {
             username = currentUser;
             inherit llm-agents;
+            custompkgs = linuxEnv.custompkgs;
           };
         };
         macos = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            system = "aarch64-darwin";
-            config.allowUnfree = true;
-          };
+          pkgs = macosEnv.pkgs;
           modules = with commonModules; [
             ./modules/macos/home.nix
             {
@@ -76,6 +86,7 @@
           extraSpecialArgs = {
             username = currentUser;
             inherit llm-agents;
+            custompkgs = macosEnv.custompkgs;
           };
         };
       };

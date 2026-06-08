@@ -1,4 +1,4 @@
-{ pkgs, custompkgs, ... }:
+{ pkgs, ... }:
 {
   # Common packages for all platforms
   home.packages = with pkgs; [
@@ -72,7 +72,5 @@
     rsync
     # Network sniffer: https://www.tcpdump.org/
     tcpdump
-    # Custom packages
-    # custompkgs.openskills
   ];
 }

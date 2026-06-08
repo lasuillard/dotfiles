@@ -13,8 +13,4 @@ let
     }) packageNames
   );
 in
-{
-  _module.args = {
-    custompkgs = customRegistry;
-  };
-}
+customRegistry
