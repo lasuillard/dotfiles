@@ -34,7 +34,7 @@ if [ ! -f '.envrc' ]; then
 # See https://direnv.net/man/direnv-stdlib.1.html for other useful functions
 
 if [ ! "\$(is_devcontainer)" = "true" ]; then
-  use_nix
+  use flake
 fi
 
 dotenv_if_exists .env
@@ -42,19 +42,41 @@ EOF
   fi
 fi
 
-# Create shell.nix for development environment management with Nix
-if [ ! -f 'shell.nix' ] && [ ! -f 'default.nix' ]; then
-  cat <<EOF >shell.nix
+# Development environment management with Nix Flakes
+# ? Previously used shell.nix (nix-shell) but changed to flake.nix
+# ? for more flexible and reproducible environment management
+if [ ! -f 'flake.nix' ]; then
+  cat <<EOF >flake.nix
 {
-  pkgs ? import <nixpkgs> { },
-}:
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+  };
 
-pkgs.mkShell {
-  packages = [
-    pkgs.git
-    pkgs.gnumake
-    pkgs.pre-commit
-  ];
+  outputs =
+    {
+      self,
+      nixpkgs,
+      flake-utils,
+    }:
+    flake-utils.lib.eachDefaultSystem (
+      system:
+      let
+        pkgs = import nixpkgs { inherit system; };
+      in
+      {
+        devShells.default = pkgs.mkShell {
+          packages = with pkgs; [
+            git
+            gnumake
+            pre-commit
+          ];
+          shellHook = ''
+
+          '';
+        };
+      }
+    );
 }
 EOF
 fi

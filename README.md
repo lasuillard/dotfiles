@@ -30,9 +30,6 @@ Check the installation scripts for manual installation on different platforms:
 
 Code structure of the repository is organized as follows:
 
-> [!NOTE]
-> **shell.nix** file is not relevant to the dotfiles configuration and is used for development purposes only.
-
 - **lib/**:
   - **home-manager/**
     - **programs/**
@@ -48,7 +45,7 @@ Code structure of the repository is organized as follows:
     - **programs/**
     - **services/**
     - **packages.nix**: Packages to be installed for all platforms
-- **flake.nix** and **flake.lock**: Nix flake configuration files
+- **flake.nix** and **flake.lock**: Nix flake configuration files for installation and development of dotfiles
 
 Quick comparison of Nix packages, programs and services:
 

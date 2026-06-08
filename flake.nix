@@ -3,10 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    llm-agents = {
-      url = "github:numtide/llm-agents.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    flake-utils.url = "github:numtide/flake-utils";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -17,22 +14,25 @@
       url = "github:nix-darwin/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Alternative packages registry
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
     {
       self,
       nixpkgs,
-      llm-agents,
+      flake-utils,
       home-manager,
       nix-darwin,
+      llm-agents,
       ...
     }@inputs:
     let
-      commonModules = [
-        ./lib/programs
-      ];
-
       mkPkgs =
         system:
         let
@@ -46,54 +46,62 @@
           custompkgs = pkgs.callPackage ./lib/packages { };
         };
 
-      linuxEnv = mkPkgs "x86_64-linux";
-      macosEnv = mkPkgs "aarch64-darwin";
+      mkHomeConfiguration =
+        system:
+        let
+          thisEnv = mkPkgs system;
+          custompkgs = thisEnv.custompkgs;
 
-      # Require "--impure" to work to allow current user detection via environment variable
-      currentUser = builtins.getEnv "USER";
+          # ! Require "--impure" to work to allow current user detection via environment variable
+          currentUser = builtins.getEnv "USER";
+          username = if currentUser == "" then "non-existing-user" else currentUser;
+        in
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = thisEnv.pkgs;
+          modules = [
+            ./lib/programs
+            (if system == "x86_64-linux" then ./modules/linux/home.nix else ./modules/macos/home.nix)
+            {
+              home = {
+                stateVersion = "26.05";
+              };
+            }
+          ];
+          extraSpecialArgs = {
+            inherit llm-agents custompkgs username;
+          };
+        };
     in
+    # For Home Manager
     {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
 
       homeConfigurations = {
-        linux = home-manager.lib.homeManagerConfiguration {
-          pkgs = linuxEnv.pkgs;
-          modules = with commonModules; [
-            ./modules/linux/home.nix
-            {
-              home = {
-                stateVersion = "26.05";
-              };
-            }
-          ];
-          extraSpecialArgs = {
-            username = currentUser;
-            inherit llm-agents;
-            custompkgs = linuxEnv.custompkgs;
-          };
-        };
-        macos = home-manager.lib.homeManagerConfiguration {
-          pkgs = macosEnv.pkgs;
-          modules = with commonModules; [
-            ./modules/macos/home.nix
-            {
-              home = {
-                stateVersion = "26.05";
-              };
-            }
-          ];
-          extraSpecialArgs = {
-            username = currentUser;
-            inherit llm-agents;
-            custompkgs = macosEnv.custompkgs;
-          };
-        };
+        linux = mkHomeConfiguration "x86_64-linux";
+        macos = mkHomeConfiguration "aarch64-darwin";
       };
 
       packages = {
         x86_64-linux.default = self.homeConfigurations.linux.activationPackage;
         aarch64-darwin.default = self.homeConfigurations.macos.activationPackage;
       };
-    };
+    }
+    # For this project tools
+    // flake-utils.lib.eachDefaultSystem (
+      system:
+      let
+        pkgs = import nixpkgs { inherit system; };
+      in
+      {
+        devShells.default = pkgs.mkShell {
+          packages = with pkgs; [
+            git
+            gnumake
+            pre-commit
+            nixfmt
+          ];
+        };
+      }
+    );
 }
