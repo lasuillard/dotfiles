@@ -12,7 +12,10 @@
   ];
 
   imports = [
+    ../shared/programs/antigravity-cli
     ../shared/programs/bash
+    ../shared/programs/claude-code
+    ../shared/programs/codex-cli
     ../shared/programs/direnv
     ../shared/programs/git
     ../shared/programs/github-copilot-cli

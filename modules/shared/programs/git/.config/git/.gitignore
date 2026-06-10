@@ -10,6 +10,7 @@ TODO
 .direnv
 
 # AI coding agents and tools
+.antigravitycli
 .kilo
 .kilocode
 skills-lock.json

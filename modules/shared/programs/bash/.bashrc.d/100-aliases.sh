@@ -43,6 +43,7 @@ aliases=(
   [aa]='aws-annoying'
   [ans]='ansible'
   [cld]='claude'
+  [cod]='codex'
   [cop]='copilot'
   [d]='docker'
   [dc]='docker compose'

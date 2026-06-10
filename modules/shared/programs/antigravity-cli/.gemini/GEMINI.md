@@ -1,7 +1,6 @@
----
-description: Common coding style and practices from https://github.com/multica-ai/andrej-karpathy-skills
-applyTo: '**'
----
+# AGENTS.md
+
+<!-- https://github.com/multica-ai/andrej-karpathy-skills -->
 
 ## 1. Think Before Coding
 
