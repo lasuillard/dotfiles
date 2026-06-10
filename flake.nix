@@ -53,8 +53,15 @@
           custompkgs = thisEnv.custompkgs;
 
           # ! Require "--impure" to work to allow current user detection via environment variable
-          currentUser = builtins.getEnv "USER";
-          username = if currentUser == "" then "non-existing-user" else currentUser;
+          envUser = builtins.getEnv "USER";
+          envUid = builtins.getEnv "UID";
+          username =
+            if envUid == "0" then
+              "root"
+            else if envUser != "" then
+              envUser
+            else
+              "non-existing-user";
         in
         home-manager.lib.homeManagerConfiguration {
           pkgs = thisEnv.pkgs;
