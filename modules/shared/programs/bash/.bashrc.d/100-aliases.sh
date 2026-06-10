@@ -54,6 +54,7 @@ aliases=(
   [gmi]='gemini'
   [h]='helm'
   [ic]='istioctl'
+  [j]='just'
   [K]='k9s'
   [k]='kubectl'
   [kc]='kilocode'

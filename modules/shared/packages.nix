@@ -50,6 +50,8 @@
     htop
     # Command-line JSON processor: https://jqlang.org/
     jq
+    # Just a command runner: https://just.systems/
+    just
     # Tool to list open files: https://github.com/lsof-org/lsof
     lsof
     # Set of tools for controlling the network subsystem in Linux: https://net-tools.sourceforge.io/
