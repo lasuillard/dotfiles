@@ -12,6 +12,15 @@ arch="$(uname -s)"
 
 cd "$project_root" || exit 1
 
+# ? In certain environments (e.g., Docker containers), $USER may not be set automatically
+# ? so we need to ensure it's set before proceeding
+# ? Maybe related: https://github.com/nix-community/home-manager/issues/3944
+if [ -z "${USER:-}" ]; then
+  echo "USER environment variable is not set, setting it to the current user: whoami: $(whoami), id: $(id)"
+  USER="$(whoami)"
+  export USER
+fi
+
 # Function to check if we're running in a Docker container by evaluating common indicators
 is_docker() {
   if grep --quiet docker /proc/1/cgroup; then
