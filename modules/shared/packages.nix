@@ -42,6 +42,8 @@
     bind
     # Command-line tool and library for transferring data with URLs: https://curl.se/
     curl
+    # Dev Container CLI: https://github.com/devcontainers/cli
+    devcontainer
     # Disk information utility: https://diskinfo-di.sourceforge.io/
     di
     # Interactive process viewer: https://htop.dev/
