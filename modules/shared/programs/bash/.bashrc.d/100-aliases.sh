@@ -20,7 +20,7 @@ alias cls='clear'
 alias ls='ls --color=auto'
 alias ll='ls -l --all --classify'
 
-alias own='sudo chown --preserve-root --recursive --changes "$(id -u):$(id -g)"'
+alias own='sudo chown --preserve-root --recursive "$(id -u):$(id -g)"'
 
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
