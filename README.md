@@ -34,22 +34,22 @@ You can update dotfiles by running the [update.sh](./update.sh) script or by run
 
 Code structure of the repository is organized as follows:
 
-- **lib/**:
-  - **home-manager/**
-    - **programs/**
-    - **services/**
-- **modules/**
-  - **linux/**: Linux-specific configurations
-    - **programs/**
-    - **services/**
-  - **macos/**: macOS-specific configurations
-    - **programs/**
-    - **services/**
-  - **shared/**: Configurations for all platforms
-    - **programs/**
-    - **services/**
-    - **packages.nix**: Packages to be installed for all platforms
-- **flake.nix** and **flake.lock**: Nix flake configuration files for installation and development of dotfiles
+- `lib/`:
+  - `home-manager/`
+    - `programs/`
+    - `services/`
+- `modules/`
+  - `linux/`: Linux-specific configurations
+    - `programs/`
+    - `services/`
+  - `macos/`: macOS-specific configurations
+    - `programs/`
+    - `services/`
+  - `shared/`: Configurations for all platforms
+    - `programs/`
+    - `services/`
+    - `packages.nix`: Packages to be installed for all platforms
+- `flake.nix` and `flake.lock`: Nix flake configuration files for installation and development of dotfiles
 
 Quick comparison of Nix packages, programs and services:
 
