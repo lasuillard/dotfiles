@@ -8,9 +8,9 @@ This repository contains my personal dotfiles for various tools and applications
 
 You can install the Nix (skipped if already installed) and set up dotfiles by running the [install.sh](./install.sh) script.
 
-### 🐋 Dev Containers (Visual Studio Code)
+### 🐋 Dev Container (Visual Studio Code)
 
-Recommended usage is to use [Dev Containers Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers). Home Manager will be automatically applied if Nix is available in the container.
+One of the most common use cases is to use dotfiles in VS Code with [Dev Containers Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers). Nix will be installed in the container and Home Manager will be automatically applied.
 
 ```json
   "dotfiles.repository": "lasuillard/dotfiles",
@@ -18,13 +18,17 @@ Recommended usage is to use [Dev Containers Extension](https://marketplace.visua
   "dotfiles.installCommand": "install-for-docker.sh",
 ```
 
-### 📋 Manual Installation
+### 📋 Manual installation
 
 Check the installation scripts for manual installation on different platforms:
 
 - [install-for-docker.sh](./install-for-docker.sh) to Install Nix (single-user) and set up dotfiles in a Docker container.
 - [install-for-linux.sh](./install-for-linux.sh) to Install Nix (multi-user) and set up dotfiles on a Linux system.
 - [install-for-macos.sh](./install-for-macos.sh) to Install Nix (multi-user) and set up dotfiles on a macOS system.
+
+### 🔄 Updating dotfiles
+
+You can update dotfiles by running the [update.sh](./update.sh) script or by running `dotfiles update` ([source](./modules/shared/programs/bash/.bin/shell/dotfiles)), a tiny wrapper around dotfiles management scripts. `dotfiles` is installed when you first install dotfiles.
 
 ## 🪾 Key directory structure
 
@@ -55,7 +59,7 @@ Quick comparison of Nix packages, programs and services:
 | **Programs** | User-level configurations for specific programs (e.g. Git, Tailscale)               |
 | **Services** | System-level services that run in the background (e.g. SSH agent, Tailscale daemon) |
 
-## 🆕 Creating a new profile
+## ⚙️ Creating a new profile
 
 To create a new profile, you can fork this repository and make changes to the files as needed. You can also create a new repository and use this repository as a template.
 
@@ -65,9 +69,9 @@ Follow the steps below to create a new profile (clone and push to a new reposito
 2. Create a new GitHub repository for your profile
 3. Make changes (e.g. SSH public key for commit signing) to the files in the repository as needed
 4. Push the changes to your new repository
-5. To sync with the upstream repository automatically, see [🔄 Sync with Upstream](#-sync-with-upstream) section below.
+5. To sync with the upstream repository automatically, see [🔃 Sync with Upstream](#-sync-with-upstream) section below.
 
-## ⚙️ Workflows
+## 🤖 Automation
 
 There are several GitHub Actions workflows defined in this repository to automate various tasks. Below is a brief description of each workflow:
 
@@ -75,7 +79,7 @@ There are several GitHub Actions workflows defined in this repository to automat
 
 This workflow is used to check the validity of dotfiles configuration continuously. It runs on every push and pull request to ensure that the configuration is valid and does not contain any errors.
 
-### 🔄 Sync with Upstream
+### 🔃 Sync with Upstream
 
 This workflow is used to sync the current repository with the upstream repository.
 
