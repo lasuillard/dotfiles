@@ -67,12 +67,11 @@ if [ ! -f 'flake.nix' ]; then
       {
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
-            git
-            gnumake
             pre-commit
+            just
           ];
           shellHook = ''
-
+            pre-commit install
           '';
         };
       }

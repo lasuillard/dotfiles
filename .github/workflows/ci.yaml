@@ -24,12 +24,9 @@ jobs:
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
 
-      - name: Run pre-commit hooks
-        uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # v3.0.1
-
-      - name: Auto-fix and commit changes
-        uses: pre-commit-ci/lite-action@5d6cc0eb514c891a40562a58a8e71576c5c7fb43 # v1.1.0
-        if: always()
+      - name: Lint shell scripts
+        run: |
+          git ls-files '*.sh' | xargs nix develop --command shellcheck
 
   nix-check:
     name: Nix Check

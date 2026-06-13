@@ -1,27 +1,30 @@
-default_stages: [pre-commit]
 fail_fast: true
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
+    rev: v6.0.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
 
-  - repo: https://github.com/scop/pre-commit-shfmt
-    rev: v3.10.0-2
+  - repo: local
     hooks:
       - id: shfmt
+        name: shfmt
+        language: system
+        types: [shell]
+        exclude_types: [csh, tcsh]
+        entry: shfmt
+        args: [--write]
 
-  - repo: https://github.com/NixOS/nixfmt
-    rev: v1.2.0
-    hooks:
-      - id: nixfmt-nix
+      - id: nixfmt
+        name: nixfmt
+        language: system
+        types: [nix]
+        entry: nixfmt
 
-  - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: v0.10.0.1
-    hooks:
       - id: shellcheck
-
-ci:
-  autofix_prs: true
-  autoupdate_schedule: quarterly
+        name: shellcheck
+        language: system
+        types: [shell]
+        require_serial: true
+        entry: shellcheck

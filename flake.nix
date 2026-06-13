@@ -54,14 +54,7 @@
 
           # ! Require "--impure" to work to allow current user detection via environment variable
           envUser = builtins.getEnv "USER";
-          envUid = builtins.getEnv "UID";
-          username =
-            if envUid == "0" then
-              "root"
-            else if envUser != "" then
-              envUser
-            else
-              "non-existing-user";
+          username = if envUser != "" then envUser else "non-existing-user";
         in
         home-manager.lib.homeManagerConfiguration {
           pkgs = thisEnv.pkgs;
@@ -104,11 +97,16 @@
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             git
-            gnumake
             pre-commit
+            just
             nixfmt
+            shfmt
+            shellcheck
           ];
         };
+        shellHook = ''
+          pre-commit install
+        '';
       }
     );
 }
