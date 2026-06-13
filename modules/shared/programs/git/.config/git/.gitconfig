@@ -89,6 +89,9 @@
     insteadOf = https://github.com/
 
 [alias]
+    # List all aliases
+    aliases = config --get-regexp ^alias
+
     # Show verbose output about tags, branches or remotes
     tags = tag -l
     branches = branch -a
@@ -113,7 +116,7 @@
     graph = log --graph --color --pretty=format:"%C(yellow)%H%C(green)%d%C(reset)%n%x20%cd%n%x20%cn%x20(%ce)%n%x20%s%n"
 
     # Remove local branches that have been deleted on the remote
-    prune-branches = "!f() { git fetch --prune; git branch -vv | awk '/: gone]/{print $1}' | xargs --no-run-if-empty git branch -D; }; f"
+    prune-branches = "!f() { git fetch --prune; git branch -vv | awk '/: gone]/{print $1}' | xargs --no-run-if-empty git branch --delete --force; }; f"
     pb = prune-branches
 
     # Create empty commit
@@ -122,5 +125,3 @@
     # Simple aliases
     ch = checkout
     cm = commit
-
-    aliases = config --get-regexp ^alias
