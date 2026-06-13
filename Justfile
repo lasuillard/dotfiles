@@ -38,7 +38,7 @@ nix-build-linux:
 nix-build-macos:
     nix build --impure '.#homeConfigurations.macos.activationPackage'
 
-# Run ephemeral Docker container with dotfiles installed
+# Run ephemeral Docker container with dotfiles copy in it for testing
 docker-sh:
     cd test/docker && docker compose run --build -it --rm workspace bash
 

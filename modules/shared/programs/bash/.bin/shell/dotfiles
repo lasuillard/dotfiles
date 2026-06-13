@@ -56,10 +56,10 @@ shift
 
 case "$subcommand" in
 install)
-  "${workdir}/install.sh"
+  "${workdir}/scripts/install.sh"
   ;;
 update)
-  "${workdir}/update.sh"
+  "${workdir}/scripts/update.sh"
   ;;
 *)
   echo "Unknown subcommand: ${subcommand}" >&2

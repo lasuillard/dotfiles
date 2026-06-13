@@ -7,7 +7,7 @@ Dotfiles installation script with auto-detection of the operating system. Then i
 set -o errexit
 set -o nounset
 
-project_root="$(dirname "$0")"
+project_root="$(git rev-parse --show-toplevel)"
 arch="$(uname -s)"
 
 cd "$project_root" || exit 1
@@ -37,7 +37,7 @@ is_docker() {
 # Check if we're running in a Docker container
 if [ "$(is_docker)" = "true" ]; then
   echo "Detected Docker environment, running Docker-specific installation script"
-  sh "${project_root}/install-for-docker.sh"
+  sh "${project_root}/scripts/install-for-docker.sh"
   exit 0
 fi
 
@@ -45,12 +45,12 @@ fi
 case "$arch" in
 Linux*)
   echo "Detected Linux OS, running Linux-specific installation script"
-  sh "${project_root}/install-for-linux.sh"
+  sh "${project_root}/scripts/install-for-linux.sh"
   exit 0
   ;;
 Darwin*)
   echo "Detected macOS, running macOS-specific installation script"
-  sh "${project_root}/install-for-macos.sh"
+  sh "${project_root}/scripts/install-for-macos.sh"
   exit 0
   ;;
 *)

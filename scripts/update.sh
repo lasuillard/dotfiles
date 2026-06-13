@@ -7,7 +7,7 @@ Update dotfiles.
 set -o errexit
 set -o nounset
 
-project_root="$(dirname "$0")"
+project_root="$(git rev-parse --show-toplevel)"
 
 cd "$project_root" || exit 1
 
@@ -24,4 +24,4 @@ fi
 
 echo "Updating dotfiles (${project_root}) from repository..."
 git pull --rebase
-./install.sh
+sh "${project_root}/scripts/install.sh"

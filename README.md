@@ -6,7 +6,7 @@ This repository contains my personal dotfiles for various tools and applications
 
 ## 🛠️ Installing dotfiles
 
-You can install the Nix (skipped if already installed) and set up dotfiles by running the [install.sh](./install.sh) script.
+You can install the Nix (skipped if already installed) and set up dotfiles by running the [install.sh](./scripts/install.sh) script (or [install](./install), which is a symlink to `install.sh`).
 
 ### 🐋 Dev Container (Visual Studio Code)
 
@@ -15,20 +15,20 @@ One of the most common use cases is to use dotfiles in VS Code with [Dev Contain
 ```json
   "dotfiles.repository": "lasuillard/dotfiles",
   "dotfiles.targetPath": "~/dotfiles",
-  "dotfiles.installCommand": "install-for-docker.sh",
+  "dotfiles.installCommand": "install",
 ```
 
 ### 📋 Manual installation
 
 Check the installation scripts for manual installation on different platforms:
 
-- [install-for-docker.sh](./install-for-docker.sh) to Install Nix (single-user) and set up dotfiles in a Docker container.
-- [install-for-linux.sh](./install-for-linux.sh) to Install Nix (multi-user) and set up dotfiles on a Linux system.
-- [install-for-macos.sh](./install-for-macos.sh) to Install Nix (multi-user) and set up dotfiles on a macOS system.
+- [install-for-docker.sh](./scripts/install-for-docker.sh) to Install Nix (single-user) and set up dotfiles in a Docker container.
+- [install-for-linux.sh](./scripts/install-for-linux.sh) to Install Nix (multi-user) and set up dotfiles on a Linux system.
+- [install-for-macos.sh](./scripts/install-for-macos.sh) to Install Nix (multi-user) and set up dotfiles on a macOS system.
 
 ### 🔄 Updating dotfiles
 
-You can update dotfiles by running the [update.sh](./update.sh) script or by running `dotfiles update` ([source](./modules/shared/programs/bash/.bin/shell/dotfiles)), a tiny wrapper around dotfiles management scripts. `dotfiles` is installed when you first install dotfiles.
+You can update dotfiles by running the [update.sh](./scripts/update.sh) script or by running `dotfiles update` ([source](./modules/shared/programs/bash/.bin/shell/dotfiles)), a tiny wrapper around dotfiles management scripts. `dotfiles` is installed when you first install dotfiles.
 
 ## 🪾 Key directory structure
 
@@ -49,7 +49,9 @@ Code structure of the repository is organized as follows:
     - `programs/`
     - `services/`
     - `packages.nix`: Packages to be installed for all platforms
+- `scripts/`: Scripts for dotfiles management
 - `flake.nix` and `flake.lock`: Nix flake configuration files for installation and development of dotfiles
+- `install`: Script to install dotfiles, symlinked to `scripts/install.sh`
 
 Quick comparison of Nix packages, programs and services:
 
