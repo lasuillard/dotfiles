@@ -30,37 +30,6 @@ Check the installation scripts for manual installation on different platforms:
 
 You can update dotfiles by running the [update.sh](./scripts/update.sh) script or by running `dotfiles update` ([source](./modules/shared/programs/bash/.bin/shell/dotfiles)), a tiny wrapper around dotfiles management scripts. `dotfiles` is installed when you first install dotfiles.
 
-## 🪾 Key directory structure
-
-Code structure of the repository is organized as follows:
-
-- `lib/`:
-  - `home-manager/`
-    - `programs/`
-    - `services/`
-- `modules/`
-  - `linux/`: Linux-specific configurations
-    - `programs/`
-    - `services/`
-  - `macos/`: macOS-specific configurations
-    - `programs/`
-    - `services/`
-  - `shared/`: Configurations for all platforms
-    - `programs/`
-    - `services/`
-    - `packages.nix`: Packages to be installed for all platforms
-- `scripts/`: Scripts for dotfiles management
-- `flake.nix` and `flake.lock`: Nix flake configuration files for installation and development of dotfiles
-- `install`: Script to install dotfiles, symlinked to `scripts/install.sh`
-
-Quick comparison of Nix packages, programs and services:
-
-| Type         | Description                                                                         |
-| ------------ | ----------------------------------------------------------------------------------- |
-| **Packages** | Software packages to be installed on the system (e.g. `git`, `curl`, `vim`)         |
-| **Programs** | User-level configurations for specific programs (e.g. Git, Tailscale)               |
-| **Services** | System-level services that run in the background (e.g. SSH agent, Tailscale daemon) |
-
 ## ⚙️ Creating a new profile
 
 To create a new profile, you can fork this repository and make changes to the files as needed. You can also create a new repository and use this repository as a template.
@@ -88,6 +57,10 @@ This workflow is used to sync the current repository with the upstream repositor
 It fetches the latest changes from the upstream repository and merges them into the current branch. This is useful for keeping your fork up to date with the original repository.
 
 This workflow is disabled by default and can be enabled by setting the `SYNC_UPSTREAM` variable to the target repository URL in the repository settings.
+
+## 🧑‍💻 Development
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) file for development instructions.
 
 ## 🙏 Special thanks to
 
