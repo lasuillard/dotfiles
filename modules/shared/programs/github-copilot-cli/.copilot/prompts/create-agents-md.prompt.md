@@ -1,6 +1,6 @@
 ---
 name: Create AGENTS.md
-description: Create a new AGENTS.md file for a project.
+description: Create or update an AGENTS.md file for project-scoped AI instructions.
 agent: agent
 tools:
     [
@@ -11,11 +11,15 @@ tools:
     ]
 ---
 
-Create new AGENTS.md file for a project as a starter template.
+Create a new `AGENTS.md` file for a project to provide instructions for AI coding agents.
 
 ## Instructions
 
-Use below example as a reference and include sections for build/test commands, definition of done, guidelines for writing and reviewing code, and instructions for when blocked. Make sure to cover all essential aspects of the development workflow in the AGENTS.md file.
+You should include sections for build/test commands, definition of done, guidelines for writing and reviewing code, and instructions for when blocked. Make sure to cover all essential aspects of the development workflow in the `AGENTS.md` file.
+
+## Example
+
+Use the example below as a reference.
 
 ```markdown
 # Project Instructions
@@ -31,7 +35,7 @@ Use below example as a reference and include sections for build/test commands, d
 
 ## Definition of Done
 
-A task is complete when ALL of the following pass:
+A task is complete when ALL of the following passes:
 
 1. `ruff check .` exits 0
 2. `pytest -v` exits 0 with no failures
@@ -44,6 +48,7 @@ A task is complete when ALL of the following pass:
 - Run `ruff check .` after every file change
 - Add type hints to all new functions
 - Test command: `pytest tests/ -v -k "test_<module>"`
+- Format code once after all tasks are complete: `ruff format .`
 
 ## When Reviewing Code
 
@@ -60,5 +65,7 @@ A task is complete when ALL of the following pass:
 Update the file with any project-specific details or commands as needed based on your project's codebase and structure.
 
 ## External Resources
+
+For additional context, refer to these external resources
 
 - https://blakecrosley.com/ko/blog/agents-md-patterns

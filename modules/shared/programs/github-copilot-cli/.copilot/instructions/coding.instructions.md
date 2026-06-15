@@ -1,6 +1,6 @@
 ---
 description: Common coding style and practices from https://github.com/multica-ai/andrej-karpathy-skills
-applyTo: '**'
+applyTo: '**', '!**/*.{md,rst}'
 ---
 
 ## 1. Think Before Coding
