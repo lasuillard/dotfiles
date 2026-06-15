@@ -29,7 +29,8 @@ This project uses the following tech stack:
     - `services/`
     - `packages.nix`: Packages to be installed for all platforms
 - `scripts/`: Scripts for dotfiles management
-- `flake.nix` and `flake.lock`: Nix flake configuration files for installation and development of dotfiles
+- `test/`: Tests for dotfiles installation
+- `flake.nix`: Nix flake configuration files for installation and development of dotfiles
 - `install`: Script to install dotfiles, symlinked to `scripts/install.sh`
 - `Justfile`: Commands for development
 
@@ -51,7 +52,7 @@ This repository uses [Nix Flakes](https://nix.dev/concepts/flakes.html) to manag
 
 - `git`
 - `pre-commit`
-- [Just](https://just.systems/) (`just`)
+- `just`
 - `nixfmt`
 - `shellcheck`
 - `shfmt`
