@@ -2,15 +2,15 @@
 
 My personal dotfiles.
 
-This repository contains my personal dotfiles for various tools and applications that I use. These dotfiles are managed using [Nix](https://nixos.org/), [Flakes](https://wiki.nixos.org/wiki/Flakes) and [Home Manager](https://github.com/nix-community/home-manager).
+This repository contains personal dotfiles for various tools and applications. These dotfiles are managed using [Nix](https://nixos.org/), [Flakes](https://wiki.nixos.org/wiki/Flakes) and [Home Manager](https://github.com/nix-community/home-manager).
 
 ## 🛠️ Installing dotfiles
 
-You can install the Nix (skipped if already installed) and set up dotfiles by running the [install.sh](./scripts/install.sh) script (or [install](./install), which is a symlink to `install.sh`).
+You can install Nix (if it is not already installed) and set up dotfiles by running the [install.sh](./scripts/install.sh) script (or [install](./install), which is a symlink to `install.sh`).
 
 ### 🐋 Dev Container (Visual Studio Code)
 
-One of the most common use cases is to use dotfiles in VS Code with [Dev Containers Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers). Nix will be installed in the container and Home Manager will be automatically applied.
+One common use case is using dotfiles in VS Code with [Dev Containers Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers). Nix will be installed in the container and Home Manager will be automatically applied.
 
 ```json
   "dotfiles.repository": "lasuillard/dotfiles",
@@ -22,13 +22,13 @@ One of the most common use cases is to use dotfiles in VS Code with [Dev Contain
 
 Check the installation scripts for manual installation on different platforms:
 
-- [install-for-docker.sh](./scripts/install-for-docker.sh) to Install Nix (single-user) and set up dotfiles in a Docker container.
-- [install-for-linux.sh](./scripts/install-for-linux.sh) to Install Nix (multi-user) and set up dotfiles on a Linux system.
-- [install-for-macos.sh](./scripts/install-for-macos.sh) to Install Nix (multi-user) and set up dotfiles on a macOS system.
+- [install-for-docker.sh](./scripts/install-for-docker.sh) to install Nix (single-user) and set up dotfiles in a Docker container.
+- [install-for-linux.sh](./scripts/install-for-linux.sh) to install Nix (multi-user) and set up dotfiles on a Linux system.
+- [install-for-macos.sh](./scripts/install-for-macos.sh) to install Nix (multi-user) and set up dotfiles on a macOS system.
 
 ### 🔄 Updating dotfiles
 
-You can update dotfiles by running the [update.sh](./scripts/update.sh) script or by running `dotfiles update` ([source](./modules/shared/programs/bash/.bin/shell/dotfiles)), a tiny wrapper around dotfiles management scripts. `dotfiles` is installed when you first install dotfiles.
+You can update dotfiles by running the [update.sh](./scripts/update.sh) script or `dotfiles update` ([source](./modules/shared/programs/bash/.bin/shell/dotfiles)), a tiny wrapper around the management scripts. The `dotfiles` command is installed when you first install them.
 
 ## ⚙️ Creating a new profile
 
@@ -52,7 +52,7 @@ This workflow is used to check the validity of dotfiles configuration continuous
 
 ### 🔃 Sync with Upstream
 
-This workflow is used to sync the current repository with the upstream repository.
+This workflow syncs the repository with upstream.
 
 It fetches the latest changes from the upstream repository and merges them into the current branch. This is useful for keeping your fork up to date with the original repository.
 
@@ -60,10 +60,10 @@ This workflow is disabled by default and can be enabled by setting the `SYNC_UPS
 
 ## 🧑‍💻 Development
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) file for development instructions.
+See the [CONTRIBUTING.md](./CONTRIBUTING.md) file for development instructions.
 
 ## 🙏 Special thanks to
 
-References and inspirations for this repository:
+References and inspiration for this repository:
 
 - [sudosubin/nixos-config](https://github.com/sudosubin/nixos-config)
