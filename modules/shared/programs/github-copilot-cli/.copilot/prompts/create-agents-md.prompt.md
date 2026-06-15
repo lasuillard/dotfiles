@@ -15,16 +15,26 @@ Create a new `AGENTS.md` file for a project to provide instructions for AI codin
 
 ## Instructions
 
-You should include sections for build/test commands, definition of done, guidelines for writing and reviewing code, and instructions for when blocked. Make sure to cover all essential aspects of the development workflow in the `AGENTS.md` file.
+1. Read project documentation files such as `README.md`, `CONTRIBUTING.md`, `docs/` to understand the project.
+1. If you do need additional context, scan for codebase.
+1. Write `AGENTS.md` file with the following sections:
+
+    - Build and test commands
+    - Definition of done
+    - When writing code
+    - When reviewing code
+    - When blocked
+
+Refer to the below example to see how the `AGENTS.md` file should look like.
 
 ## Example
 
 Use the example below as a reference.
 
 ```markdown
-# Project Instructions
+# AGENTS.md
 
-## Build and Test Commands
+## Build and test commands
 
 - Install: `pip install -r requirements.txt`
 - Lint: `ruff check . --fix`
@@ -33,7 +43,7 @@ Use the example below as a reference.
 - Type check: `mypy app/ --strict`
 - Full verify: `ruff check . && ruff format --check . && pytest -v`
 
-## Definition of Done
+## Definition of done
 
 A task is complete when ALL of the following passes:
 
@@ -43,19 +53,19 @@ A task is complete when ALL of the following passes:
 4. Changed files have been staged and committed
 5. Commit message follows: `type(scope): description`
 
-## When Writing Code
+## When writing code
 
 - Run `ruff check .` after every file change
 - Add type hints to all new functions
 - Test command: `pytest tests/ -v -k "test_<module>"`
 - Format code once after all tasks are complete: `ruff format .`
 
-## When Reviewing Code
+## When reviewing code
 
 - Check for security issues: `bandit -r app/`
 - Verify test coverage: `pytest --cov=app --cov-fail-under=80`
 
-## When Blocked
+## When blocked
 
 - If tests fail after 3 attempts: stop and report the failing test with full output
 - If a dependency is missing: check `requirements.txt` first, then ask
