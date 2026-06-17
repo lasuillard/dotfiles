@@ -11,8 +11,6 @@ This project uses the following tech stack:
 
 ## 📂 Key directory structure
 
-- `.devcontainer.example/`: Development environment configuration
-- `.vscode.example/`: Project-specific VS Code configuration example
 - `lib/`:
   - `home-manager/`
     - `programs/`
