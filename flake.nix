@@ -94,19 +94,23 @@
         pkgs = import nixpkgs { inherit system; };
       in
       {
-        devShells.default = pkgs.mkShell {
-          packages = with pkgs; [
+        packages = {
+          inherit (pkgs)
             git
             pre-commit
             just
             nixfmt
             shfmt
             shellcheck
-          ];
+            ;
         };
-        shellHook = ''
-          pre-commit install
-        '';
+
+        devShells.default = pkgs.mkShell {
+          packages = builtins.attrValues self.packages.${system};
+          shellHook = ''
+            pre-commit install
+          '';
+        };
       }
     );
 }
