@@ -27,19 +27,19 @@ jobs:
       - name: Check formatting of Nix files
         run: |
           git ls-files '*.nix' \
-            | tee /dev/tty \
+            | tee /dev/stderr \
             | xargs nix run .#nixfmt -- --check
 
       - name: Check formatting of shell scripts
         run: |
           git ls-files '*.sh' \
-            | tee /dev/tty \
+            | tee /dev/stderr \
             | xargs nix run .#shfmt -- --diff
 
       - name: Lint shell scripts
         run: |
           git ls-files '*.sh' \
-            | tee /dev/tty \
+            | tee /dev/stderr \
             | xargs nix run .#shellcheck --
 
   nix-check:
