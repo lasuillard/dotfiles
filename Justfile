@@ -14,14 +14,6 @@ alias up := update
 # Development
 # =============================================================================
 
-# Build Linux activation packages
-nix-build-linux:
-    nix build --impure '.#homeConfigurations.linux.activationPackage'
-
-# Build macOS activation packages
-nix-build-macos:
-    nix build --impure '.#homeConfigurations.macos.activationPackage'
-
 # Run all checks
 ci: lint
 
@@ -36,13 +28,21 @@ alias fmt := format
 lint:
     git ls-files --cached --others --exclude-standard '*.sh' | xargs shellcheck
 
-# =============================================================================
-# Utility
-# =============================================================================
+# Build Linux activation packages
+nix-build-linux:
+    nix build --impure '.#homeConfigurations.linux.activationPackage'
+
+# Build macOS activation packages
+nix-build-macos:
+    nix build --impure '.#homeConfigurations.macos.activationPackage'
 
 # Run ephemeral Docker container with dotfiles copy in it for testing
 docker-sh:
     cd test/docker && docker compose run --build -it --rm workspace bash
+
+# =============================================================================
+# Utility
+# =============================================================================
 
 # Remove temporary files
 clean:
