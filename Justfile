@@ -19,14 +19,20 @@ ci: lint
 
 # Autoformat code
 format:
-    shfmt --write --list .
-    git ls-files --cached --others --exclude-standard '*.nix' | xargs nixfmt
+    git ls-files --cached --others --exclude-standard '*.sh' \
+        | tee /dev/tty \
+        | xargs shfmt --write
+    git ls-files --cached --others --exclude-standard '*.nix' \
+        | tee /dev/tty \
+        | xargs nixfmt
 
 alias fmt := format
 
 # Run all linters
 lint:
-    git ls-files --cached --others --exclude-standard '*.sh' | xargs shellcheck
+    git ls-files --cached --others --exclude-standard '*.sh' \
+        | tee /dev/tty \
+        | xargs shellcheck
 
 # Build Linux activation packages
 nix-build-linux:

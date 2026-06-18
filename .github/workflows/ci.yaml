@@ -26,7 +26,9 @@ jobs:
 
       - name: Lint shell scripts
         run: |
-          git ls-files '*.sh' | xargs nix develop --command shellcheck
+          git ls-files '*.sh' \
+            | tee /dev/tty \
+            | xargs nix develop --command shellcheck
 
   nix-check:
     name: Nix Check
