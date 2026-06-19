@@ -65,11 +65,15 @@ if [ ! -f 'flake.nix' ]; then
         pkgs = import nixpkgs { inherit system; };
       in
       {
-        devShells.default = pkgs.mkShell {
-          packages = with pkgs; [
+        packages = {
+          inherit (pkgs)
             pre-commit
             just
-          ];
+            ;
+        };
+
+        devShells.default = pkgs.mkShell {
+          packages = builtins.attrValues self.packages.\${system};
           shellHook = ''
             pre-commit install
           '';
