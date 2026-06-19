@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+# shellcheck shell=bash
 
 # https://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html
 

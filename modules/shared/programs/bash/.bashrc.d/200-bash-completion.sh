@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+# shellcheck shell=bash
 
 if [ -f /etc/bash_completion ]; then
   # shellcheck source=/dev/null

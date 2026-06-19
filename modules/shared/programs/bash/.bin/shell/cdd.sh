@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+# shellcheck shell=sh
 
 : '
 Move to the directory of the given file.
