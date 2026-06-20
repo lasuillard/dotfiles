@@ -24,17 +24,17 @@ jobs:
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
 
-      - name: Check formatting of Nix files
-        run: |
-          git ls-files '*.nix' \
-            | tee /dev/stderr \
-            | xargs nix run .#nixfmt -- --check
-
       - name: Check formatting of shell scripts
         run: |
           git ls-files '*.sh' \
             | tee /dev/stderr \
             | xargs nix run .#shfmt -- --diff
+
+      - name: Check formatting of Nix files
+        run: |
+          git ls-files '*.nix' \
+            | tee /dev/stderr \
+            | xargs nix run .#nixfmt -- --check
 
       - name: Lint shell scripts
         run: |
