@@ -15,7 +15,7 @@ alias up := update
 # =============================================================================
 
 # Run all checks
-ci: (format "yes") lint
+ci: (format "yes") lint nix-build-linux
 
 # Autoformat code
 [arg("check", long="check", value="yes")]
