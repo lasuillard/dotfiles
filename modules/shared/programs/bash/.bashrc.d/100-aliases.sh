@@ -53,6 +53,7 @@ aliases=(
   [gc]='gcloud'
   [gmi]='gemini'
   [h]='helm'
+  [hist]='history'
   [ic]='istioctl'
   [j]='just'
   [K]='k9s'
