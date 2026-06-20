@@ -74,6 +74,8 @@
     ripgrep
     # Fast incremental file transfer utility: https://rsync.samba.org/
     rsync
+    # Rust
+    rustup
     # Network sniffer: https://www.tcpdump.org/
     tcpdump
   ];
