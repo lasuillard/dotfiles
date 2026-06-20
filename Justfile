@@ -15,16 +15,16 @@ alias up := update
 # =============================================================================
 
 # Run all checks
-ci: lint
+ci: (format "yes") lint
 
 # Autoformat code
-format:
+[arg("check", long="check", value="yes")]
+format check="no":
     git ls-files --cached --others --exclude-standard '*.sh' \
-        | tee /dev/tty \
-        | xargs shfmt --write
+        | xargs shfmt {{ if check == "yes" { "--list" } else { "--list --write" } }}
     git ls-files --cached --others --exclude-standard '*.nix' \
         | tee /dev/tty \
-        | xargs nixfmt
+        | xargs nixfmt {{ if check == "yes" { "--check" } else { "" } }}
 
 alias fmt := format
 
