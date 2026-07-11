@@ -97,8 +97,14 @@
     branches = branch -a
     remotes = remote -v
 
+    # Amend the latest commit message
+    amend = commit --amend
+
     # Amend the currently staged files to the latest commit
-    amend = commit --amend --reuse-message=HEAD
+    append = commit --amend --reuse-message=HEAD
+
+    # Create empty commit with no changes
+    comment = commit --allow-empty
 
     # View abbreviated SHA, description, and history graph of the latest 10 commits
     l = log --pretty=oneline -n 10 --graph --abbrev-commit
@@ -119,9 +125,7 @@
     prune-branches = "!f() { git fetch --prune; git branch -vv | awk '/: gone]/{print $1}' | xargs --no-run-if-empty git branch --delete --force; }; f"
     pb = prune-branches
 
-    # Create empty commit
-    comment = commit --allow-empty
-
     # Simple aliases
     ch = checkout
     cm = commit
+    ss = stash
