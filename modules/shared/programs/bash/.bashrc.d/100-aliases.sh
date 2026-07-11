@@ -2,18 +2,41 @@
 
 # https://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html
 
+# Change directory to the parent directory of the given path
 alias cdd='source cdd.sh'
 
 # Navigation
 alias ..='cd ..'
 alias ...='cd ../..'
 
+# Go back
 function - {
   cd "$OLDPWD" || return
 }
 
+# Temporary context
 alias mktmp='mktemp'
 alias cdtmp='cd "$(mktemp --directory)"'
+
+# List environment variables in sorted order (uppercase first, underscore then lowercase at last)
+function _env() {
+  if [ $# -eq 0 ]; then
+    command env -0 "$@" | LC_ALL=C sort --zero-terminated | tr '\0' '\n'
+  else
+    command env "$@"
+  fi
+}
+alias env='_env'
+
+# Show environment variables but only uppercase keys
+function _ENV() {
+  if [ $# -eq 0 ]; then
+    _env "$@" | grep --extended-regexp --color=never '^([A-Z_]+)='
+  else
+    command env "$@"
+  fi
+}
+alias ENV="_ENV"
 
 # Utilities
 alias cls='clear'
