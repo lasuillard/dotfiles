@@ -18,7 +18,7 @@ let
       hash = "sha256:224ea5d829fd05bd6e31f51aec912ff8126bd87b85f0102a25cefdcc8078c9e2";
     };
     "aarch64-darwin" = {
-      url = "https://github.com/satococoa/wtp/releases/download/v${version}/wtp_${version}_Darwin_x86_64.tar.gz";
+      url = "https://github.com/satococoa/wtp/releases/download/v${version}/wtp_${version}_Darwin_arm64.tar.gz";
       hash = "sha256:8a60b52bf5aae55633283cf5a441fe9284084c0b0061f79d598a79cd62f2e1a6";
     };
   };
