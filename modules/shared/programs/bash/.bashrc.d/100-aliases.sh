@@ -4,6 +4,7 @@
 
 # Change directory to the parent directory of the given path
 alias cdd='source cdd.sh'
+alias dotfiles='dotfiles.sh'
 alias example='example.sh'
 
 # Navigation
