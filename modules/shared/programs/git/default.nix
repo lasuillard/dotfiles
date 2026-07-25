@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  custompkgs,
+  lib,
+  ...
+}:
 {
   programs.git = {
     enable = true;
@@ -20,6 +25,8 @@
     git
     # GitHub CLI: https://cli.github.com/
     gh
+    # Git worktree manager: https://github.com/satococoa/wtp
+    custompkgs.wtp
   ];
 
   home.file = {

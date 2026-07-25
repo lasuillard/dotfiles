@@ -2,12 +2,8 @@ TODO
 .pnpm-store
 **/*.log
 
-# Sensitive files
-.env
-.envrc
-
-# nix-direnv
-.direnv
+# Project management tools
+.wtp.yml
 
 # AI coding agents and tools
 .antigravitycli
@@ -15,8 +11,8 @@ TODO
 .kilocode
 skills-lock.json
 
-# Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,linux,macos,windows,powershell,database
-# Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode,linux,macos,windows,powershell,database
+# Created by https://www.toptal.com/developers/gitignore/api/linux,macos,windows,database,powershell,visualstudiocode,dotenv,direnv
+# Edit at https://www.toptal.com/developers/gitignore?templates=linux,macos,windows,database,powershell,visualstudiocode,dotenv,direnv
 
 ### Database ###
 *.accdb
@@ -27,6 +23,13 @@ skills-lock.json
 *.sqlite3
 *.db-shm
 *.db-wal
+
+### direnv ###
+.direnv
+.envrc
+
+### dotenv ###
+.env
 
 ### Linux ###
 *~
@@ -128,4 +131,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,linux,macos,windows,powershell,database
+# End of https://www.toptal.com/developers/gitignore/api/linux,macos,windows,database,powershell,visualstudiocode,dotenv,direnv
