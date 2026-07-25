@@ -88,6 +88,7 @@ EOF
   # ? Previously used shell.nix (nix-shell) but changed to flake.nix
   # ? for more flexible and reproducible environment management
   if [ ! -f 'flake.nix' ]; then
+    echo 'Creating new flake.nix file'
     cat <<EOF >flake.nix
 {
   inputs = {
@@ -124,6 +125,19 @@ EOF
     );
 }
 EOF
+  fi
+
+  # Git worktree manager
+  if [ ! -f '.wtp.yml' ]; then
+    echo 'Creating new .wtp.yml file'
+    cat <<EOF >.wtp.yml
+# https://github.com/satococoa/wtp
+version: "1.0"
+defaults:
+  base_dir: ../worktrees
+hooks:
+EOF
+    echo '.wtp.yml' >>.git/info/exclude
   fi
 }
 
