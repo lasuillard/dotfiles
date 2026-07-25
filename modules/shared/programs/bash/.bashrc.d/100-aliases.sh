@@ -65,7 +65,7 @@ alias ports='netstat --all --listening --numeric --tcp --udp --programs'
 # External utilities to set alias for
 declare -A aliases
 aliases=(
-  [aa]='aws-annoying'
+  [aa]='pipx run aws-annoying'
   [ans]='ansible'
   [cld]='claude'
   [cod]='codex'
@@ -73,7 +73,7 @@ aliases=(
   [d]='docker'
   [dc]='docker compose'
   [dr]='direnv'
-  [dv]='devobs'
+  [dvo]='pipx run devobs'
   [g]='git'
   [gc]='gcloud'
   [gmi]='gemini'
