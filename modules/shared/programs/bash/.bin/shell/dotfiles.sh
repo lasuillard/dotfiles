@@ -26,7 +26,6 @@ Global options
 Subcommands:
   install:      Install dotfiles
   update:       Update dotfiles
-
 USAGE
 }
 
