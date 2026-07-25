@@ -10,7 +10,7 @@ if the target file/directory does not exist.
 
 usage() {
   cat <<USAGE
-Usage: $0 [--help] {init|unlink}
+Usage: $0 [--help] {init|unlink|merge}
 
 Global options
   -h, --help    Show this message
