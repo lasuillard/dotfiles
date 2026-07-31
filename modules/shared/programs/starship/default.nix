@@ -7,6 +7,7 @@
     };
     presets = [
       "nerd-font-symbols"
+      "tokyo-night"
     ];
   };
 }
