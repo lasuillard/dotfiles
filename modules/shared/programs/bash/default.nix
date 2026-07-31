@@ -5,7 +5,7 @@ in
 {
   programs.bash = {
     enable = true;
-    enableCompletion = false; # We'll do it ourselves
+    enableCompletion = true;
     initExtra = ''
       # Custom user scripts directly accessible
       export PATH="''${HOME}/.bin/shell''${PATH:+:}''${PATH}"

@@ -1,10 +1,5 @@
 # shellcheck shell=bash
 
-if [ -f /etc/bash_completion ]; then
-  # shellcheck source=/dev/null
-  source /etc/bash_completion
-fi
-
 # CLIs that support bash completion in conventional format
 commands=(
   "alloy"
