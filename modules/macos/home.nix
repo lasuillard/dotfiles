@@ -24,6 +24,7 @@
     ../shared/programs/nix
     ../shared/programs/starship
     ../shared/programs/tailscale
+    ../shared/programs/tmux
     ../shared/packages.nix
   ];
 }

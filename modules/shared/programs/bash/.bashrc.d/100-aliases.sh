@@ -93,6 +93,7 @@ aliases=(
   [px]='pulumi-extra'
   [soc]='sea-orm-cli'
   [tal]='talosctl'
+  [tm]='tmux'
   [tf]='tofu'
   [tg]='terragrunt'
   [tp]='telepresence'
