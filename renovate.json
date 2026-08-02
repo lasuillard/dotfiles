@@ -4,6 +4,12 @@
     "local>lasuillard/renovate-config"
   ],
   "nix": {
-    "enabled": true
+    "enabled": true,
+    "lockFileMaintenance": {
+      "enabled": true,
+      "schedule": [
+        "* 0-3 1 * *" // Monthly
+      ]
+    }
   }
 }
