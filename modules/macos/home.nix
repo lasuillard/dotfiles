@@ -14,12 +14,12 @@
   imports = [
     ../shared/programs/antigravity-cli
     ../shared/programs/bash
-    ../shared/programs/claude-code
-    ../shared/programs/codex-cli
+    # ../shared/programs/claude-code
+    # ../shared/programs/codex-cli
     ../shared/programs/direnv
     ../shared/programs/git
-    ../shared/programs/github-copilot-cli
-    ../shared/programs/kilo
+    # ../shared/programs/github-copilot-cli
+    # ../shared/programs/kilo
     ../shared/programs/neovim
     ../shared/programs/nix
     ../shared/programs/starship
