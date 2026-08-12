@@ -17,6 +17,7 @@
         excludesfile = "~/.config/git/.gitignore";
         attributesfile = "~/.config/git/.gitattributes";
       };
+      diff.external = "${pkgs.difftastic}/bin/difft";
     };
   };
 
@@ -27,6 +28,8 @@
     gh
     # Git worktree manager: https://github.com/satococoa/wtp
     custompkgs.wtp
+    # https://github.com/wilfred/difftastic
+    difftastic
   ];
 
   home.file = {
