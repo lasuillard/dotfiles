@@ -9,7 +9,8 @@
       "enabled": true,
       "schedule": [
         "* 0-3 * * 1" // Weekly
-      ]
+      ],
+      "minimumReleaseAge": "5 days"
     }
   }
 }
