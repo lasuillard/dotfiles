@@ -1,16 +1,5 @@
 { pkgs, ... }:
-let
-  allDirs = builtins.readDir ./.;
-
-  packageNames = builtins.attrNames (
-    pkgs.lib.attrsets.filterAttrs (name: type: type == "directory" && name != "default.nix") allDirs
-  );
-
-  customRegistry = builtins.listToAttrs (
-    map (name: {
-      inherit name;
-      value = pkgs.callPackage (./. + "/${name}") { };
-    }) packageNames
-  );
-in
-customRegistry
+{
+  openskills = pkgs.callPackage ./openskills { };
+  wtp = pkgs.callPackage ./wtp { };
+}
