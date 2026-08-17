@@ -2,8 +2,13 @@
   description = "Dotfiles configuration using Nix flakes and Home Manager.";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
+    nixpkgs = {
+      url = "github:NixOS/nixpkgs/nixos-unstable";
+    };
+
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -20,6 +25,10 @@
       url = "github:numtide/llm-agents.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixvim = {
+      url = "github:nix-community/nixvim";
+    };
   };
 
   outputs =
@@ -30,6 +39,7 @@
       home-manager,
       nix-darwin,
       llm-agents,
+      nixvim,
       ...
     }@inputs:
     let
@@ -59,6 +69,7 @@
         home-manager.lib.homeManagerConfiguration {
           pkgs = thisEnv.pkgs;
           modules = [
+            nixvim.homeModules.nixvim
             ./lib/programs
             (if system == "x86_64-linux" then ./modules/linux/home.nix else ./modules/macos/home.nix)
             {
