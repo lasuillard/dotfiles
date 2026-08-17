@@ -128,13 +128,14 @@ EOF
   fi
 
   # Git worktree manager
+  project_name=$(basename "$(git rev-parse --show-toplevel)")
   if [ ! -f '.wtp.yml' ]; then
     echo 'Creating new .wtp.yml file'
     cat <<EOF >.wtp.yml
 # https://github.com/satococoa/wtp
 version: "1.0"
 defaults:
-  base_dir: ../worktrees
+  base_dir: ../worktrees/${project_name}
 hooks:
 EOF
     echo '.wtp.yml' >>.git/info/exclude
