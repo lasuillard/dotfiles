@@ -21,13 +21,15 @@
     };
   };
 
+  programs.wtp = {
+    enable = true;
+  };
+
   home.packages = with pkgs; [
     # Source control system: https://git-scm.com/
     git
     # GitHub CLI: https://cli.github.com/
     gh
-    # Git worktree manager: https://github.com/satococoa/wtp
-    custompkgs.wtp
     # https://github.com/wilfred/difftastic
     difftastic
   ];
