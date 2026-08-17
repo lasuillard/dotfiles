@@ -1,4 +1,9 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   pwd = builtins.getEnv "PWD";
 in
@@ -36,7 +41,7 @@ in
   ];
 
   home.file = {
-    ".bash_completion.d/complete_alias".source = "${pkgs.complete-alias}/bin/complete_alias";
+    ".bash_completion.d/complete_alias".source = lib.getExe pkgs.complete-alias;
     ".bin/shell".source = ./.bin/shell;
     ".bashrc.d".source = ./.bashrc.d;
   };
