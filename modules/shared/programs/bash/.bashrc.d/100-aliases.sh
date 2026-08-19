@@ -74,6 +74,7 @@ aliases=(
   [dc]='docker compose'
   [dr]='direnv'
   ['dr!']='direnv allow'
+  ['dr?']='direnv deny'
   [dvo]='pipx run devobs'
   [g]='git'
   [gc]='gcloud'
