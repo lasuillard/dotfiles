@@ -51,15 +51,15 @@ case "$arch" in
 Linux*)
   echo "Detected Linux OS, running Linux-specific installation script"
   sh "${project_root}/scripts/install-for-linux.sh"
-  exit 0
   ;;
 Darwin*)
   echo "Detected macOS, running macOS-specific installation script"
   sh "${project_root}/scripts/install-for-macos.sh"
-  exit 0
   ;;
 *)
   echo "Unsupported OS: $arch"
   exit 1
   ;;
 esac
+
+echo "Dotfiles installation completed successfully."

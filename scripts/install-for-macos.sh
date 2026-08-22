@@ -15,23 +15,23 @@ set -o nounset
 
 # Install nix package manager (multi-user)
 if command -v nix >/dev/null 2>&1; then
-  echo "Nix is already installed, skipping installation"
+  echo "Nix is already installed, skipping installation: $(nix --version)"
 else
   # Install Nix using either curl or wget, depending on which is available
   if command -v curl >/dev/null 2>&1; then
     echo "curl is available, using it to install Nix"
+    echo
     curl --proto '=https' --tlsv1.2 --location https://nixos.org/nix/install |
       sh -s --
+    echo
   else
-    echo "Error: curl is available. Please install one of them to proceed with Nix installation."
+    echo "Error: curl is not available. Please install curl to proceed with Nix installation."
     exit 1
   fi
 fi
 
-# Verify that nix is installed and available in the PATH
-nix --version
-
 # Setup user profile with home-manager
+echo
 nix run \
   --extra-experimental-features 'nix-command flakes' \
   home-manager \
