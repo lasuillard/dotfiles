@@ -21,6 +21,11 @@ if [ -z "${USER:-}" ]; then
   export USER
 fi
 
+# Ensure core.fsmonitor is disabled to avoid issues with Nix: error: file '/fsmonitor--daemon.ipc' has an unsupported type
+echo "Disabling Git core.fsmonitor for Dotfiles repository to avoid issues with Nix"
+git config --local core.fsmonitor false
+rm --force "${project_root}/.git/fsmonitor--daemon.ipc"
+
 # Function to check if we're running in a Docker container by evaluating common indicators
 is_docker() {
   if grep --quiet docker /proc/1/cgroup; then
