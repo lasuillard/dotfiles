@@ -106,7 +106,7 @@ command_not_found_handle() {
     local rev="${1##*@}"
 
     # Handle the case where the revision is omitted, e.g., "aa@" should default to "main"
-    if [[ "$rev" == "$cmd" ]]; then
+    if [[ "$rev" == "$cmd" || -z "$rev" ]]; then
       rev="main"
     fi
 
