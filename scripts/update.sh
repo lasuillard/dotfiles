@@ -25,3 +25,6 @@ fi
 echo "Updating dotfiles (${project_root}) from repository..."
 git pull --rebase
 sh "${project_root}/scripts/install.sh"
+
+echo "Cleaning up Nix store..."
+nix-collect-garbage || true
