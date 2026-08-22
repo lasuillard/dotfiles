@@ -97,6 +97,38 @@ aliases=(
   [vg]='vagrant'
 )
 
+# Dynamic aliases using command not found handler
+command_not_found_handle() {
+  # Dogfooding my own tools, if the command is in the form of <alias>@<revision>,
+  # then run the corresponding pipx command with the specified revision
+  if [[ "$1" == *@* ]]; then
+    local cmd="${1%%@*}"
+    local rev="${1##*@}"
+
+    # Handle the case where the revision is omitted, e.g., "aa@" should default to "main"
+    if [[ "$rev" == "$cmd" ]]; then
+      rev="main"
+    fi
+
+    case "$cmd" in
+    aa)
+      pipx run --spec "git+https://github.com/lasuillard-s/aws-annoying@${rev}" aws-annoying "${@:2}"
+      return $?
+      ;;
+    dvo)
+      pipx run --spec "git+https://github.com/lasuillard-s/devobs@${rev}" devobs "${@:2}"
+      return $?
+      ;;
+    esac
+
+    # Don't handle other commands if not specified in the case statement
+  fi
+
+  # Original error handler
+  echo "bash: $1: command not found" >&2
+  return 127
+}
+
 # shellcheck disable=SC1090
 source ~/.bash_completion.d/complete_alias
 
