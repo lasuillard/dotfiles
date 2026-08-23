@@ -1,0 +1,34 @@
+{
+  "colorScheme": "tokyo night",
+  "enableTelemetry": false,
+  "permissions": {
+    "allow": [
+      "command(grep)",
+      "command(rg)",
+      "command(git grep)",
+      "command(git log)",
+      "command(git show)",
+      "command(git status)",
+      "command(git diff)",
+      "command(gh pr list)",
+      "command(gh pr view)",
+      "command(gh pr status)",
+      "command(gh pr diff)",
+      "command(gh issue list)",
+      "command(gh issue view)"
+    ],
+    "deny": [
+      "command(git push)"
+    ]
+  },
+  "title": {
+    "enabled": true,
+    "type": "command",
+    "command": "~/.gemini/antigravity-cli/title.sh"
+  },
+  "statusLine": {
+    "enabled": true,
+    "type": "command",
+    "command": "~/.gemini/antigravity-cli/statusline.sh"
+  }
+}
