@@ -3,7 +3,11 @@
 # https://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html
 
 # Change directory to the parent directory of the given path
-alias cdd='source cdd.sh'
+function _cdd() {
+  cd "$(dirname "$1")" || exit
+}
+alias cdd='_cdd'
+
 alias dotfiles='dotfiles.sh'
 alias example='example.sh'
 
