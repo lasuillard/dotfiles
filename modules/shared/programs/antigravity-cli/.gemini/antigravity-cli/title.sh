@@ -30,13 +30,13 @@ fi
 # Map state to emoji
 case "$STATE" in
 initializing) EMOJI="🚀" ;;
-idle) EMOJI="😴" ;;
-thinking) EMOJI="🤔" ;;
-working) EMOJI="🏃" ;;
+idle) EMOJI="💤" ;;
+thinking) EMOJI="⚡" ;;
+working) EMOJI="🧩" ;;
 tool_use) EMOJI="🛠️" ;;
 *) EMOJI="🤖" ;;
 esac
 
-TITLE="$EMOJI $STATE | $WORKSPACE"
+TITLE="$EMOJI"
 
 echo "$TITLE"
