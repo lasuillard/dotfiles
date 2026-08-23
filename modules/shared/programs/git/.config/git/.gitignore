@@ -4,6 +4,7 @@ TODO
 
 # Project management tools
 .wtp.yml
+.worktrees
 
 # AI coding agents and tools
 .antigravitycli
