@@ -85,7 +85,8 @@
             }
           ];
           extraSpecialArgs = {
-            inherit llm-agents custompkgs username;
+            inherit custompkgs username;
+            llm-agents = llm-agents.packages.${system};
           };
         };
     in
