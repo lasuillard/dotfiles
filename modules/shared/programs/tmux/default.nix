@@ -3,8 +3,9 @@
   programs.tmux = {
     enable = true;
     keyMode = "vi";
-    extraConfig = ''
+  };
 
-    '';
+  home.file = {
+    ".tmux.conf".source = ./.tmux.conf;
   };
 }
