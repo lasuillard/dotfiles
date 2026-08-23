@@ -45,8 +45,10 @@
     # Ensure writable ~/.gitconfig file exists for overrides (such as safe.workspace settings)
     # ~/.gitconfig takes precedence over ~/.config/git/config
     createGlobalGitConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      if [ ! -e "''${HOME}/.gitconfig" ]; then
-        touch "''${HOME}/.gitconfig"
+      target_file="''${HOME}/.gitconfig"
+      if [ ! -e "$target_file" ]; then
+        touch "$target_file"
+        chmod 644 "$target_file"
       fi
     '';
   };
