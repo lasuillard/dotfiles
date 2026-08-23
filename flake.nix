@@ -2,30 +2,36 @@
   description = "Dotfiles configuration using Nix flakes and Home Manager.";
 
   inputs = {
+    # https://search.nixos.org/packages?channel=unstable
     nixpkgs = {
       url = "github:NixOS/nixpkgs/nixos-unstable";
     };
 
+    # https://github.com/numtide/flake-utils
     flake-utils = {
       url = "github:numtide/flake-utils";
     };
 
+    # https://github.com/nix-community/home-manager
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # https://github.com/nix-darwin/nix-darwin
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Alternative packages registry
+    # Alternative package registry for LLM agents and tools (more frequently updated)
+    # https://github.com/numtide/llm-agents.nix
     llm-agents = {
       url = "github:numtide/llm-agents.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # https://github.com/nix-community/nixvim
     nixvim = {
       url = "github:nix-community/nixvim";
     };
