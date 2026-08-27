@@ -102,7 +102,6 @@ aliases=(
   [pl]='pulumi'
   [pls]='pulumi stack'
   [soc]='sea-orm-cli'
-  [tf]='tofu'
   [tg]='terragrunt'
   [vg]='vagrant'
 )
@@ -152,6 +151,13 @@ command_not_found_handle() {
   echo "bash: $1: command not found" >&2
   return 127
 }
+
+# Assign `tf` alias to either `terraform` or `tofu` based on availability
+if command -v terraform &>/dev/null && command -v tofu &>/dev/null; then
+  aliases[tf]='terraform'
+elif command -v tofu &>/dev/null; then
+  aliases[tf]='tofu'
+fi
 
 # shellcheck disable=SC1090
 source ~/.bash_completion.d/complete_alias
