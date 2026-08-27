@@ -15,7 +15,7 @@ set -o nounset
 
 # Install nix package manager (multi-user)
 if command -v nix >/dev/null 2>&1; then
-  echo "Nix is already installed, skipping installation: $(nix --version)"
+  echo "Nix is already installed ($(nix --version)), skipping installation"
 else
   # Install Nix using either curl or wget, depending on which is available
   if command -v curl >/dev/null 2>&1; then

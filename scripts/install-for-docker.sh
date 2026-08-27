@@ -19,7 +19,7 @@ set -o nounset
 
 # Install nix package manager (single-user)
 if command -v nix >/dev/null 2>&1; then
-  echo "Nix is already installed, skipping installation"
+  echo "Nix is already installed ($(nix --version)), skipping installation"
 else
   # Ensure /nix directory exists and has correct permissions
   if [ ! -e "/nix" ]; then
