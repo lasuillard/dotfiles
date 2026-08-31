@@ -128,7 +128,6 @@ EOF
   fi
 
   # Git worktree manager
-  project_name=$(basename "$(git rev-parse --show-toplevel)")
   if [ ! -f '.wtp.yml' ]; then
     echo 'Creating new .wtp.yml file'
     cat <<EOF >.wtp.yml
