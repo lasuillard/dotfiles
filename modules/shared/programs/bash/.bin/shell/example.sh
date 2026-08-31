@@ -135,7 +135,7 @@ EOF
 # https://github.com/satococoa/wtp
 version: "1.0"
 defaults:
-  base_dir: ./.worktrees/${project_name}
+  base_dir: ./.worktrees
 hooks:
 EOF
     echo '.wtp.yml' >>.git/info/exclude
