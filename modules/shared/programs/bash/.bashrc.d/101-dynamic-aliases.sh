@@ -58,6 +58,7 @@ command_not_found_handle() {
     case "$cmd" in
     aa)
       $runner "aws-annoying[cli] @ git+https://github.com/lasuillard-s/aws-annoying@${rev}" aws-annoying "${@:2}"
+      return $?
       ;;
     dvo)
       $runner "git+https://github.com/lasuillard-s/devobs@${rev}" devobs "${@:2}"
