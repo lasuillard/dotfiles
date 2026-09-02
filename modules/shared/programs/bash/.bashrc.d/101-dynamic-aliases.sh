@@ -57,8 +57,7 @@ command_not_found_handle() {
     runner="$(_get_pip_runner)"
     case "$cmd" in
     aa)
-      $runner "git+https://github.com/lasuillard-s/aws-annoying@${rev}" aws-annoying "${@:2}"
-      return $?
+      $runner "aws-annoying[cli] @ git+https://github.com/lasuillard-s/aws-annoying@${rev}" aws-annoying "${@:2}"
       ;;
     dvo)
       $runner "git+https://github.com/lasuillard-s/devobs@${rev}" devobs "${@:2}"
