@@ -5,7 +5,7 @@
     "ghcr.io/devcontainers/features/nix:1": {
       "extraNixConfig": "extra-experimental-features = nix-command flakes"
     },
-    "ghcr.io/devcontainers/features/docker-in-docker:3": {
+    "ghcr.io/devcontainers/features/docker-in-docker:4": {
       "moby": false
     }
   },
@@ -15,7 +15,8 @@
         "editorconfig.editorconfig",
         "mads-hartmann.bash-ide-vscode",
         "mkhl.shfmt",
-        "timonwong.shellcheck"
+        "timonwong.shellcheck",
+        "jnoortheen.nix-ide"
       ]
     }
   }

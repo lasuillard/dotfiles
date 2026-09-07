@@ -49,35 +49,25 @@
       ...
     }@inputs:
     let
-      mkPkgs =
-        system:
+      mkHomeConfig =
+        { system }:
         let
           pkgs = import nixpkgs {
             inherit system;
             config.allowUnfree = true;
           };
-        in
-        {
-          inherit pkgs;
           custompkgs = pkgs.callPackage ./lib/packages { };
-        };
 
-      mkHomeConfiguration =
-        system:
-        let
-          thisEnv = mkPkgs system;
-          custompkgs = thisEnv.custompkgs;
-
-          # ! Require "--impure" to work to allow current user detection via environment variable
+          # IMPURE: derive the username from the environment variable USER
           envUser = builtins.getEnv "USER";
           username = if envUser != "" then envUser else "non-existing-user";
         in
         home-manager.lib.homeManagerConfiguration {
-          pkgs = thisEnv.pkgs;
+          inherit pkgs;
           modules = [
             nixvim.homeModules.nixvim
             ./lib/programs
-            (if system == "x86_64-linux" then ./modules/linux/home.nix else ./modules/macos/home.nix)
+            (if pkgs.stdenv.hostPlatform.isLinux then ./modules/linux/home.nix else ./modules/macos/home.nix)
             {
               home = {
                 stateVersion = "26.05";
@@ -90,22 +80,13 @@
           };
         };
     in
-    # For Home Manager
     {
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-
       homeConfigurations = {
-        linux = mkHomeConfiguration "x86_64-linux";
-        macos = mkHomeConfiguration "aarch64-darwin";
-      };
-
-      packages = {
-        x86_64-linux.default = self.homeConfigurations.linux.activationPackage;
-        aarch64-darwin.default = self.homeConfigurations.macos.activationPackage;
+        "x86_64-linux" = mkHomeConfig { system = "x86_64-linux"; };
+        "aarch64-linux" = mkHomeConfig { system = "aarch64-linux"; };
+        "aarch64-darwin" = mkHomeConfig { system = "aarch64-darwin"; };
       };
     }
-    # For this project tools
     // flake-utils.lib.eachDefaultSystem (
       system:
       let
@@ -113,18 +94,33 @@
       in
       {
         packages = {
+          # Tools to be executed in CI/CD pipelines
           inherit (pkgs)
+            nixfmt
+            shfmt
+            shellcheck
+            ;
+
+          default =
+            if system == "x86_64-linux" then
+              self.homeConfigurations."x86_64-linux".activationPackage
+            else if system == "aarch64-linux" then
+              self.homeConfigurations."aarch64-linux".activationPackage
+            else if system == "aarch64-darwin" then
+              self.homeConfigurations."aarch64-darwin".activationPackage
+            else
+              throw "Unsupported system: ${system}";
+        };
+
+        devShells.default = pkgs.mkShell {
+          packages = with pkgs; [
             git
             pre-commit
             just
             nixfmt
             shfmt
             shellcheck
-            ;
-        };
-
-        devShells.default = pkgs.mkShell {
-          packages = builtins.attrValues self.packages.${system};
+          ];
           shellHook = ''
             pre-commit install
           '';

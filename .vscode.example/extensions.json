@@ -3,6 +3,7 @@
     "editorconfig.editorconfig",
     "mads-hartmann.bash-ide-vscode",
     "mkhl.shfmt",
-    "timonwong.shellcheck"
+    "timonwong.shellcheck",
+    "jnoortheen.nix-ide"
   ]
 }

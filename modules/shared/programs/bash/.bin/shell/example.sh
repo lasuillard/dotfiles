@@ -109,14 +109,16 @@ EOF
       in
       {
         packages = {
+          # Tools to be executed in CI/CD pipelines via \`nix run '.#tool\`
           inherit (pkgs)
-            pre-commit
-            just
             ;
         };
 
         devShells.default = pkgs.mkShell {
-          packages = builtins.attrValues self.packages.\${system};
+          packages = with pkgs; [
+            pre-commit
+            just
+          ];
           shellHook = ''
             pre-commit install
           '';
