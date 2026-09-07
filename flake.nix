@@ -24,16 +24,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Alternative package registry for LLM agents and tools (more frequently updated)
-    # https://github.com/numtide/llm-agents.nix
-    llm-agents = {
-      url = "github:numtide/llm-agents.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # https://github.com/nix-community/nixvim
     nixvim = {
       url = "github:nix-community/nixvim";
+    };
+
+    # My agents configuration subflake
+    # https://github.com/lasuillard/agents
+    my-agents = {
+      url = "git+ssh://git@github.com/lasuillard/agents";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -44,8 +44,8 @@
       flake-utils,
       home-manager,
       nix-darwin,
-      llm-agents,
       nixvim,
+      my-agents,
       ...
     }@inputs:
     let
@@ -76,6 +76,7 @@
           pkgs = thisEnv.pkgs;
           modules = [
             nixvim.homeModules.nixvim
+            my-agents.homeManagerModules.default
             ./lib/programs
             (if system == "x86_64-linux" then ./modules/linux/home.nix else ./modules/macos/home.nix)
             {
@@ -86,7 +87,6 @@
           ];
           extraSpecialArgs = {
             inherit custompkgs username;
-            llm-agents = llm-agents.packages.${system};
           };
         };
     in
