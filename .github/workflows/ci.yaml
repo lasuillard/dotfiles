@@ -14,7 +14,7 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     permissions:
       contents: read
     steps:
@@ -28,46 +28,39 @@ jobs:
         run: |
           git ls-files '*.sh' \
             | tee /dev/stderr \
-            | xargs nix run .#shfmt -- --diff
+            | xargs nix run '.#shfmt' -- --diff
 
       - name: Check formatting of Nix files
         run: |
           git ls-files '*.nix' \
             | tee /dev/stderr \
-            | xargs nix run .#nixfmt -- --check
+            | xargs nix run '.#nixfmt' -- --check
 
       - name: Lint shell scripts
         run: |
           git ls-files '*.sh' \
             | tee /dev/stderr \
-            | xargs nix run .#shellcheck --
+            | xargs nix run '.#shellcheck' --
 
-  nix-check:
-    name: Nix Check
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    permissions:
-      contents: read
-    steps:
-      - name: Checkout
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
-
-      - name: Cache Nix store
-        uses: DeterminateSystems/magic-nix-cache-action@565684385bcd71bad329742eefe8d12f2e765b39 # v13
-        with:
-          use-flakehub: false
-
-      - name: Validate flake and evaluate profiles
+      - name: Nix check
         run: nix flake check --show-trace --impure
 
-  nix-build-linux:
-    name: Nix Build (Linux)
-    needs: nix-check
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
+      - name: Nix evaluate
+        run: nix eval '.#default.drvPath'
+
+  build:
+    name: Nix Build
+    needs: lint
+    strategy:
+      matrix:
+        include:
+          - runs-on: ubuntu-latest
+            timeout-minutes: 30
+          - runs-on: macos-latest
+            timeout-minutes: 60
+
+    runs-on: ${{ matrix.runs-on }}
+    timeout-minutes: ${{ matrix.timeout-minutes }}
     permissions:
       contents: read
     steps:
@@ -83,26 +76,4 @@ jobs:
           use-flakehub: false
 
       - name: Build activation package
-        run: nix build --impure '.#homeConfigurations.linux.activationPackage'
-
-  nix-build-macos:
-    name: Nix Build (macOS)
-    needs: nix-check
-    runs-on: macos-latest
-    timeout-minutes: 60
-    permissions:
-      contents: read
-    steps:
-      - name: Checkout
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
-
-      - name: Cache Nix store
-        uses: DeterminateSystems/magic-nix-cache-action@565684385bcd71bad329742eefe8d12f2e765b39 # v13
-        with:
-          use-flakehub: false
-
-      - name: Build activation package
-        run: nix build --impure '.#homeConfigurations.macos.activationPackage'
+        run: nix build --impure '.#default'

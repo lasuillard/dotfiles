@@ -49,35 +49,25 @@
       ...
     }@inputs:
     let
-      mkPkgs =
-        system:
+      mkHomeConfig =
+        { system }:
         let
           pkgs = import nixpkgs {
             inherit system;
             config.allowUnfree = true;
           };
-        in
-        {
-          inherit pkgs;
           custompkgs = pkgs.callPackage ./lib/packages { };
-        };
 
-      mkHomeConfiguration =
-        system:
-        let
-          thisEnv = mkPkgs system;
-          custompkgs = thisEnv.custompkgs;
-
-          # ! Require "--impure" to work to allow current user detection via environment variable
+          # IMPURE: derive the username from the environment variable USER
           envUser = builtins.getEnv "USER";
           username = if envUser != "" then envUser else "non-existing-user";
         in
         home-manager.lib.homeManagerConfiguration {
-          pkgs = thisEnv.pkgs;
+          inherit pkgs;
           modules = [
             nixvim.homeModules.nixvim
             ./lib/programs
-            (if system == "x86_64-linux" then ./modules/linux/home.nix else ./modules/macos/home.nix)
+            (if pkgs.stdenv.hostPlatform.isLinux then ./modules/linux/home.nix else ./modules/macos/home.nix)
             {
               home = {
                 stateVersion = "26.05";
@@ -90,22 +80,18 @@
           };
         };
     in
-    # For Home Manager
     {
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-
       homeConfigurations = {
-        linux = mkHomeConfiguration "x86_64-linux";
-        macos = mkHomeConfiguration "aarch64-darwin";
-      };
+        "default.x86_64-linux" = mkHomeConfig { system = "x86_64-linux"; };
+        "default.aarch64-darwin" = mkHomeConfig { system = "aarch64-darwin"; };
 
-      packages = {
-        x86_64-linux.default = self.homeConfigurations.linux.activationPackage;
-        aarch64-darwin.default = self.homeConfigurations.macos.activationPackage;
+        default =
+          if nixpkgs.stdenv.hostPlatform.isLinux then
+            mkHomeConfig { system = "x86_64-linux"; }
+          else
+            mkHomeConfig { system = "aarch64-darwin"; };
       };
     }
-    # For this project tools
     // flake-utils.lib.eachDefaultSystem (
       system:
       let
@@ -121,6 +107,8 @@
             shfmt
             shellcheck
             ;
+
+          default = self.homeConfigurations."default.${system}".activationPackage;
         };
 
         devShells.default = pkgs.mkShell {
