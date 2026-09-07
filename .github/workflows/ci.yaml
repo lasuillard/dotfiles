@@ -49,7 +49,7 @@ jobs:
         run: nix eval '.#default.drvPath'
 
   build:
-    name: Nix Build
+    name: Build
     needs: lint
     strategy:
       matrix:
