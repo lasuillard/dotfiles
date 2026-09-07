@@ -48,8 +48,8 @@ jobs:
       - name: Nix evaluate
         run: nix eval --impure '.#default.drvPath'
 
-  build:
-    name: Build (${{ matrix.runs-on }})
+  test:
+    name: Test (${{ matrix.runs-on }})
     needs: lint
     strategy:
       matrix:
@@ -79,3 +79,6 @@ jobs:
 
       - name: Build activation package
         run: nix build --impure '.#default'
+
+      - name: Run installation script
+        run: ./install
