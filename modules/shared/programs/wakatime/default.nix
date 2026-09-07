@@ -14,14 +14,14 @@
     (lib.mkIf config.my-secrets.enabled {
       sops.secrets."wakatime-api-key" = { };
 
-      sops.templates.".wakatime/.wakatime.cfg".content = import ./.wakatime/.wakatime.cfg.nix {
+      sops.templates.".wakatime.cfg".content = import ./.wakatime.cfg.nix {
         inherit config;
       };
 
       home.file = {
-        ".wakatime/.wakatime.cfg".source =
+        ".wakatime.cfg".source =
           config.lib.file.mkOutOfStoreSymlink
-            config.sops.templates.".wakatime/.wakatime.cfg".path;
+            config.sops.templates.".wakatime.cfg".path;
       };
     })
   ];
