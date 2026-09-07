@@ -99,10 +99,8 @@
       in
       {
         packages = {
+          # Tools to be executed in CI/CD pipelines
           inherit (pkgs)
-            git
-            pre-commit
-            just
             nixfmt
             shfmt
             shellcheck
@@ -112,7 +110,14 @@
         };
 
         devShells.default = pkgs.mkShell {
-          packages = builtins.attrValues self.packages.${system};
+          packages = with pkgs; [
+            git
+            pre-commit
+            just
+            nixfmt
+            shfmt
+            shellcheck
+          ];
           shellHook = ''
             pre-commit install
           '';
