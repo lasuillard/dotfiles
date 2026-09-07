@@ -35,6 +35,7 @@ repos:
         types: [nix]
         pass_filenames: false
         entry: nix flake check
+        args: [--impure]
 
       - id: nix-eval
         name: nix-eval
@@ -42,4 +43,4 @@ repos:
         types: [nix]
         entry: nix eval
         pass_filenames: false
-        args: [.#default.drvPath]
+        args: [--impure, .#default.drvPath]

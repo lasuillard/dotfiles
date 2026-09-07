@@ -43,10 +43,10 @@ jobs:
             | xargs nix run '.#shellcheck' --
 
       - name: Nix check
-        run: nix flake check --show-trace
+        run: nix flake check --impure --show-trace
 
       - name: Nix evaluate
-        run: nix eval '.#default.drvPath'
+        run: nix eval --impure '.#default.drvPath'
 
   build:
     name: Build (${{ matrix.runs-on }})
@@ -78,4 +78,4 @@ jobs:
           use-flakehub: false
 
       - name: Build activation package
-        run: nix build '.#default'
+        run: nix build --impure '.#default'
