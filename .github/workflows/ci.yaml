@@ -43,7 +43,7 @@ jobs:
             | xargs nix run '.#shellcheck' --
 
       - name: Nix check
-        run: nix flake check --show-trace --impure
+        run: nix flake check --show-trace
 
       - name: Nix evaluate
         run: nix eval '.#default.drvPath'
@@ -76,4 +76,4 @@ jobs:
           use-flakehub: false
 
       - name: Build activation package
-        run: nix build --impure '.#default'
+        run: nix build '.#default'
