@@ -76,7 +76,7 @@
           pkgs = thisEnv.pkgs;
           modules = [
             nixvim.homeModules.nixvim
-            my-agents.homeManagerModules.default
+            my-agents.homeModules.default
             ./lib/programs
             (if system == "x86_64-linux" then ./modules/linux/home.nix else ./modules/macos/home.nix)
             {
