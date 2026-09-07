@@ -82,9 +82,7 @@
     in
     {
       homeConfigurations = {
-        "x86_64-linux" = mkHomeConfig { system = "x86_64-linux"; };
-        "aarch64-linux" = mkHomeConfig { system = "aarch64-linux"; };
-        "aarch64-darwin" = mkHomeConfig { system = "aarch64-darwin"; };
+        "default" = mkHomeConfig { system = builtins.currentSystem; };
       };
     }
     // flake-utils.lib.eachDefaultSystem (
@@ -101,15 +99,7 @@
             shellcheck
             ;
 
-          default =
-            if system == "x86_64-linux" then
-              self.homeConfigurations."x86_64-linux".activationPackage
-            else if system == "aarch64-linux" then
-              self.homeConfigurations."aarch64-linux".activationPackage
-            else if system == "aarch64-darwin" then
-              self.homeConfigurations."aarch64-darwin".activationPackage
-            else
-              throw "Unsupported system: ${system}";
+          default = self.homeConfigurations."default".activationPackage;
         };
 
         devShells.default = pkgs.mkShell {
