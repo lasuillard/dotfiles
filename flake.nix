@@ -82,14 +82,8 @@
     in
     {
       homeConfigurations = {
-        "default.x86_64-linux" = mkHomeConfig { system = "x86_64-linux"; };
-        "default.aarch64-darwin" = mkHomeConfig { system = "aarch64-darwin"; };
-
-        default =
-          if nixpkgs.stdenv.hostPlatform.isLinux then
-            mkHomeConfig { system = "x86_64-linux"; }
-          else
-            mkHomeConfig { system = "aarch64-darwin"; };
+        "x86_64-linux" = mkHomeConfig { system = "x86_64-linux"; };
+        "aarch64-darwin" = mkHomeConfig { system = "aarch64-darwin"; };
       };
     }
     // flake-utils.lib.eachDefaultSystem (
@@ -106,7 +100,13 @@
             shellcheck
             ;
 
-          default = self.homeConfigurations."default.${system}".activationPackage;
+          default =
+            if system == "x86_64-linux" then
+              self.homeConfigurations."x86_64-linux".activationPackage
+            else if system == "aarch64-darwin" then
+              self.homeConfigurations."aarch64-darwin".activationPackage
+            else
+              throw "Unsupported system: ${system}";
         };
 
         devShells.default = pkgs.mkShell {
