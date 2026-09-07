@@ -64,7 +64,7 @@ nix run \
   -- \
   --extra-experimental-features 'nix-command flakes' \
   --flake \
-  'path:.#linux' \
+  'path:.#default.x86_64-linux' \
   --impure \
   -b backup \
   switch
