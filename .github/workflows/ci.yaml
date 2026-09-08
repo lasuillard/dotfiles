@@ -28,6 +28,8 @@ jobs:
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
+        with:
+          github-token: ${{ secrets.GH_PAT }}
 
       - name: Check formatting of shell scripts
         run: |
@@ -48,10 +50,14 @@ jobs:
             | xargs nix run '.#shellcheck' --
 
       - name: Nix check
-        run: nix flake check --impure --show-trace
+        run: |
+          nix flake check --impure --show-trace \
+            --override-input my-secrets github:lasuillard/secrets
 
       - name: Nix evaluate
-        run: nix eval --impure '.#default.drvPath'
+        run: |
+          nix eval --impure '.#default.drvPath' \
+            --override-input my-secrets github:lasuillard/secrets
 
   test:
     name: Test (${{ matrix.runs-on }})
@@ -74,13 +80,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - name: Configure Git to rewrite SSH to HTTPS with Token
-        run: |
-          git config --global url."https://x-access-token:${{ secrets.GH_PAT }}@://github.com".insteadOf "git+ssh://git@://github.com"
-          git config --global url."https://x-access-token:${{ secrets.GH_PAT }}@://github.com".insteadOf "git@github.com:"
-
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
+        with:
+          github-token: ${{ secrets.GH_PAT }}
 
       - name: Cache Nix store
         uses: DeterminateSystems/magic-nix-cache-action@565684385bcd71bad329742eefe8d12f2e765b39 # v13
@@ -88,7 +91,9 @@ jobs:
           use-flakehub: false
 
       - name: Build activation package
-        run: nix build --impure '.#default'
+        run: |
+          nix build --impure '.#default' \
+            --override-input my-secrets github:lasuillard/secrets
 
       - name: Run installation script
         run: ./install
