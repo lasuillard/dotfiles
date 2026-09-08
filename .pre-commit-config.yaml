@@ -28,3 +28,19 @@ repos:
         types: [shell]
         require_serial: true
         entry: shellcheck
+
+      - id: nix-flake-check
+        name: nix-flake-check
+        language: system
+        types: [nix]
+        pass_filenames: false
+        entry: nix flake check
+        args: [--impure]
+
+      - id: nix-eval
+        name: nix-eval
+        language: system
+        types: [nix]
+        entry: nix eval
+        pass_filenames: false
+        args: [--impure, .#default.drvPath]

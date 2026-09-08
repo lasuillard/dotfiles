@@ -16,7 +16,7 @@ alias up := update
 # =============================================================================
 
 # Run all checks
-ci: (format "yes") lint nix-build-linux
+ci: (format "yes") lint build
 
 # Autoformat code
 [arg("check", long="check", value="yes")]
@@ -34,14 +34,12 @@ lint:
     git ls-files --cached --others --exclude-standard '*.sh' \
         | tee /dev/tty \
         | xargs shellcheck
+    nix flake check --impure
+    nix eval --impure '.#default.drvPath'
 
-# Build Linux activation packages
-nix-build-linux:
-    nix build --impure '.#homeConfigurations.linux.activationPackage'
-
-# Build macOS activation packages
-nix-build-macos:
-    nix build --impure '.#homeConfigurations.macos.activationPackage'
+# Build Nix activation packages
+build:
+    nix build --impure '.#default'
 
 # Run ephemeral Docker container with dotfiles copy in it for testing
 docker-sh:

@@ -38,7 +38,7 @@ nix run \
   -- \
   --extra-experimental-features 'nix-command flakes' \
   --flake \
-  'path:.#macos' \
+  'path:.#default' \
   --impure \
   -b backup \
   switch
