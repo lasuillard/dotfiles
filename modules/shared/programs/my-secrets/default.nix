@@ -6,7 +6,7 @@
 }:
 let
   defaultSopsFile = builtins.toPath "${inputs.my-secrets}/secrets/main.yaml";
-  ageKeyPath = builtins.toPath "${config.home.homeDirectory}/.config/sops/age/keys.txt";
+  ageKeyPath = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
 in
 {
   options = {
