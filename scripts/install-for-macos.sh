@@ -38,7 +38,7 @@ nix run \
   -- \
   --extra-experimental-features 'nix-command flakes' \
   --flake \
-  'path:.#default.aarch64-darwin' \
+  'path:.#default' \
   --impure \
   -b backup \
   switch

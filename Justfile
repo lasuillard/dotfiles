@@ -34,8 +34,8 @@ lint:
     git ls-files --cached --others --exclude-standard '*.sh' \
         | tee /dev/tty \
         | xargs shellcheck
-    nix flake check
-    nix eval '.#default.drvPath'
+    nix flake check --impure
+    nix eval --impure '.#default.drvPath'
 
 # Build Nix activation packages
 build:

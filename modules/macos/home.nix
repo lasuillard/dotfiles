@@ -7,6 +7,7 @@
   home.username = username;
   home.homeDirectory = "/Users/${username}";
   home.packages = with pkgs; [
+    coreutils
     # Utility which reads and writes data across network connections: https://netcat.sourceforge.net/
     netcat-gnu
   ];
