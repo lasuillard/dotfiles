@@ -23,8 +23,6 @@ jobs:
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
-        with:
-          github-token: ${{ secrets.GH_PAT }}
 
       - name: Check formatting of shell scripts
         run: |
@@ -45,14 +43,20 @@ jobs:
             | xargs nix run '.#shellcheck' --
 
       - name: Nix check
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           nix flake check --impure --show-trace \
-            --override-input my-secrets github:lasuillard/secrets
+            --override-input my-secrets github:lasuillard/secrets \
+            --access-tokens "github.com=${GH_PAT}"
 
       - name: Nix evaluate
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           nix eval --impure '.#default.drvPath' \
-            --override-input my-secrets github:lasuillard/secrets
+            --override-input my-secrets github:lasuillard/secrets \
+            --access-tokens "github.com=${GH_PAT}"
 
   test:
     name: Test (${{ matrix.runs-on }})
@@ -77,8 +81,6 @@ jobs:
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
-        with:
-          github-token: ${{ secrets.GH_PAT }}
 
       - name: Cache Nix store
         uses: DeterminateSystems/magic-nix-cache-action@565684385bcd71bad329742eefe8d12f2e765b39 # v13
@@ -86,9 +88,12 @@ jobs:
           use-flakehub: false
 
       - name: Build activation package
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           nix build --impure '.#default' \
-            --override-input my-secrets github:lasuillard/secrets
+            --override-input my-secrets github:lasuillard/secrets \
+            --access-tokens "github.com=${GH_PAT}"
 
       - name: Run installation script
         run: ./install
