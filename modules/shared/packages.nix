@@ -48,6 +48,8 @@
     di
     # Interactive process viewer: https://htop.dev/
     htop
+    # Simple IP network calculator: https://jodies.de/ipcalc
+    ipcalc
     # Command-line JSON processor: https://jqlang.org/
     jq
     # Just a command runner: https://just.systems/
