@@ -83,7 +83,7 @@
     # cifsiostat - reports CIFS statistics.
     # mpstat - reports individual or combined processor related statistics
     # pidstat - reports statistics for Linux tasks (processes) : I/O, CPU, memory, etc.
-    # sadf - displays data collected by sar in multiple formats (CSV, XML, JSON, etc.) and can be used for data exchange with other programs. 
+    # sadf - displays data collected by sar in multiple formats (CSV, XML, JSON, etc.) and can be used for data exchange with other programs.
     #        This command can also be used to draw graphs for the various activities collected by sar using SVG (Scalable Vector Graphics) format.
     # sar - collects, reports and saves system activity information (see below a list of metrics collected by sar).
     # tapestat - reports statistics for tape drives connected to the system.
