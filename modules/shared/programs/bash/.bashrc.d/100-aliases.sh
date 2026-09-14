@@ -71,6 +71,7 @@ declare -A aliases
 aliases=(
   ['agy!']='agy --dangerously-skip-permissions'
   [ans]='ansible'
+  ['cd?']='dirs -v'
   [cld]='claude'
   ['cld!']='claude --dangerously-skip-permissions'
   [cod]='codex'
