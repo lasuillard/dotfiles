@@ -84,12 +84,14 @@ nix --version
 # Activate the user profile with home-manager
 echo
 # shellcheck disable=SC2086
-result="$(nix build \
-  --impure \
-  --no-link \
-  --print-out-paths \
-  $NIX_ARGS \
-  'path:.#default')"
+result="$(
+  nix build \
+    --impure \
+    --no-link \
+    --print-out-paths \
+    $NIX_ARGS \
+    'path:.#default'
+)"
 
 HOME_MANAGER_BACKUP_EXT=backup "$result"/activate
 
