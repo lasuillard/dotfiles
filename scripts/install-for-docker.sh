@@ -31,12 +31,15 @@ else
   # Install Nix using either curl or wget, depending on which is available
   if command -v curl >/dev/null 2>&1; then
     echo "curl is available, using it to install Nix"
+    echo
     curl --proto '=https' --tlsv1.2 --location https://nixos.org/nix/install |
       sh -s -- --no-daemon
+    echo
   elif command -v wget >/dev/null 2>&1; then
     echo "wget is available, using it to install Nix"
     wget https://nixos.org/nix/install --output-document - |
       sh -s -- --no-daemon
+    echo
   else
     echo "Error: Neither curl nor wget is available. Please install one of them to proceed with Nix installation."
     exit 1
@@ -58,6 +61,7 @@ fi
 nix --version
 
 # Setup user profile with home-manager
+echo
 nix run \
   --extra-experimental-features 'nix-command flakes' \
   home-manager \
