@@ -12,7 +12,7 @@ in
   options = {
     my-secrets.enabled = lib.mkOption {
       type = lib.types.bool;
-      default = builtins.pathExists defaultSopsFile;
+      default = builtins.pathExists defaultSopsFile && builtins.pathExists ageKeyPath;
     };
   };
 
