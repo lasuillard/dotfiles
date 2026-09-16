@@ -10,6 +10,10 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  NIX_ARGS: >-
+    --override-input my-secrets github:lasuillard/secrets
+
 jobs:
   lint:
     name: Lint
@@ -45,14 +49,10 @@ jobs:
             | xargs nix run '.#shellcheck' --
 
       - name: Nix check
-        run: |
-          nix flake check --impure --show-trace \
-            --override-input my-secrets github:lasuillard/secrets
+        run: nix flake check --impure --show-trace $NIX_ARGS
 
       - name: Nix evaluate
-        run: |
-          nix eval --impure '.#default.drvPath' \
-            --override-input my-secrets github:lasuillard/secrets
+        run: nix eval --impure '.#default.drvPath' $NIX_ARGS
 
   test:
     name: Test (${{ matrix.runs-on }})
@@ -86,9 +86,7 @@ jobs:
           use-flakehub: false
 
       - name: Build activation package
-        run: |
-          nix build --impure '.#default' \
-            --override-input my-secrets github:lasuillard/secrets
+        run: nix build --impure '.#default' $NIX_ARGS
 
       - name: Run installation script
         run: ./install

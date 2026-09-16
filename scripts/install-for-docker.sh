@@ -62,6 +62,7 @@ nix --version
 
 # Setup user profile with home-manager
 echo
+# shellcheck disable=SC2086
 nix run \
   home-manager \
   -- \
@@ -69,6 +70,7 @@ nix run \
   'path:.#default' \
   --impure \
   -b backup \
+  $NIX_ARGS \
   switch
 
 echo 'Dotfiles installation complete. Please restart your shell (bash --login) or source your profile to apply the changes.'

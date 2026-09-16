@@ -49,6 +49,12 @@ EOF
   export NIX_CONFIG
 fi
 
+# Custom environment variable for passing additional arguments to Nix commands
+if [ -z "${NIX_ARGS:-}" ]; then
+  # Always follow latest input for specific Nix inputs
+  export NIX_ARGS='--override-input my-secrets git+ssh://git@github.com/lasuillard/secrets'
+fi
+
 # Check if we're running in a Docker container
 if [ "$(is_docker)" = "true" ]; then
   echo "Detected Docker environment, running Docker-specific installation script"
