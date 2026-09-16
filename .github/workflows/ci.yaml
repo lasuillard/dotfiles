@@ -85,8 +85,5 @@ jobs:
         with:
           use-flakehub: false
 
-      - name: Build activation package
-        run: nix build --impure '.#default' $NIX_ARGS
-
       - name: Run installation script
         run: ./install
