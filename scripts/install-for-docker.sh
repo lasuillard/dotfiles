@@ -63,10 +63,8 @@ nix --version
 # Setup user profile with home-manager
 echo
 nix run \
-  --extra-experimental-features 'nix-command flakes' \
   home-manager \
   -- \
-  --extra-experimental-features 'nix-command flakes' \
   --flake \
   'path:.#default' \
   --impure \

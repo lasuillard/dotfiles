@@ -39,6 +39,16 @@ is_docker() {
   echo "false"
 }
 
+# Global Nix configuration and arguments default
+if [ -z "${NIX_CONFIG:-}" ]; then
+  NIX_CONFIG="$(
+    cat <<'EOF'
+extra-experimental-features = nix-command flakes
+EOF
+  )"
+  export NIX_CONFIG
+fi
+
 # Check if we're running in a Docker container
 if [ "$(is_docker)" = "true" ]; then
   echo "Detected Docker environment, running Docker-specific installation script"
