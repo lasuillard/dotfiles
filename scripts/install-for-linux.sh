@@ -1,7 +1,7 @@
 #!/bin/sh
 
 : '
-Dotfiles installation script for Linux environments.
+Nix installation script for Linux environments.
 
 Requirements:
 - Either curl or wget to download the Nix installation script.
@@ -35,15 +35,3 @@ else
     exit 1
   fi
 fi
-
-# Setup user profile with home-manager
-echo
-# shellcheck disable=SC2086
-result="$(nix build \
-  --impure \
-  --no-link \
-  --print-out-paths \
-  $NIX_ARGS \
-  'path:.#default')"
-
-HOME_MANAGER_BACKUP_EXT=backup "$result"/activate
