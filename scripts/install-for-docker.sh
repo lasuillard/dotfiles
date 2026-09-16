@@ -63,14 +63,11 @@ nix --version
 # Setup user profile with home-manager
 echo
 # shellcheck disable=SC2086
-nix run \
-  home-manager \
-  -- \
-  --flake \
-  'path:.#default' \
+result="$(nix build \
   --impure \
-  -b backup \
+  --no-link \
+  --print-out-paths \
   $NIX_ARGS \
-  switch
+  'path:.#default')"
 
-echo 'Dotfiles installation complete. Please restart your shell (bash --login) or source your profile to apply the changes.'
+HOME_MANAGER_BACKUP_EXT=backup "$result"/activate

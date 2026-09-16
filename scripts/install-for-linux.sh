@@ -39,12 +39,11 @@ fi
 # Setup user profile with home-manager
 echo
 # shellcheck disable=SC2086
-nix run \
-  home-manager \
-  -- \
-  --flake \
-  'path:.#default' \
+result="$(nix build \
   --impure \
-  -b backup \
+  --no-link \
+  --print-out-paths \
   $NIX_ARGS \
-  switch
+  'path:.#default')"
+
+HOME_MANAGER_BACKUP_EXT=backup "$result"/activate
