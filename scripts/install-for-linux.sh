@@ -1,7 +1,7 @@
 #!/bin/sh
 
 : '
-Dotfiles installation script for Linux environments.
+Nix installation script for Linux environments.
 
 Requirements:
 - Either curl or wget to download the Nix installation script.
@@ -19,14 +19,14 @@ if command -v nix >/dev/null 2>&1; then
 else
   # Install Nix using either curl or wget, depending on which is available
   if command -v curl >/dev/null 2>&1; then
-    echo
     echo "curl is available, using it to install Nix"
+    echo
     curl --proto '=https' --tlsv1.2 --location https://nixos.org/nix/install |
       sh -s -- --daemon
     echo
   elif command -v wget >/dev/null 2>&1; then
-    echo
     echo "wget is available, using it to install Nix"
+    echo
     wget https://nixos.org/nix/install --output-document - |
       sh -s -- --daemon
     echo
@@ -35,16 +35,3 @@ else
     exit 1
   fi
 fi
-
-# Setup user profile with home-manager
-echo
-nix run \
-  --extra-experimental-features 'nix-command flakes' \
-  home-manager \
-  -- \
-  --extra-experimental-features 'nix-command flakes' \
-  --flake \
-  'path:.#default' \
-  --impure \
-  -b backup \
-  switch

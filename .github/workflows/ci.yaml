@@ -10,6 +10,10 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  NIX_ARGS: >-
+    --override-input my-agents github:lasuillard/agents
+
 jobs:
   lint:
     name: Lint
@@ -45,14 +49,10 @@ jobs:
             | xargs nix run '.#shellcheck' --
 
       - name: Nix check
-        run: |
-          nix flake check --impure --show-trace \
-            --override-input my-agents github:lasuillard/agents
+        run: nix flake check --impure --show-trace $NIX_ARGS
 
       - name: Nix evaluate
-        run: |
-          nix eval --impure '.#default.drvPath' \
-            --override-input my-agents github:lasuillard/agents
+        run: nix eval --impure '.#default.drvPath' $NIX_ARGS
 
   test:
     name: Test (${{ matrix.runs-on }})
@@ -84,11 +84,6 @@ jobs:
         uses: DeterminateSystems/magic-nix-cache-action@565684385bcd71bad329742eefe8d12f2e765b39 # v13
         with:
           use-flakehub: false
-
-      - name: Build activation package
-        run: |
-          nix build --impure '.#default' \
-            --override-input my-agents github:lasuillard/agents
 
       - name: Run installation script
         run: ./install
