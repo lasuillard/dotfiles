@@ -15,7 +15,6 @@
         "nix"
       ],
       "matchDepNames": [
-        "*",
         "!my-agents",
         "!my-secrets"
       ],
