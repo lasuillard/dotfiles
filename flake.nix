@@ -9,44 +9,47 @@
 
     # https://github.com/numtide/flake-utils
     flake-utils = {
-      url = "github:numtide/flake-utils";
+      url = "github:numtide/flake-utils/main";
     };
 
     # https://github.com/nix-community/home-manager
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # https://github.com/nix-darwin/nix-darwin
     nix-darwin = {
-      url = "github:nix-darwin/nix-darwin";
+      url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # https://github.com/nix-community/nixvim
     nixvim = {
-      url = "github:nix-community/nixvim";
+      url = "github:nix-community/nixvim/nixos-26.05";
+      # Don't follow nixpkgs for nixvim is tested against its own pinned nixpkgs
     };
 
     # https://github.com/mic92/sops-nix
     sops-nix = {
-      url = "github:Mic92/sops-nix";
+      url = "github:Mic92/sops-nix/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # My secrets data repository
     # https://github.com/lasuillard/secrets
     my-secrets = {
-      url = "git+ssh://git@github.com/lasuillard/secrets";
+      url = "git+ssh://git@github.com/lasuillard/secrets?ref=main";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
     };
 
     # My agents configuration
     # https://github.com/lasuillard/agents
     my-agents = {
-      url = "git+ssh://git@github.com/lasuillard/agents";
+      url = "git+ssh://git@github.com/lasuillard/agents?ref=main";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
     };
   };
 

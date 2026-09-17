@@ -53,8 +53,8 @@ fi
 if [ -z "${NIX_ARGS:-}" ]; then
   # Always follow latest input for specific Nix inputs
   export NIX_ARGS="\
-    --override-input my-agents git+ssh://git@github.com/lasuillard/agents \
-    --override-input my-secrets git+ssh://git@github.com/lasuillard/secrets \
+    --override-input my-agents git+ssh://git@github.com/lasuillard/agents?ref=main \
+    --override-input my-secrets git+ssh://git@github.com/lasuillard/secrets?ref=main \
   "
 fi
 
