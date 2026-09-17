@@ -69,9 +69,9 @@ alias ports='netstat --all --listening --numeric --tcp --udp --programs'
 # External utilities to set alias for
 declare -A aliases
 aliases=(
-  [aa]='pipx run aws-annoying'
   ['agy!']='agy --dangerously-skip-permissions'
   [ans]='ansible'
+  ['cd?']='dirs -v'
   [cld]='claude'
   ['cld!']='claude --dangerously-skip-permissions'
   [cod]='codex'
@@ -83,7 +83,6 @@ aliases=(
   [dr]='direnv'
   ['dr!']='direnv allow'
   ['dr?']='direnv deny'
-  [dvo]='pipx run devobs'
   [g]='git'
   [gc]='gcloud'
   [h]='helm'
