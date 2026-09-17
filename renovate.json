@@ -4,8 +4,8 @@
     "local>lasuillard/renovate-config"
   ],
   "ignoreDeps": [
-    "!my-agents",
-    "!my-secrets"
+    "my-agents",
+    "my-secrets"
   ],
   "nix": {
     "enabled": true
