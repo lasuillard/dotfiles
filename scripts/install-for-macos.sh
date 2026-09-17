@@ -1,7 +1,7 @@
 #!/bin/sh
 
 : '
-Dotfiles installation script for macOS environments.
+Nix installation script for macOS environments.
 
 Requirements:
 - curl (macOS default) to download the Nix installation script.
@@ -29,16 +29,3 @@ else
     exit 1
   fi
 fi
-
-# Setup user profile with home-manager
-echo
-nix run \
-  --extra-experimental-features 'nix-command flakes' \
-  home-manager \
-  -- \
-  --extra-experimental-features 'nix-command flakes' \
-  --flake \
-  'path:.#default' \
-  --impure \
-  -b backup \
-  switch

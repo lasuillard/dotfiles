@@ -35,6 +35,18 @@
     nixvim = {
       url = "github:nix-community/nixvim";
     };
+
+    # https://github.com/mic92/sops-nix
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # My secrets data repository
+    my-secrets = {
+      url = "git+ssh://git@github.com/lasuillard/secrets";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -46,6 +58,8 @@
       nix-darwin,
       llm-agents,
       nixvim,
+      sops-nix,
+      my-secrets,
       ...
     }@inputs:
     let
@@ -65,7 +79,9 @@
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [
+            sops-nix.homeManagerModules.sops
             nixvim.homeModules.nixvim
+            # Register custom programs and configurations
             ./lib/programs
             (if pkgs.stdenv.hostPlatform.isLinux then ./modules/linux/home.nix else ./modules/macos/home.nix)
             {
@@ -75,7 +91,7 @@
             }
           ];
           extraSpecialArgs = {
-            inherit custompkgs username;
+            inherit inputs custompkgs username;
             llm-agents = llm-agents.packages.${system};
           };
         };

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 : '
-Dotfiles installation script for Docker environments.
+Nix installation script for Docker environments.
 
 Requirements:
 - Either curl or wget to download the Nix installation script.
@@ -31,12 +31,15 @@ else
   # Install Nix using either curl or wget, depending on which is available
   if command -v curl >/dev/null 2>&1; then
     echo "curl is available, using it to install Nix"
+    echo
     curl --proto '=https' --tlsv1.2 --location https://nixos.org/nix/install |
       sh -s -- --no-daemon
+    echo
   elif command -v wget >/dev/null 2>&1; then
     echo "wget is available, using it to install Nix"
     wget https://nixos.org/nix/install --output-document - |
       sh -s -- --no-daemon
+    echo
   else
     echo "Error: Neither curl nor wget is available. Please install one of them to proceed with Nix installation."
     exit 1
@@ -53,20 +56,3 @@ else
     exit 1
   fi
 fi
-
-# Verify that nix is installed and available in the PATH
-nix --version
-
-# Setup user profile with home-manager
-nix run \
-  --extra-experimental-features 'nix-command flakes' \
-  home-manager \
-  -- \
-  --extra-experimental-features 'nix-command flakes' \
-  --flake \
-  'path:.#default' \
-  --impure \
-  -b backup \
-  switch
-
-echo 'Dotfiles installation complete. Please restart your shell (bash --login) or source your profile to apply the changes.'
