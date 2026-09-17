@@ -29,7 +29,20 @@
       url = "github:nix-community/nixvim";
     };
 
-    # My agents configuration subflake
+    # https://github.com/mic92/sops-nix
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # My secrets data repository
+    # https://github.com/lasuillard/secrets
+    my-secrets = {
+      url = "git+ssh://git@github.com/lasuillard/secrets";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # My agents configuration
     # https://github.com/lasuillard/agents
     my-agents = {
       url = "git+ssh://git@github.com/lasuillard/agents";
@@ -45,6 +58,8 @@
       home-manager,
       nix-darwin,
       nixvim,
+      sops-nix,
+      my-secrets,
       my-agents,
       ...
     }@inputs:
@@ -65,8 +80,10 @@
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [
+            sops-nix.homeManagerModules.sops
             nixvim.homeModules.nixvim
             my-agents.homeModules.default
+            # Register custom programs and configurations
             ./lib/programs
             (if pkgs.stdenv.hostPlatform.isLinux then ./modules/linux/home.nix else ./modules/macos/home.nix)
             {
@@ -76,7 +93,7 @@
             }
           ];
           extraSpecialArgs = {
-            inherit custompkgs username;
+            inherit inputs custompkgs username;
           };
         };
     in

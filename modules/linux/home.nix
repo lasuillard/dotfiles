@@ -25,11 +25,13 @@
     ../shared/programs/bash
     ../shared/programs/direnv
     ../shared/programs/git
+    ../shared/programs/my-secrets
     ../shared/programs/neovim
     ../shared/programs/nix
     ../shared/programs/starship
     ../shared/programs/tailscale
     ../shared/programs/tmux
+    ../shared/programs/wakatime
     ../shared/packages.nix
   ];
 }

@@ -52,7 +52,10 @@ fi
 # Custom environment variable for passing additional arguments to Nix commands
 if [ -z "${NIX_ARGS:-}" ]; then
   # Always follow latest input for specific Nix inputs
-  export NIX_ARGS='--override-input my-agents git+ssh://git@github.com/lasuillard/agents'
+  export NIX_ARGS="\
+    --override-input my-agents git+ssh://git@github.com/lasuillard/agents \
+    --override-input my-secrets git+ssh://git@github.com/lasuillard/secrets \
+  "
 fi
 
 # Check if we're running in a Docker container
@@ -84,12 +87,14 @@ nix --version
 # Activate the user profile with home-manager
 echo
 # shellcheck disable=SC2086
-result="$(nix build \
-  --impure \
-  --no-link \
-  --print-out-paths \
-  $NIX_ARGS \
-  'path:.#default')"
+result="$(
+  nix build \
+    --impure \
+    --no-link \
+    --print-out-paths \
+    $NIX_ARGS \
+    'path:.#default'
+)"
 
 HOME_MANAGER_BACKUP_EXT=backup "$result"/activate
 
