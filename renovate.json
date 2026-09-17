@@ -3,6 +3,10 @@
   "extends": [
     "local>lasuillard/renovate-config"
   ],
+  "ignoreDeps": [
+    "!my-agents",
+    "!my-secrets"
+  ],
   "nix": {
     "enabled": true
   },
@@ -13,10 +17,6 @@
       "groupSlug": "nix-inputs",
       "matchManagers": [
         "nix"
-      ],
-      "matchDepNames": [
-        "!my-agents",
-        "!my-secrets"
       ],
       "automerge": true,
       "minimumReleaseAge": "3 days"
