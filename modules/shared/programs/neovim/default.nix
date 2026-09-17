@@ -21,7 +21,7 @@
       lualine.enable = true;
 
       treesitter = {
-        enable = true;
+        enable = false;
         nixvimInjections = true;
 
         settings = {
