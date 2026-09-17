@@ -2,9 +2,9 @@
   description = "Dotfiles configuration using Nix flakes and Home Manager.";
 
   inputs = {
-    # https://search.nixos.org/packages?channel=unstable
+    # https://search.nixos.org/packages?channel=26.05
     nixpkgs = {
-      url = "github:NixOS/nixpkgs/nixos-unstable";
+      url = "github:NixOS/nixpkgs/nixos-26.05";
     };
 
     # https://github.com/numtide/flake-utils
