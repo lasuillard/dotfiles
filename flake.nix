@@ -24,13 +24,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Alternative package registry for LLM agents and tools (more frequently updated)
-    # https://github.com/numtide/llm-agents.nix
-    llm-agents = {
-      url = "github:numtide/llm-agents.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # https://github.com/nix-community/nixvim
     nixvim = {
       url = "github:nix-community/nixvim";
@@ -43,8 +36,16 @@
     };
 
     # My secrets data repository
+    # https://github.com/lasuillard/secrets
     my-secrets = {
       url = "git+ssh://git@github.com/lasuillard/secrets";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # My agents configuration
+    # https://github.com/lasuillard/agents
+    my-agents = {
+      url = "git+ssh://git@github.com/lasuillard/agents";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -56,10 +57,10 @@
       flake-utils,
       home-manager,
       nix-darwin,
-      llm-agents,
       nixvim,
       sops-nix,
       my-secrets,
+      my-agents,
       ...
     }@inputs:
     let
@@ -81,6 +82,7 @@
           modules = [
             sops-nix.homeManagerModules.sops
             nixvim.homeModules.nixvim
+            my-agents.homeModules.default
             # Register custom programs and configurations
             ./lib/programs
             (if pkgs.stdenv.hostPlatform.isLinux then ./modules/linux/home.nix else ./modules/macos/home.nix)
@@ -92,7 +94,6 @@
           ];
           extraSpecialArgs = {
             inherit inputs custompkgs username;
-            llm-agents = llm-agents.packages.${system};
           };
         };
     in

@@ -13,6 +13,7 @@ concurrency:
 env:
   NIX_ARGS: >-
     --override-input my-secrets github:lasuillard/secrets
+    --override-input my-agents github:lasuillard/agents
 
 jobs:
   lint:

@@ -52,7 +52,10 @@ fi
 # Custom environment variable for passing additional arguments to Nix commands
 if [ -z "${NIX_ARGS:-}" ]; then
   # Always follow latest input for specific Nix inputs
-  export NIX_ARGS='--override-input my-secrets git+ssh://git@github.com/lasuillard/secrets'
+  export NIX_ARGS="\
+    --override-input my-agents git+ssh://git@github.com/lasuillard/agents \
+    --override-input my-secrets git+ssh://git@github.com/lasuillard/secrets \
+  "
 fi
 
 # Check if we're running in a Docker container
