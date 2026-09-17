@@ -4,13 +4,22 @@
     "local>lasuillard/renovate-config"
   ],
   "nix": {
-    "enabled": true,
-    "lockFileMaintenance": {
-      "enabled": true,
-      "schedule": [
-        "* 0-3 * * 1" // Weekly
+    "enabled": true
+  },
+  "packageRules": [
+    {
+      "description": "Group for all Nix inputs except some specific ones",
+      "groupName": "Nix Inputs",
+      "groupSlug": "nix-inputs",
+      "matchManagers": [
+        "nix"
       ],
-      "minimumReleaseAge": "5 days"
+      "matchDepNames": [
+        "!my-agents",
+        "!my-secrets"
+      ],
+      "automerge": true,
+      "minimumReleaseAge": "3 days"
     }
-  }
+  ]
 }
