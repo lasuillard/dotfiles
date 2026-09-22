@@ -8,12 +8,7 @@ $__DOTFILES_DIR variable is used to locate dotfiles directory because once dotfi
 via Nix, this script loses its context (path).
 '
 
-if [ -z "$__DOTFILES_DIR" ]; then
-  # shellcheck disable=SC2016
-  echo '$__DOTFILES_DIR is required but not given.'
-fi
-
-workdir="$__DOTFILES_DIR"
+workdir="@workdir@"
 cd "$workdir" || exit 1
 
 usage() {

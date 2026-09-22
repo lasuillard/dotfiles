@@ -1,4 +1,5 @@
 {
+  self,
   pkgs,
   lib,
   config,
@@ -14,9 +15,6 @@ in
     initExtra = ''
       # Custom user scripts directly accessible
       export PATH="''${HOME}/.bin/shell''${PATH:+:}''${PATH}"
-
-      # Used for dotfiles management script
-      export __DOTFILES_DIR='${pwd}'
 
       # Workaround for nix not being available in the PATH when using bash as the login shell
       # e.g. in Docker containers (single-user installation)
@@ -42,7 +40,11 @@ in
     (pkgs.writeShellApplication {
       name = "dotfiles";
       runtimeInputs = [ ];
-      text = builtins.readFile ./dotfiles.sh;
+      text = builtins.readFile (
+        pkgs.replaceVars ./dotfiles.sh {
+          workdir = pwd;
+        }
+      );
     })
     (pkgs.writeShellApplication {
       name = "example";
