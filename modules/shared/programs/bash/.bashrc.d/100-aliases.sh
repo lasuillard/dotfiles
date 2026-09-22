@@ -97,7 +97,6 @@ aliases=(
   [mx]='tmux'
   [pl]='pulumi'
   [pls]='pulumi stack'
-  [soc]='sea-orm-cli'
   [tg]='terragrunt'
   [vg]='vagrant'
 )
