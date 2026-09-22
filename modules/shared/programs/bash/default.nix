@@ -1,4 +1,5 @@
 {
+  self,
   pkgs,
   lib,
   config,
@@ -12,12 +13,6 @@ in
     enable = true;
     enableCompletion = true;
     initExtra = ''
-      # Custom user scripts directly accessible
-      export PATH="''${HOME}/.bin/shell''${PATH:+:}''${PATH}"
-
-      # Used for dotfiles management script
-      export __DOTFILES_DIR='${pwd}'
-
       # Workaround for nix not being available in the PATH when using bash as the login shell
       # e.g. in Docker containers (single-user installation)
       if [ -e "''${HOME}/.nix-profile/etc/profile.d/nix.sh" ]; then
@@ -38,16 +33,34 @@ in
     bash-completion
     # Auto-completion for aliases: https://github.com/cykerway/complete-alias
     complete-alias
+    # User shell scripts
+    (pkgs.writeShellApplication {
+      name = "dotfiles";
+      runtimeInputs = [ ];
+      text = builtins.readFile (
+        pkgs.replaceVars ./dotfiles.sh {
+          workdir = pwd;
+        }
+      );
+    })
+    (pkgs.writeShellApplication {
+      name = "example";
+      runtimeInputs = [ pkgs.jq ];
+      text = builtins.readFile (
+        pkgs.replaceVars ./example.sh {
+          wtp_yml_example = config.programs.wtp.exampleConfig;
+          envrc_example = config.programs.direnv.exampleConfig;
+          flake_nix_example = config.programs.nix.exampleConfig;
+        }
+      );
+    })
   ];
 
   home.file = {
     ".bash_completion.d/complete_alias".source = lib.getExe pkgs.complete-alias;
-    ".bin/shell".source = ./.bin/shell;
     ".bashrc.d".source = ./.bashrc.d;
   };
 
   # NOTE: Extra PATH listed in home.sessionPath will be populated on shell LOGIN (~/.profile)
-  home.sessionPath = [
-    # "${config.home.homeDirectory}/.bin/shell"
-  ];
+  home.sessionPath = [ ];
 }

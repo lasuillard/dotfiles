@@ -28,7 +28,7 @@ Check the installation scripts for manual installation on different platforms:
 
 ### 🔄 Updating dotfiles
 
-You can update dotfiles by running the [update.sh](./scripts/update.sh) script or `dotfiles update` ([source](./modules/shared/programs/bash/.bin/shell/dotfiles)), a tiny wrapper around the management scripts. The `dotfiles` command is installed when you first install them.
+You can update dotfiles by running the [update.sh](./scripts/update.sh) script or `dotfiles update` ([source](./modules/shared/programs/bash/dotfiles.sh)), a tiny wrapper around the management scripts. The `dotfiles` command is installed when you first install them.
 
 ## ⚙️ Creating a new profile
 

@@ -8,9 +8,6 @@ function _cdd() {
 }
 alias cdd='_cdd'
 
-alias dotfiles='dotfiles.sh'
-alias example='example.sh'
-
 # Navigation
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -100,7 +97,6 @@ aliases=(
   [mx]='tmux'
   [pl]='pulumi'
   [pls]='pulumi stack'
-  [soc]='sea-orm-cli'
   [tg]='terragrunt'
   [vg]='vagrant'
 )

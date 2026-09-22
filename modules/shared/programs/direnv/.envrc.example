@@ -1,0 +1,7 @@
+# See https://direnv.net/man/direnv-stdlib.1.html for other useful functions
+
+if [ ! "\$(is_devcontainer)" = "true" ]; then
+  use flake
+fi
+
+dotenv_if_exists .env
