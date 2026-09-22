@@ -1,0 +1,5 @@
+# https://github.com/satococoa/wtp
+version: "1.0"
+defaults:
+  base_dir: ./.worktrees
+hooks:

@@ -1,0 +1,41 @@
+{
+  inputs = {
+    # https://search.nixos.org/packages?channel=unstable
+    nixpkgs = {
+      url = "github:nixos/nixpkgs/nixos-unstable";
+    };
+
+    # https://github.com/numtide/flake-utils
+    flake-utils.url = "github:numtide/flake-utils/main";
+  };
+
+  outputs =
+    {
+      self,
+      nixpkgs,
+      flake-utils,
+    }:
+    flake-utils.lib.eachDefaultSystem (
+      system:
+      let
+        pkgs = import nixpkgs { inherit system; };
+      in
+      {
+        packages = {
+          # Tools to be executed in CI/CD pipelines via `nix run '.#tool'`
+          inherit (pkgs)
+            ;
+        };
+
+        devShells.default = pkgs.mkShell {
+          packages = with pkgs; [
+            pre-commit
+            just
+          ];
+          shellHook = ''
+            pre-commit install
+          '';
+        };
+      }
+    );
+}

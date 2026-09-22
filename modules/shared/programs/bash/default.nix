@@ -46,7 +46,13 @@ in
     (pkgs.writeShellApplication {
       name = "example";
       runtimeInputs = [ pkgs.jq ];
-      text = builtins.readFile ./example.sh;
+      text = builtins.readFile (
+        pkgs.replaceVars ./example.sh {
+          wtp_yml_example = config.programs.wtp.exampleConfig;
+          envrc_example = config.programs.direnv.exampleConfig;
+          flake_nix_example = config.programs.nix.exampleConfig;
+        }
+      );
     })
   ];
 

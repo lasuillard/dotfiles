@@ -8,6 +8,10 @@ Copy files or directories with .example suffix to the same name without the suff
 if the target file/directory does not exist.
 '
 
+wtp_yml_example="@wtp_yml_example@"
+envrc_example="@envrc_example@"
+flake_nix_example="@flake_nix_example@"
+
 usage() {
   cat <<USAGE
 Usage: $0 [--help] {init|unlink|merge}
@@ -72,15 +76,7 @@ _init() {
       cp --verbose --update=none .envrc.example .envrc
     else
       echo 'Creating new .envrc file'
-      cat <<EOF >.envrc
-# See https://direnv.net/man/direnv-stdlib.1.html for other useful functions
-
-if [ ! "\$(is_devcontainer)" = "true" ]; then
-  use flake
-fi
-
-dotenv_if_exists .env
-EOF
+      cp "$envrc_example" .envrc && chmod 644 .envrc
     fi
   fi
 
@@ -89,56 +85,13 @@ EOF
   # ? for more flexible and reproducible environment management
   if [ ! -f 'flake.nix' ]; then
     echo 'Creating new flake.nix file'
-    cat <<EOF >flake.nix
-{
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
-  };
-
-  outputs =
-    {
-      self,
-      nixpkgs,
-      flake-utils,
-    }:
-    flake-utils.lib.eachDefaultSystem (
-      system:
-      let
-        pkgs = import nixpkgs { inherit system; };
-      in
-      {
-        packages = {
-          # Tools to be executed in CI/CD pipelines via \`nix run '.#tool\`
-          inherit (pkgs)
-            ;
-        };
-
-        devShells.default = pkgs.mkShell {
-          packages = with pkgs; [
-            pre-commit
-            just
-          ];
-          shellHook = ''
-            pre-commit install
-          '';
-        };
-      }
-    );
-}
-EOF
+    cp "$flake_nix_example" flake.nix && chmod 644 flake.nix
   fi
 
   # Git worktree manager
   if [ ! -f '.wtp.yml' ]; then
     echo 'Creating new .wtp.yml file'
-    cat <<EOF >.wtp.yml
-# https://github.com/satococoa/wtp
-version: "1.0"
-defaults:
-  base_dir: ./.worktrees
-hooks:
-EOF
+    cp "$wtp_yml_example" .wtp.yml && chmod 644 .wtp.yml
     echo '.wtp.yml' >>.git/info/exclude
   fi
 }
