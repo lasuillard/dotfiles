@@ -48,7 +48,7 @@ in
     })
     (pkgs.writeShellApplication {
       name = "example";
-      runtimeInputs = [ ];
+      runtimeInputs = [ pkgs.jq ];
       text = builtins.readFile ./example.sh;
     })
   ];
