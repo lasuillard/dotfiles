@@ -13,9 +13,6 @@ in
     enable = true;
     enableCompletion = true;
     initExtra = ''
-      # Custom user scripts directly accessible
-      export PATH="''${HOME}/.bin/shell''${PATH:+:}''${PATH}"
-
       # Workaround for nix not being available in the PATH when using bash as the login shell
       # e.g. in Docker containers (single-user installation)
       if [ -e "''${HOME}/.nix-profile/etc/profile.d/nix.sh" ]; then
