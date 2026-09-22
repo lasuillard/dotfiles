@@ -50,6 +50,8 @@ fi
 subcommand="$1"
 shift
 
+is_git_repo=$(git rev-parse --is-inside-work-tree 2>/dev/null)
+
 _init() {
   # Dev Container (follow project configuration)
   if [ ! -d '.devcontainer' ] && [ -d '.devcontainer.example' ]; then
@@ -78,6 +80,9 @@ _init() {
       echo 'Creating new .envrc file'
       cp "$envrc_example" .envrc && chmod 644 .envrc
     fi
+    if [ "$is_git_repo" = "true" ]; then
+      echo '/.envrc' >>.git/info/exclude
+    fi
   fi
 
   # Development environment management with Nix Flakes
@@ -92,7 +97,9 @@ _init() {
   if [ ! -f '.wtp.yml' ]; then
     echo 'Creating new .wtp.yml file'
     cp "$wtp_yml_example" .wtp.yml && chmod 644 .wtp.yml
-    echo '.wtp.yml' >>.git/info/exclude
+    if [ "$is_git_repo" = "true" ]; then
+      echo '/.wtp.yml' >>.git/info/exclude
+    fi
   fi
 }
 
