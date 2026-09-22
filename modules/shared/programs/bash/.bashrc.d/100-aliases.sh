@@ -8,9 +8,6 @@ function _cdd() {
 }
 alias cdd='_cdd'
 
-alias dotfiles='dotfiles.sh'
-alias example='example.sh'
-
 # Navigation
 alias ..='cd ..'
 alias ...='cd ../..'

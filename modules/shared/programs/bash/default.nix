@@ -38,16 +38,24 @@ in
     bash-completion
     # Auto-completion for aliases: https://github.com/cykerway/complete-alias
     complete-alias
+    # User shell scripts
+    (pkgs.writeShellApplication {
+      name = "dotfiles";
+      runtimeInputs = [ ];
+      text = builtins.readFile ./dotfiles.sh;
+    })
+    (pkgs.writeShellApplication {
+      name = "example";
+      runtimeInputs = [ ];
+      text = builtins.readFile ./example.sh;
+    })
   ];
 
   home.file = {
     ".bash_completion.d/complete_alias".source = lib.getExe pkgs.complete-alias;
-    ".bin/shell".source = ./.bin/shell;
     ".bashrc.d".source = ./.bashrc.d;
   };
 
   # NOTE: Extra PATH listed in home.sessionPath will be populated on shell LOGIN (~/.profile)
-  home.sessionPath = [
-    # "${config.home.homeDirectory}/.bin/shell"
-  ];
+  home.sessionPath = [ ];
 }
