@@ -62,24 +62,23 @@ fi
 if [ "$(is_docker)" = "true" ]; then
   echo "Detected Docker environment, running Docker-specific installation script"
   sh "${project_root}/scripts/install-for-docker.sh"
-  exit 0
+else
+  # If not in Docker, proceed with OS detection and installation
+  case "$arch" in
+  Linux*)
+    echo "Detected Linux OS, running Linux-specific installation script"
+    sh "${project_root}/scripts/install-for-linux.sh"
+    ;;
+  Darwin*)
+    echo "Detected macOS, running macOS-specific installation script"
+    sh "${project_root}/scripts/install-for-macos.sh"
+    ;;
+  *)
+    echo "Unsupported OS: $arch"
+    exit 1
+    ;;
+  esac
 fi
-
-# If not in Docker, proceed with OS detection and installation
-case "$arch" in
-Linux*)
-  echo "Detected Linux OS, running Linux-specific installation script"
-  sh "${project_root}/scripts/install-for-linux.sh"
-  ;;
-Darwin*)
-  echo "Detected macOS, running macOS-specific installation script"
-  sh "${project_root}/scripts/install-for-macos.sh"
-  ;;
-*)
-  echo "Unsupported OS: $arch"
-  exit 1
-  ;;
-esac
 
 # Verify that nix is installed and available in the PATH
 nix --version
@@ -96,6 +95,6 @@ result="$(
     'path:.#default'
 )"
 
-HOME_MANAGER_BACKUP_EXT=backup "$result"/activate
+HOME_MANAGER_BACKUP_EXT=backup "${result}/activate"
 
 echo "Dotfiles installation completed successfully."
