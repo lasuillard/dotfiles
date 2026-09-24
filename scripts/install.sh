@@ -95,6 +95,6 @@ result="$(
     'path:.#default'
 )"
 
-HOME_MANAGER_BACKUP_EXT=backup "$result"/activate
+HOME_MANAGER_BACKUP_EXT=backup "${result}/activate"
 
 echo "Dotfiles installation completed successfully."
