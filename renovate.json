@@ -15,7 +15,8 @@
       "schedule": [
         "* 0-3 * * 1" // Weekly
       ],
-      "automerge": true
+      "automerge": true,
+      "minimumReleaseAge": "3 days"
     }
   },
   "packageRules": [
@@ -27,7 +28,7 @@
         "nix"
       ],
       "automerge": true,
-      "minimumReleaseAge": "3 days"
+      "minimumReleaseAge": "7 days"
     }
   ]
 }
