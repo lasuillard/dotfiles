@@ -8,7 +8,15 @@
     "my-secrets"
   ],
   "nix": {
-    "enabled": true
+    "enabled": true,
+    "lockFileMaintenance": {
+      // NOTE: Use lockfile maintenance until Nix manager support becomes stable
+      "enabled": true,
+      "schedule": [
+        "* 0-3 * * 1" // Weekly
+      ],
+      "automerge": true
+    }
   },
   "packageRules": [
     {
