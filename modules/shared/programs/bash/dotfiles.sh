@@ -3,9 +3,6 @@
 # shellcheck disable=SC2016
 : '
 Dotfiles management script.
-
-$__DOTFILES_DIR variable is used to locate dotfiles directory because once dotfiles installed
-via Nix, this script loses its context (path).
 '
 
 workdir="@workdir@"
