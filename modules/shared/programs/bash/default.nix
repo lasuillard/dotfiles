@@ -37,22 +37,24 @@ in
     (pkgs.writeShellApplication {
       name = "dotfiles";
       runtimeInputs = [ ];
-      text = builtins.readFile (
-        pkgs.replaceVars ./dotfiles.sh {
-          workdir = pwd;
-        }
-      );
+      text = builtins.replaceStrings [ "@workdir@" ] [ pwd ] (builtins.readFile ./dotfiles.sh);
     })
     (pkgs.writeShellApplication {
       name = "example";
       runtimeInputs = [ pkgs.jq ];
-      text = builtins.readFile (
-        pkgs.replaceVars ./example.sh {
-          wtp_yml_example = config.programs.wtp.exampleConfig;
-          envrc_example = config.programs.direnv.exampleConfig;
-          flake_nix_example = config.programs.nix.exampleConfig;
-        }
-      );
+      text =
+        builtins.replaceStrings
+          [
+            "@wtp_yml_example@"
+            "@envrc_example@"
+            "@flake_nix_example@"
+          ]
+          [
+            "${config.programs.wtp.exampleConfig}"
+            "${config.programs.direnv.exampleConfig}"
+            "${config.programs.nix.exampleConfig}"
+          ]
+          (builtins.readFile ./example.sh);
     })
   ];
 
