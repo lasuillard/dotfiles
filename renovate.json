@@ -10,10 +10,9 @@
   "nix": {
     "enabled": true,
     "lockFileMaintenance": {
-      // NOTE: Use lockfile maintenance until Nix manager support becomes stable
       "enabled": true,
       "schedule": [
-        "* 0-3 * * 1" // Weekly
+        "* 0-3 * * 1"
       ],
       "automerge": true,
       "minimumReleaseAge": "3 days"
@@ -21,11 +20,18 @@
   },
   "packageRules": [
     {
-      "description": "Group for all Nix inputs except some specific ones",
+      "description": "Group non-major Nix input updates",
       "groupName": "Nix Inputs",
       "groupSlug": "nix-inputs",
       "matchManagers": [
         "nix"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "digest",
+        "pin",
+        "pinDigest"
       ],
       "automerge": true,
       "minimumReleaseAge": "7 days"
