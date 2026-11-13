@@ -36,6 +36,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # https://github.com/numtide/llm-agents.nix
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix/main";
+    };
     # My secrets data repository
     # https://github.com/lasuillard/secrets
     my-secrets = {
@@ -48,8 +52,7 @@
     # https://github.com/lasuillard/agents
     my-agents = {
       url = "git+ssh://git@github.com/lasuillard/agents?ref=main";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
+      flake = false;
     };
   };
 
@@ -62,8 +65,8 @@
       nix-darwin,
       nixvim,
       sops-nix,
+      llm-agents,
       my-secrets,
-      my-agents,
       ...
     }@inputs:
     let
@@ -85,7 +88,6 @@
           modules = [
             sops-nix.homeManagerModules.sops
             nixvim.homeModules.nixvim
-            my-agents.homeModules.default
             # Register custom programs and configurations
             ./lib/programs
             (if pkgs.stdenv.hostPlatform.isLinux then ./modules/linux/home.nix else ./modules/macos/home.nix)
@@ -119,12 +121,17 @@
             shellcheck
             ;
 
+          agents-config =
+            (pkgs.callPackage ./lib/programs/agents/packages.nix { src = inputs.my-agents; }).agents-config;
+
           default = self.homeConfigurations."default".activationPackage;
         };
 
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
+            chezmoi
             git
+            jq
             pre-commit
             just
             nixfmt
