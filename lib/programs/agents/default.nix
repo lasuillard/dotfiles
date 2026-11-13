@@ -23,7 +23,6 @@ in
       codex
     ])
     ++ [
-      agentPrograms.agents
       agentsConfig
     ];
 
