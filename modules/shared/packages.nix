@@ -40,6 +40,8 @@
     # rndc - name server control utility
     # tsig-keygen - TSIG key generation tool
     bind
+    # Manage your dotfiles across multiple machines: https://www.chezmoi.io/
+    chezmoi
     # Command-line tool and library for transferring data with URLs: https://curl.se/
     curl
     # Dev Container CLI: https://github.com/devcontainers/cli

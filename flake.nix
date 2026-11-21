@@ -48,12 +48,6 @@
       inputs.home-manager.follows = "home-manager";
     };
 
-    # My agents configuration
-    # https://github.com/lasuillard/agents
-    my-agents = {
-      url = "git+ssh://git@github.com/lasuillard/agents?ref=main";
-      flake = false;
-    };
   };
 
   outputs =
@@ -121,15 +115,11 @@
             shellcheck
             ;
 
-          agents-config =
-            (pkgs.callPackage ./lib/programs/agents/packages.nix { src = inputs.my-agents; }).agents-config;
-
           default = self.homeConfigurations."default".activationPackage;
         };
 
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
-            chezmoi
             git
             jq
             pre-commit

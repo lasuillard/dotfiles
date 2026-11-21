@@ -158,23 +158,6 @@
         "type": "github"
       }
     },
-    "my-agents": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1794508440,
-        "narHash": "sha256-3YgWa3+MipAPueEcwlFpUnkU4JIRYZKwQj4COQr6Up4=",
-        "ref": "main",
-        "rev": "c7e2b66e1633ed2e6eab8b5bd230799ed65e482c",
-        "revCount": 31,
-        "type": "git",
-        "url": "ssh://git@github.com/lasuillard/agents"
-      },
-      "original": {
-        "ref": "main",
-        "type": "git",
-        "url": "ssh://git@github.com/lasuillard/agents"
-      }
-    },
     "my-secrets": {
       "inputs": {
         "flake-utils": "flake-utils_2",
@@ -295,7 +278,6 @@
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "llm-agents": "llm-agents",
-        "my-agents": "my-agents",
         "my-secrets": "my-secrets",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs_2",
